@@ -1,8 +1,9 @@
 package purgatory.entity;
 /*
-    Author:
+    Author: Shannon Thornton
 
-    Purpose:
+    Purpose: To simplify the "abstraction" I used earlier. Since heroes and enemies are so similar, it would be simpler
+    to store their data and similar methods into one file. Basically, more files =/= more complex.
  */
 public class Entity {
     /***************************************************************************************************************************************************************************************/
@@ -11,16 +12,22 @@ public class Entity {
 
     /***************************************************************************************************************************************************************************************/
     private EntityType entityType;
-    private int health, maxHealth;
-    private int xp, level;
+    // for battle
+    private int health;
+    final private int maxHealth;
+    private int mana;
     private int speed;
+    private int damage;
+    private int strength, magic;
+    private int xp, level;
     /***************************************************************************************************************************************************************************************/
 
     //							CONSTRUCTORS
 
     /***************************************************************************************************************************************************************************************/
+    // TODO: differentiate enemy from hero constructor (their starting stats are different)
     public Entity(EntityType entityType) {
-        this(entityType,100,100,0,1,10);
+            this(entityType, 100, 100, 0, 1, 10);
     }
     // parametrized
     public Entity(EntityType entityType, int health, int maxHealth, int xp, int level, int speed) {
@@ -31,49 +38,36 @@ public class Entity {
         this.level = level;
         this.speed = speed;
     }
-/***************************************************************************************************************************************************************************************/
+    /***************************************************************************************************************************************************************************************/
 
-    //							ACCESSORS
+    //							ACCESSORS / MUTATORS
 
     /***************************************************************************************************************************************************************************************/
-    public EntityType getEntityType() {
-        return entityType;
-    }
+    public EntityType getEntityType() { return entityType; }
+    public void setEntityType(EntityType entityType) { this.entityType = entityType; }
 
-    public void setEntityType(EntityType entityType) {
-        this.entityType = entityType;
-    }
+    public int getHealth() { return health; }
+    public void setHealth(int health) { this.health = health; }
+    public int getMaxHealth() { return maxHealth; }
 
-    public int getHealth() {
-        return health;
-    }
-/***************************************************************************************************************************************************************************************/
+    public int getMana() { return mana; }
+    public void setMana(int mana) { this.mana = mana; }
 
-    //							MUTATORS
+    public int getSpeed() { return speed; }
+    public void setSpeed(int speed) { this.speed = speed; }
 
-    /***************************************************************************************************************************************************************************************/
-    public void setHealth(int health) {
-        this.health = health;
-    }
-    public int getMaxHealth() {
-        return maxHealth;
-    }
-    public void setMaxHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
-    }
-    public int getXp() {
-        return xp;
-    }
-    public void setXp(int xp) {
-        this.xp = xp;
-    }
-    public int getLevel() {
-        return level;
-    }
-    public void setLevel(int level) {
-        this.level = level;
-    }
-    public int getSpeed() {
-        return speed;
-    }
+    public int getDamage() { return damage; }
+    public void setDamage(int damage) { this.damage = damage; }
+
+    public int getXp() { return xp; }
+    public void setXp(int xp) { this.xp = xp; }
+
+    public int getStrength() { return strength; }
+    public void setStrength(int strength) { this.strength = strength; }
+
+    public int getMagic() { return magic; }
+    public void setMagic(int magic) { this.magic = magic; }
+
+    public int getLevel() { return level; }
+    public void setLevel(int level) { this.level = level; }
 }

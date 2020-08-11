@@ -1,4 +1,6 @@
 package purgatory.logic;
+import purgatory.entity.Entity;
+import purgatory.entity.EntityType;
 import purgatory.gui.BattleLogic;
 /*
  * Author: Shannon Thornton
@@ -42,8 +44,8 @@ public class Game {
 		 * Prompt user for hero type (Test)
 		 * Enter battle (Test)
 		 */
-		BattleLogic battleLogic = new BattleLogic();
-		System.out.println(battleLogic.damageHero());
-
+		Entity hero = new Entity(EntityType.WARRIOR);
+		boolean isHero = hero.getEntityType().isHero();
+		System.out.println(isHero);
 	}
 }

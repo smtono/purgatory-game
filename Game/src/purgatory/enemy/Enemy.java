@@ -57,7 +57,7 @@ public class Enemy extends Character {
 		setACC(60);
 		setEVA(10);
 	}
-	// parametized
+	// parametrized
 	public Enemy(int level, int HP, int ACC, int EVA) {
 		setLevel(level);
 		setHP(HP);

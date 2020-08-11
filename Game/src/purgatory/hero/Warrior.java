@@ -1,4 +1,4 @@
-package purgatory.Hero;
+package purgatory.hero;
 
 import java.util.Scanner;
 /*
