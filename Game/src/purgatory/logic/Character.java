@@ -1,4 +1,4 @@
-package Game.Logic;
+package purgatory.logic;
 /*
  * Author: Shannon Thornton
  * 
@@ -13,6 +13,7 @@ package Game.Logic;
  * Generalize characters more? 
  * More abstract methods, perhaps?
  */
+@SuppressWarnings("DanglingJavadoc")
 public abstract class Character {
 	/***************************************************************************************************************************************************************************************/
 
@@ -21,8 +22,8 @@ public abstract class Character {
 	/***************************************************************************************************************************************************************************************/
 	protected int hp, mp, xp, acc, eva, level, damage, strength, magic;
 	protected String name;
-	protected enum EnemyType {FIRE, ICE, EARTH, WIND,};
-	protected enum HeroType {WARRIOR, MAGE,};
+	protected enum HeroType {WARRIOR, MAGE,}
+	protected enum EnemyType {FIRE, ICE, EARTH, WIND,}
 	/***************************************************************************************************************************************************************************************/
 
 	//							CONSTRUCTORS
@@ -32,22 +33,12 @@ public abstract class Character {
 	public Character() {
 
 	}
-	// parametized
-	public Character(String name, int hp, int mp, int xp, int acc, int eva, int level) {
-		this.name = name;
-		this.hp = hp;
-		this.mp = mp;
-		this.xp = xp;
-		this.acc = acc;
-		this.eva = eva;
-		this.level = level;
-	} // end overloaded constructor
 	/***************************************************************************************************************************************************************************************/
 
 	//							ABSTRACT METHODS
 
 	/***************************************************************************************************************************************************************************************/
-	public abstract void attack();
+	public abstract int attack();
 	/***************************************************************************************************************************************************************************************/
 
 	//							ACCESSORS
@@ -83,6 +74,9 @@ public abstract class Character {
 	public int getMagic() {
 		return magic;
 	}
+	public String getInfo() {
+		return getName() + "\n" + getLevel() + "\n" + getHP();
+	};
 	/***************************************************************************************************************************************************************************************/
 
 	//							MUTATORS

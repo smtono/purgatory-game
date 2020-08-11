@@ -1,7 +1,7 @@
-package Game.Logic;
-import javax.swing.*;
-import Game.Hero.*;
-import Game.Enemy.*;
+package purgatory.logic;
+import purgatory.gui.BattleLogic;
+import purgatory.hero.*;
+import purgatory.enemy.*;
 /*
  * Author: Shannon Thornton
  * 
@@ -11,6 +11,7 @@ import Game.Enemy.*;
  * Make this file the drive for the main method.
  * Call methods from here to the main method
  */
+@SuppressWarnings("DanglingJavadoc")
 public class GameLogic {
 	/***************************************************************************************************************************************************************************************/
 

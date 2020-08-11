@@ -1,6 +1,6 @@
-package Game.Enemy;
-import Game.Logic.Character;
-import Game.Hero.Hero;
+package purgatory.enemy;
+import purgatory.logic.Character;
+import purgatory.hero.Hero;
 /* Author: Shannon Thornton
  * 
  * Purpose: This file is the super class for Enemies, all enemies inherit traits listed here.
@@ -30,6 +30,7 @@ import Game.Hero.Hero;
  *	Integrate Character class 
  *	Change constructor to instead use super constructor of Character class
  */
+@SuppressWarnings("DanglingJavadoc")
 public class Enemy extends Character {
 	/***************************************************************************************************************************************************************************************/
 
@@ -37,6 +38,7 @@ public class Enemy extends Character {
 
 	/***************************************************************************************************************************************************************************************/
 	private Hero hero;
+	private Character character;
 	/***************************************************************************************************************************************************************************************/
 
 	//							CONSTRUCTORS
@@ -67,23 +69,7 @@ public class Enemy extends Character {
 	//							CLASS METHODS
 
 	/***************************************************************************************************************************************************************************************/
-	/**
-	 * 
-	 */
-	public String getInfo() {
 
-		return "";
-	}
-	/***************************************************************************************************************************************************************************************/
-	/**
-	 * 
-	 * @return string of enemy stats
-	 */
-	public static String getStats() {
-		return "Stats: \n\n" ;
-		//	+ "Type: " + "\n" + type + "\n\n"
-		//	+ "Health: " + "\n" + enemyStats[1] + "\n\n";
-	} // end getStats()
 	/***************************************************************************************************************************************************************************************/
 	/**
 	 * Set enemy level to a range of either 3 above or 3 below the hero's level.
@@ -103,7 +89,8 @@ public class Enemy extends Character {
 	//							INHERITED METHODS
 
 	/***************************************************************************************************************************************************************************************/
-	public void attack() {
+	public int attack() {
 
+		return 0;
 	}
 }

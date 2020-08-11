@@ -1,7 +1,4 @@
-package Game.WorldBuild;
-import javax.swing.*;
-import java.util.Scanner;
-import java.io.IOException;
+package purgatory.WorldBuild;
 /*
  * Author: Shannon Thornton
  * 

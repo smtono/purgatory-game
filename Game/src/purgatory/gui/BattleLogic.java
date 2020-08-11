@@ -1,22 +1,22 @@
-package Game.GUI;
+package purgatory.gui;
 import javax.swing.JOptionPane;
-import Game.GUI.BattleGUI;
-import Game.Logic.*;
-import Game.Enemy.*;
-import Game.Hero.*;
+
+import purgatory.enemy.*;
+import purgatory.hero.*;
 /*
  * Author: Shannon Thornton
  * 
  * Purpose: This file implements all the battle mechanics and logic.
  * This is when implementing the GUI and action listeners, so that they can all be in one place.
  * Calculations for separate enemy and hero damage will be done in respective classes.
- * Class methods will be called from diffeent class files in order to do this.
+ * Class methods will be called from different class files in order to do this.
  * 
  * 	TODO:
  * 	Create character objects
  * 	Streamline methods to the battleSequence method so that one is the only one that needs to be called.
  */
-public class BattleGUILogic extends BattleGUI {
+@SuppressWarnings({"unused", "DanglingJavadoc"})
+public class BattleLogic extends BattleGUI {
 	/***************************************************************************************************************************************************************************************/
 
 	//							CLASS VARIABLES	
@@ -29,7 +29,7 @@ public class BattleGUILogic extends BattleGUI {
 	//							CALCULATIONS	
 
 	/***************************************************************************************************************************************************************************************/
-	// "Caclulations" -> Anything that involves determining a number.
+	// "Calculations" -> Anything that involves determining a number.
 	/**                   
 	 * determineOrder, returns first "Character type"
 	 * This method will determine which type goes first in the battle.
@@ -37,20 +37,23 @@ public class BattleGUILogic extends BattleGUI {
 	 * @return Who will go first in battle
 	 */
 	public static Type determineOrder() {
+
 		final Type[] whoFirst = {Type.HERO, Type.ENEMY};
 		Type order = null;
 		if (hero.getEVA() > enemy.getEVA()) {
-			order = whoFirst[1];
+			order = whoFirst[0];
 		}
 		else if (hero.getEVA() < enemy.getEVA()) {
-			order = whoFirst[2];
+			order = whoFirst[1];
 		}
 		else if (hero.getEVA() == enemy.getEVA()) {
-			int determiner = (int)(Math.random() * (2 - 1 + 1) + 1); // casted to int becaust Math.random() deals with double
+			int determiner = (int)(Math.random() * (2 - 1 + 1) + 1); // casted to int because Math.random() deals with double
 			order = whoFirst[determiner];
 		}
 		return order;
 	}
+
+
 	/***************************************************************************************************************************************************************************************/
 	/**
 	 * damageEnemy int
@@ -77,7 +80,7 @@ public class BattleGUILogic extends BattleGUI {
 	 */
 	public static int damageHero() {
 
-		return 0;
+		return 10;
 	}
 	/***************************************************************************************************************************************************************************************/
 
@@ -94,7 +97,7 @@ public class BattleGUILogic extends BattleGUI {
 	public void battleSequence() {
 		// method variables
 		int enemyLevel;
-		Type order = null;
+		Type order;
 		if (turnIteration == 0) {
 			startBattle();
 			enemyLevel = enemy.determineEnemyLevel();
@@ -110,7 +113,7 @@ public class BattleGUILogic extends BattleGUI {
 	 * using timeout like function, (it'll be difference when using swing,) make the user wait once the enemy has attacked.
 	 */
 	public void startBattle() {
-		String enemyStats = enemy.getStats();
+		String enemyStats = enemy.getInfo();
 		battleText.append("A wild monster appeared!\n");
 		statsText.append(enemyStats);
 		// prompts hero that they have encountered and enemy, and gives a brief tutorial on how to play.
@@ -124,17 +127,17 @@ public class BattleGUILogic extends BattleGUI {
 	 * This method will contain both the hero and enemy's turn
 	 * Call this method recursively until one of the following exit conditions are reached:
 	 * The hero HP reaches 0 (die sequence)
-	 * the enemy HP reaches 0 (leavel up/ gain loot, etc.)
+	 * the enemy HP reaches 0 (level up/ gain loot, etc.)
 	 * the hero runs away (return to main screen, implement this one last.)
-	 * returns an int which will be used to keep tack of interations, since this method will be called recursively.
-	 * 
-	 * @see damageEnemy() and damageHero() for the logic behind HP reaching 0
-	 * @return An int which will be used to keep tack of interations
+	 * returns an int which will be used to keep tack of iterations, since this method will be called recursively.
+	 *
+	 * @return An int which will be used to keep tack of iterations
 	 */
 	public static int turnSequence(int iteration, int enemyLevel, Type whoFirst) {
 		// method variables
 		final int enemyFullHP = enemy.getHP();
 		final int heroFullHP = hero.getHP();
+
 		switch (whoFirst) {
 		case HERO: {
 			int heroDamage = damageEnemy(heroMoveSelected);

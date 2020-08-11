@@ -1,5 +1,5 @@
-package Game.Logic;
-import Game.*;
+package purgatory.logic;
+import purgatory.gui.BattleLogic;
 /*
  * Author: Shannon Thornton
  * 
@@ -42,6 +42,8 @@ public class Game {
 		 * Prompt user for hero type (Test)
 		 * Enter battle (Test)
 		 */
+		BattleLogic battleLogic = new BattleLogic();
+		System.out.println(battleLogic.damageHero());
 
 	}
 }

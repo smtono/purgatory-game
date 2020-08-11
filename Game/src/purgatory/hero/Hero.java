@@ -1,5 +1,5 @@
-package Game.Hero;
-import Game.Logic.Character;
+package purgatory.hero;
+import purgatory.logic.Character;
 /*
  * Author: Shannon Thornton
  * 
@@ -26,13 +26,13 @@ import Game.Logic.Character;
  */
 
 
+@SuppressWarnings("DanglingJavadoc")
 public class Hero extends Character {
 	/***************************************************************************************************************************************************************************************/
 
 	//							CLASS VARIABLES
 
 	/***************************************************************************************************************************************************************************************/
-	private enum HeroType {WARRIOR, MAGE,};
 	// move sets
 	protected String warriorMoves[] = {
 			"null",
@@ -61,7 +61,7 @@ public class Hero extends Character {
 		setXP(0);
 		setACC(60);
 	}
-	// parametized
+	// parametrized
 	public Hero(int level, int HP, int MP, int XP, int ACC) {
 		/*
 		 * TODO:
@@ -95,13 +95,13 @@ public class Hero extends Character {
 	/***************************************************************************************************************************************************************************************/
 	/**
 	 * TODO:
-	 * make it so you can't access the moveset unless you are a certain level. highest level? make it like 50 or something.
+	 * make it so you can't access the move set unless you are a certain level. highest level? make it like 50 or something.
 	 * so that means make a switch case for the level, and access different moves according to that.
-	 * there will have to be a function for moveset that allows for the hero to swap out moves they want.
+	 * there will have to be a function for move set that allows for the hero to swap out moves they want.
 	 * 
 	 * @return damage amount hero attacks
 	 */
-	public void attack() { // attack, each class needs an attack method e.g mage would have spells
-
+	public int attack() { // attack, each class needs an attack method e.g mage would have spells
+		return 0;
 	}
 } 

@@ -1,4 +1,4 @@
-package Game.Enemy;
+package purgatory.enemy;
 
 public class Ice extends Enemy 
 {
