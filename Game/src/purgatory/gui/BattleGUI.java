@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 
+import purgatory.gui.BattleLogic;
+
 /*
  * Author: Shannon Thornton
  *
@@ -45,7 +47,9 @@ public class BattleGUI {
     static int heroHP, enemyHP;
     static int turnIteration = 0;
 
-    enum Type {HERO, ENEMY} 
+    enum Type {HERO, ENEMY}
+
+    BattleLogic logic;
     /***************************************************************************************************************************************************************************************/
 
     //							PANEL COMPONENTS
@@ -71,9 +75,8 @@ public class BattleGUI {
     //							COMPONENT PLACEMENT
 
     /***************************************************************************************************************************************************************************************/
-    public BattleGUI() {}
     // prepares the GUI with components in the correct place
-    public BattleGUI(String turn) {
+    public BattleGUI() {
             // panel, setting up the layout
             final BorderLayout layout = new BorderLayout();
             final JPanel panel = new JPanel();
@@ -107,6 +110,7 @@ public class BattleGUI {
                     @SuppressWarnings("unchecked")
                     JList<String> source = (JList<String>) event.getSource(); // gets which move the user picked
                     heroMoveSelected = source.getSelectedValue(); // stores the value into a string variable
+                    // logic.startBattle();
                 }
             });
             /**
@@ -134,4 +138,11 @@ public class BattleGUI {
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
     } // end GUI()
+
+    public void appendBattleText(String text) {
+        battleText.append(text);
+    }
+    public void appendStatsText(String text) {
+        statsText.append(text);
+    }
 }

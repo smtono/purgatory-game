@@ -78,6 +78,7 @@ public class Enemy extends Character {
 	 * 
 	 * @return the enemy level suitable for the hero's level
 	 */
+
 	public int determineEnemyLevel() {
 		int max = hero.getLevel() + 3;
 		int min = hero.getLevel() - 3;

@@ -1,4 +1,9 @@
 package purgatory.entity;
+
+import purgatory.Reference;
+
+import java.util.Random;
+
 /*
     Author: Shannon Thornton
 
@@ -13,6 +18,7 @@ public class Entity {
     /***************************************************************************************************************************************************************************************/
     private EntityType entityType;
     // for battle
+    private String name;
     private int health;
     final private int maxHealth;
     private int mana;
@@ -37,6 +43,7 @@ public class Entity {
         this.xp = xp;
         this.level = level;
         this.speed = speed;
+        this.name = Reference.NAMES[new Random().nextInt(Reference.NAMES.length)];
     }
     /***************************************************************************************************************************************************************************************/
 
@@ -70,4 +77,29 @@ public class Entity {
 
     public int getLevel() { return level; }
     public void setLevel(int level) { this.level = level; }
+
+    public String getInfo() {
+
+       return name + "\n" +
+               entityType.toString() +
+               "\nhealth = " + health +
+                "\nmana = " + mana +
+                "\nlevel = " + level;
+}
+
+    @Override
+    public String toString() {
+        return "Entity{" +
+                "entityType=" + entityType +
+                ", health=" + health +
+                ", maxHealth=" + maxHealth +
+                ", mana=" + mana +
+                ", speed=" + speed +
+                ", damage=" + damage +
+                ", strength=" + strength +
+                ", magic=" + magic +
+                ", xp=" + xp +
+                ", level=" + level +
+                '}';
+    }
 }

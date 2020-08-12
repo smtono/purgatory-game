@@ -38,6 +38,8 @@ public class GameLogic {
 	public void chooseHero() {
 		
 	} // end chooseHero
-	
 
+	public void generateBattle() {
+
+	}
 }

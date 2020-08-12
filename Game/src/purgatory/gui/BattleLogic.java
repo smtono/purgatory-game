@@ -1,56 +1,47 @@
 package purgatory.gui;
 import javax.swing.JOptionPane;
 
-import purgatory.enemy.*;
-import purgatory.hero.*;
+import purgatory.entity.Entity;
+import purgatory.util.EntityUtil;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 /*
  * Author: Shannon Thornton
  * 
- * Purpose: This file implements all the battle mechanics and logic.
- * This is when implementing the GUI and action listeners, so that they can all be in one place.
- * Calculations for separate enemy and hero damage will be done in respective classes.
- * Class methods will be called from different class files in order to do this.
- * 
- * 	TODO:
- * 	Create character objects
- * 	Streamline methods to the battleSequence method so that one is the only one that needs to be called.
+ * Purpose: This file implements all the battle mechanics and logic, using Entity and EntityType.
+ * BattleLogic constructor will be called to initiate a battle.
  */
 @SuppressWarnings({"unused", "DanglingJavadoc"})
-public class BattleLogic extends BattleGUI {
-	/***************************************************************************************************************************************************************************************/
-
-	//							CLASS VARIABLES	
-
-	/***************************************************************************************************************************************************************************************/
-	static Enemy enemy = new Enemy();
-	static Hero hero = new Hero();
-	/***************************************************************************************************************************************************************************************/
-
-	//							CALCULATIONS	
-
-	/***************************************************************************************************************************************************************************************/
-	// "Calculations" -> Anything that involves determining a number.
+public class BattleLogic {
+	//	CLASS VARIABLES
+	private List<Entity> fighters;
+	private BattleGUI gui = new BattleGUI();
+	// CONSTRUCTOR
+	public BattleLogic(List<Entity> fighters) {
+		this.fighters = fighters;
+		determineOrder();
+		startBattle();
+	}
+	//	CALCULATIONS
 	/**                   
-	 * determineOrder, returns first "Character type"
-	 * This method will determine which type goes first in the battle.
-	 * 
-	 * @return Who will go first in battle
+	 * determineOrder
+	 * compare each fighter's (Entity) speed
+	 * sort the list
+	 *
+	 * @return the order of fighters 1st to last, in the form of a poppable list
 	 */
-	public static Type determineOrder() {
-
-		final Type[] whoFirst = {Type.HERO, Type.ENEMY};
-		Type order = null;
-		if (hero.getEVA() > enemy.getEVA()) {
-			order = whoFirst[0];
-		}
-		else if (hero.getEVA() < enemy.getEVA()) {
-			order = whoFirst[1];
-		}
-		else if (hero.getEVA() == enemy.getEVA()) {
-			int determiner = (int)(Math.random() * (2 - 1 + 1) + 1); // casted to int because Math.random() deals with double
-			order = whoFirst[determiner];
-		}
-		return order;
+	public void determineOrder() {
+		/*
+			Explaining how this works:
+			Collections has a sort function, which can take two parameters. What is being sorted, and how to sort them.
+			So the first parameter is everyone fighting in the battle (fighters)
+			The second parameter is using Comparator, which will compare each fighter using the getSpeed method in the Entity class
+			Hence why the syntax is Entity::getSpeed (:: means reference)
+		 */
+		Collections.sort(fighters, Comparator.comparingInt(Entity::getSpeed));
+		Collections.reverse(fighters);
 	}
 
 
@@ -63,12 +54,12 @@ public class BattleLogic extends BattleGUI {
 	 * 
 	 * @return int that will represent the damage inflicted on the enemy.
 	 */
-	public static int damageEnemy(String heroMove) {
-		battleText.append("\nYou chose: " + heroMove + "!\n"); // prints to the battle screen
+	public int damageEnemy(String heroMove) {
+		gui.appendBattleText("\nYou chose: " + heroMove + "!\n"); // prints to the battle screen
 		// heroDamage = hero.heroAttack(heroMove); this will call the attack function in the Hero class and return the damage output of that particular move.
 		// return heroDamage;
 		return 10;
-	} 
+	}
 	/***************************************************************************************************************************************************************************************/
 	/**
 	 * damageHero
@@ -78,7 +69,7 @@ public class BattleLogic extends BattleGUI {
 	 * 
 	 * @return int that will represent the amount of damage inflicted on the hero.
 	 */
-	public static int damageHero() {
+	public int damageHero() {
 
 		return 10;
 	}
@@ -93,8 +84,10 @@ public class BattleLogic extends BattleGUI {
 	 * determine enemy level,
 	 * determine order,
 	 * recursively call turnSequence.
+	 * TODO: redo
 	 */
-	public void battleSequence() {
+	/*
+		public void battleSequence() {
 		// method variables
 		int enemyLevel;
 		Type order;
@@ -105,6 +98,7 @@ public class BattleLogic extends BattleGUI {
 			battleText.append("\n" + order + "Will be going first!\n");
 		}
 	}
+	*/
 	/***************************************************************************************************************************************************************************************/
 	/**
 	 * startBattle 
@@ -113,9 +107,13 @@ public class BattleLogic extends BattleGUI {
 	 * using timeout like function, (it'll be difference when using swing,) make the user wait once the enemy has attacked.
 	 */
 	public void startBattle() {
-		String enemyStats = enemy.getInfo();
-		battleText.append("A wild monster appeared!\n");
-		statsText.append(enemyStats);
+		StringBuilder builder = new StringBuilder();
+		EntityUtil.getEnemiesFromSet(fighters).iterator().forEachRemaining(entity -> {
+			builder.append(entity.getInfo());
+			builder.append("\n\n");
+		});
+		gui.appendBattleText("A wild monster appeared!\n");
+		gui.appendStatsText(builder.toString());
 		// prompts hero that they have encountered and enemy, and gives a brief tutorial on how to play.
 		JOptionPane.showMessageDialog(null, "You have just enter a battle!\n"
 				+ "Read your enemy's stats, and choose the move that would best counter it!\n"
@@ -133,7 +131,8 @@ public class BattleLogic extends BattleGUI {
 	 *
 	 * @return An int which will be used to keep tack of iterations
 	 */
-	public static int turnSequence(int iteration, int enemyLevel, Type whoFirst) {
+	/*
+		public static int turnSequence(int iteration, int enemyLevel, Type whoFirst) {
 		// method variables
 		final int enemyFullHP = enemy.getHP();
 		final int heroFullHP = hero.getHP();
@@ -156,7 +155,8 @@ public class BattleLogic extends BattleGUI {
 		}
 		turnIteration++;  // use this value to determine how many turns it took the player to beat the enemy
 		return turnIteration;
-	}
+		}
+	 */
 	/***************************************************************************************************************************************************************************************/	
 	/**
 	 * dieSequence int
