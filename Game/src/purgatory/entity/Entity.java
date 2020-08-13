@@ -9,52 +9,46 @@ import java.util.Random;
 
     Purpose: To simplify the "abstraction" I used earlier. Since heroes and enemies are so similar, it would be simpler
     to store their data and similar methods into one file. Basically, more files =/= more complex.
+
+    health = the amount of hit points the character can take
+    mana = the amount of energy the character has to make moves
+    xp = the amount of experience a character receives to level up
+    accuracy = determines if the move chosen will hit or not
+    evasion = determines if a character will dodge an attack, and also determines the order of battle
+
+    A baseline hero will start out with 100 hit points, 20 mana points, 0 experience, and 60 accuracy.
+    A baseline enemy will start out with 200 hit points and 60 accuracy.
  */
 public class Entity {
-    /***************************************************************************************************************************************************************************************/
-
-    //							CLASS VARIABLES
-
-    /***************************************************************************************************************************************************************************************/
+    //	CLASS VARIABLES
     private EntityType entityType;
     // for battle
     private String name;
-    private int health;
     final private int maxHealth;
     private int mana;
     private int speed;
-    private int damage;
+    private int accuracy;
     private int strength, magic;
     private int xp, level;
-    /***************************************************************************************************************************************************************************************/
 
-    //							CONSTRUCTORS
-
-    /***************************************************************************************************************************************************************************************/
-    // TODO: differentiate enemy from hero constructor (their starting stats are different)
+    //	CONSTRUCTORS
+    // The default constructor is tailored for a level 1 hero.
     public Entity(EntityType entityType) {
-            this(entityType, 100, 100, 0, 1, 10);
+            this(entityType, 100, 20, 10, 0.6, 0, 1);
     }
     // parametrized
-    public Entity(EntityType entityType, int health, int maxHealth, int xp, int level, int speed) {
+    public Entity(EntityType entityType, int maxHealth, int mana, int speed, double accuracy, int xp, int level) {
         this.entityType = entityType;
-        this.health = health;
         this.maxHealth = maxHealth;
         this.xp = xp;
         this.level = level;
         this.speed = speed;
         this.name = Reference.NAMES[new Random().nextInt(Reference.NAMES.length)];
     }
-    /***************************************************************************************************************************************************************************************/
-
-    //							ACCESSORS / MUTATORS
-
-    /***************************************************************************************************************************************************************************************/
+    //  ACCESSORS / MUTATORS
     public EntityType getEntityType() { return entityType; }
     public void setEntityType(EntityType entityType) { this.entityType = entityType; }
 
-    public int getHealth() { return health; }
-    public void setHealth(int health) { this.health = health; }
     public int getMaxHealth() { return maxHealth; }
 
     public int getMana() { return mana; }
@@ -63,8 +57,8 @@ public class Entity {
     public int getSpeed() { return speed; }
     public void setSpeed(int speed) { this.speed = speed; }
 
-    public int getDamage() { return damage; }
-    public void setDamage(int damage) { this.damage = damage; }
+    public int getAccuracy() { return accuracy; }
+    public void setAccuracy(int accuracy) { this.accuracy = accuracy; }
 
     public int getXp() { return xp; }
     public void setXp(int xp) { this.xp = xp; }
@@ -79,23 +73,19 @@ public class Entity {
     public void setLevel(int level) { this.level = level; }
 
     public String getInfo() {
-
        return name + "\n" +
                entityType.toString() +
-               "\nhealth = " + health +
+               "\nhealth = " + maxHealth +
                 "\nmana = " + mana +
                 "\nlevel = " + level;
-}
-
+    }
     @Override
     public String toString() {
         return "Entity{" +
                 "entityType=" + entityType +
-                ", health=" + health +
                 ", maxHealth=" + maxHealth +
                 ", mana=" + mana +
                 ", speed=" + speed +
-                ", damage=" + damage +
                 ", strength=" + strength +
                 ", magic=" + magic +
                 ", xp=" + xp +

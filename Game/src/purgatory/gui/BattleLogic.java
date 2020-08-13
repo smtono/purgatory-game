@@ -39,6 +39,7 @@ public class BattleLogic {
 			So the first parameter is everyone fighting in the battle (fighters)
 			The second parameter is using Comparator, which will compare each fighter using the getSpeed method in the Entity class
 			Hence why the syntax is Entity::getSpeed (:: means reference)
+			It pushes the order of fighters from least speed to most, so we have to reverse the order after everything is pushed.
 		 */
 		Collections.sort(fighters, Comparator.comparingInt(Entity::getSpeed));
 		Collections.reverse(fighters);

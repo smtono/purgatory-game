@@ -48,8 +48,6 @@ public class BattleGUI {
     static int turnIteration = 0;
 
     enum Type {HERO, ENEMY}
-
-    BattleLogic logic;
     /***************************************************************************************************************************************************************************************/
 
     //							PANEL COMPONENTS
@@ -139,6 +137,7 @@ public class BattleGUI {
             frame.setVisible(true);
     } // end GUI()
 
+    // UTILITY METHODS
     public void appendBattleText(String text) {
         battleText.append(text);
     }
