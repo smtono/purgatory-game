@@ -1,4 +1,4 @@
-package purgatory.hero;
+package purgatory.party;
 
 import purgatory.entity.Entity;
 
