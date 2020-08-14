@@ -2,6 +2,8 @@ package purgatory.entity;
 
 import purgatory.Reference;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /*
@@ -34,10 +36,10 @@ public class Entity {
     //	CONSTRUCTORS
     // The default constructor is tailored for a level 1 hero.
     public Entity(EntityType entityType) {
-            this(entityType, 100, 20, 10, 0.6, 0, 1);
+            this(entityType, 100, 20, 10, 0.6, 0, 0, 0, 1);
     }
     // parametrized
-    public Entity(EntityType entityType, int maxHealth, int mana, int speed, double accuracy, int xp, int level) {
+    public Entity(EntityType entityType, int maxHealth, int mana, int speed, double accuracy, int xp, int strength, int magic, int level) {
         this.entityType = entityType;
         this.maxHealth = maxHealth;
         this.xp = xp;
@@ -72,13 +74,34 @@ public class Entity {
     public int getLevel() { return level; }
     public void setLevel(int level) { this.level = level; }
 
-    public String getInfo() {
+    public String getEnemyInfo() {
        return name + "\n" +
                entityType.toString() +
                "\nhealth = " + maxHealth +
                 "\nmana = " + mana +
                 "\nlevel = " + level;
     }
+
+    // TODO: change into an enum ?
+    public List<String> getMoves(EntityType type) {
+        List<String> moves = new ArrayList<>();
+        switch (type) {
+            case WARRIOR: {
+                moves.add("Lunge");
+                moves.add("Slash");
+                moves.add("Riposte");
+                break;
+            }
+            case MAGE: {
+                moves.add("Firestorm");
+                moves.add("Frostbite");
+                moves.add("Luminescence");
+                break;
+            }
+        }
+        return moves;
+    }
+
     @Override
     public String toString() {
         return "Entity{" +

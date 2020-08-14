@@ -1,7 +1,9 @@
-package purgatory.gui;
+package purgatory.logic;
 import javax.swing.JOptionPane;
 
 import purgatory.entity.Entity;
+import purgatory.gui.BattleGUI;
+import purgatory.logic.GameLogic;
 import purgatory.util.EntityUtil;
 
 import java.util.Collections;
@@ -21,6 +23,10 @@ public class BattleLogic {
 	// CONSTRUCTOR
 	public BattleLogic(List<Entity> fighters) {
 		this.fighters = fighters;
+		List<String> heroMoves = GameLogic.hero.getMoves(GameLogic.hero.getEntityType());
+		String[] moves = new String[heroMoves.size()];
+		moves = heroMoves.toArray(moves);
+		gui.setMoves(moves);
 		determineOrder();
 		startBattle();
 	}
@@ -110,10 +116,10 @@ public class BattleLogic {
 	public void startBattle() {
 		StringBuilder builder = new StringBuilder();
 		EntityUtil.getEnemiesFromSet(fighters).iterator().forEachRemaining(entity -> {
-			builder.append(entity.getInfo());
+			builder.append(entity.getEnemyInfo());
 			builder.append("\n\n");
 		});
-		gui.appendBattleText("A wild monster appeared!\n");
+		gui.appendBattleText("A team of wild monsters appeared!\n");
 		gui.appendStatsText(builder.toString());
 		// prompts hero that they have encountered and enemy, and gives a brief tutorial on how to play.
 		JOptionPane.showMessageDialog(null, "You have just enter a battle!\n"

@@ -1,9 +1,6 @@
 package purgatory.logic;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
-import purgatory.gui.BattleLogic;
-import purgatory.hero.*;
-import purgatory.enemy.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +19,15 @@ import java.util.concurrent.ThreadLocalRandom;
 @SuppressWarnings("DanglingJavadoc")
 public class GameLogic {
 	//	CLASS VARIABLES
-	private Entity hero = new Entity(null); // generic hero
+	public static Entity hero = new Entity(EntityType.MAGE);
 	// CONSTRUCTOR
-	public GameLogic() {
-		Entity enemy = generateEnemy();
-		System.out.println(enemy);
+	public GameLogic(int logic) {
+		switch (logic) {
+			case 1:
+			Entity enemy = generateEnemy();
+			hero.getMoves(hero.getEntityType());
+			break;
+		}
 	}
 	//	CLASS METHODS
 	// General
@@ -69,7 +70,7 @@ public class GameLogic {
 		int enemyHealth = hero.getMaxHealth() * 2;
 		int enemySpeed = ThreadLocalRandom.current().nextInt(1, 30 + 1);
 		double enemyAccuracy = ThreadLocalRandom.current().nextDouble(0.6, 1);
-		int enemyLevel = ThreadLocalRandom.current().nextInt(heroCurrentLevel - 3, heroCurrentLevel + 3);
+		int enemyLevel = ThreadLocalRandom.current().nextInt(heroCurrentLevel, heroCurrentLevel + 3);
 		// private Entity enemy = new Entity(null, 200, 0, 10, 0.6, 0, 1); // generic enemy
 		Entity enemy = new Entity(enemyType, enemyHealth, 0, enemySpeed, enemyAccuracy, 0, enemyLevel);
 		return enemy;

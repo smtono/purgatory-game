@@ -17,17 +17,20 @@ import java.util.List;
 public enum EntityType {
     //	ENTITY TYPES
     // heroes
-    WARRIOR("Warrior", true),
-    MAGE("Mage",true),
+    WARRIOR("Warrior", CharacterType.HERO, true),
+    MAGE("Mage", CharacterType.HERO, true),
     // enemies
-    SLIME("Slime",false),
-    FIRE("Fire", false); // don't forget about this semicolon '-'
+    SLIME("Slime", CharacterType.ENEMY, false),
+    FIRE("Fire", CharacterType.ENEMY, false); // don't forget about this semicolon '-'
     // variables for construction of the entity types
-    private boolean isHero;
+    private enum CharacterType {HERO, ENEMY, PARTY}
     private String typeName;
+    private CharacterType type;
+    private boolean isHero;
     // CONSTRUCTOR
-    EntityType(String typeName, boolean isHero) {
+    EntityType(String typeName, CharacterType type, boolean isHero) {
         this.typeName = typeName;
+        this.type = type;
         this.isHero = isHero;
     }
     // accessors
@@ -56,7 +59,6 @@ public enum EntityType {
         }
         return enemies;
     }
-
     // toString
     @Override
     public String toString() {

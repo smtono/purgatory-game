@@ -1,8 +1,6 @@
 package purgatory.logic;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
-import purgatory.gui.BattleGUI;
-import purgatory.gui.BattleLogic;
 
 import java.util.Arrays;
 import java.util.List;
@@ -53,8 +51,7 @@ public class Game {
 		boolean isHero = hero.getEntityType().isHero();
 		System.out.println(isHero);
 		 */
-		//List<Entity> fighters = Arrays.asList(new Entity(EntityType.FIRE), new Entity(EntityType.SLIME, 100, 100, 0, 1, 5), new Entity(EntityType.SLIME, 100, 100, 0, 1, 50));
-		//new BattleLogic(fighters);
-		new GameLogic();
+		List<Entity> fighters = Arrays.asList(new Entity(EntityType.FIRE), new Entity(EntityType.SLIME, 100, 0, 100, 0, 1, 5), new Entity(EntityType.SLIME, 100, 0, 100, 0, 1, 50));
+		new BattleLogic(fighters);
 	}
 }
