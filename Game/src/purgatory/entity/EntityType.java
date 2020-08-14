@@ -11,8 +11,7 @@ import java.util.List;
     all use similar methods. This is to reduce the amount of redundant / similar code in my files.
     More files =/= more complexity. Also, finally a chance to properly learn enums and how to use them!
 
-    TODO:
-    use map to separate enemies and party members.
+
  */
 public enum EntityType {
     //	ENTITY TYPES
@@ -33,7 +32,7 @@ public enum EntityType {
         this.type = type;
         this.isHero = isHero;
     }
-    // accessors
+    // ACCESSORS
     public String getHeroTypeName() { return typeName; }
     public boolean isHero() { return isHero; }
     // METHODS

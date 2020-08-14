@@ -77,31 +77,9 @@ public class Entity {
     public String getEnemyInfo() {
        return name + "\n" +
                entityType.toString() +
-               "\nhealth = " + maxHealth +
-                "\nmana = " + mana +
-                "\nlevel = " + level;
+               "\nHealth: " + maxHealth +
+                "\nLevel " + level;
     }
-
-    // TODO: change into an enum ?
-    public List<String> getMoves(EntityType type) {
-        List<String> moves = new ArrayList<>();
-        switch (type) {
-            case WARRIOR: {
-                moves.add("Lunge");
-                moves.add("Slash");
-                moves.add("Riposte");
-                break;
-            }
-            case MAGE: {
-                moves.add("Firestorm");
-                moves.add("Frostbite");
-                moves.add("Luminescence");
-                break;
-            }
-        }
-        return moves;
-    }
-
     @Override
     public String toString() {
         return "Entity{" +

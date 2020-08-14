@@ -22,11 +22,6 @@ public class BattleLogic {
 	private BattleGUI gui = new BattleGUI();
 	// CONSTRUCTOR
 	public BattleLogic(List<Entity> fighters) {
-		this.fighters = fighters;
-		List<String> heroMoves = GameLogic.hero.getMoves(GameLogic.hero.getEntityType());
-		String[] moves = new String[heroMoves.size()];
-		moves = heroMoves.toArray(moves);
-		gui.setMoves(moves);
 		determineOrder();
 		startBattle();
 	}

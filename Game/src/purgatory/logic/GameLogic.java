@@ -21,13 +21,8 @@ public class GameLogic {
 	//	CLASS VARIABLES
 	public static Entity hero = new Entity(EntityType.MAGE);
 	// CONSTRUCTOR
-	public GameLogic(int logic) {
-		switch (logic) {
-			case 1:
-			Entity enemy = generateEnemy();
-			hero.getMoves(hero.getEntityType());
-			break;
-		}
+	public GameLogic() {
+
 	}
 	//	CLASS METHODS
 	// General
@@ -41,7 +36,7 @@ public class GameLogic {
 	public void chooseHero() {
 		EntityType userChoice = null;
 		/*TODO:
-			make a gui
+			make a gui for choosing a hero (Make it a quiz?)
 			implement logic for gui
 			call that logic here
 		 */
@@ -61,6 +56,7 @@ public class GameLogic {
 	 * accuracy: random from .60 to 1.00
 	 * level: 3 above or below hero
 	 */
+	//TODO: Fix with new Moves enum
 	public Entity generateEnemy() {
 		// adding enemies to a list
 		List<EntityType> enemies = EntityType.getEnemies();
@@ -72,7 +68,12 @@ public class GameLogic {
 		double enemyAccuracy = ThreadLocalRandom.current().nextDouble(0.6, 1);
 		int enemyLevel = ThreadLocalRandom.current().nextInt(heroCurrentLevel, heroCurrentLevel + 3);
 		// private Entity enemy = new Entity(null, 200, 0, 10, 0.6, 0, 1); // generic enemy
-		Entity enemy = new Entity(enemyType, enemyHealth, 0, enemySpeed, enemyAccuracy, 0, enemyLevel);
+		//public Entity(EntityType entityType, int maxHealth, int mana, int speed, double accuracy, int xp, int strength, int magic, int level)
+		//Entity enemy = new Entity(enemyType, enemyHealth, 0, enemySpeed, enemyAccuracy, 0, enemyLevel);
+		// return enemy;
+
+		// place holder enemy
+		Entity enemy = new Entity(EntityType.SLIME);
 		return enemy;
 	}
 	/******************************************************/
