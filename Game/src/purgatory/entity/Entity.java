@@ -2,8 +2,6 @@ package purgatory.entity;
 
 import purgatory.Reference;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /*
@@ -22,11 +20,12 @@ import java.util.Random;
     A baseline enemy will start out with 200 hit points and 60 accuracy.
  */
 public class Entity {
-    //	CLASS VARIABLES
+    //	for specification
     private EntityType entityType;
+
     // for battle
-    private String name;
-    final private int maxHealth;
+    private final String name;
+    private final int maxHealth;
     private int mana;
     private int speed;
     private int accuracy;
@@ -39,12 +38,14 @@ public class Entity {
             this(entityType, 100, 20, 10, 0.6, 0, 0, 0, 1);
     }
     // parametrized
+    // TODO: use a switch case to specify each entity type's starting stats
     public Entity(EntityType entityType, int maxHealth, int mana, int speed, double accuracy, int xp, int strength, int magic, int level) {
         this.entityType = entityType;
         this.maxHealth = maxHealth;
         this.xp = xp;
         this.level = level;
         this.speed = speed;
+        // TODO fix for hero
         this.name = Reference.NAMES[new Random().nextInt(Reference.NAMES.length)];
     }
     //  ACCESSORS / MUTATORS

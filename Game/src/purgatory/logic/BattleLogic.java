@@ -15,11 +15,11 @@ import java.util.List;
  * Purpose: This file implements all the battle mechanics and logic, using Entity and EntityType.
  * BattleLogic constructor will be called to initiate a battle.
  */
-@SuppressWarnings({"unused", "DanglingJavadoc"})
+
 public class BattleLogic {
 	//	CLASS VARIABLES
 	private List<Entity> fighters;
-	private BattleGUI gui = new BattleGUI();
+	private final BattleGUI gui = new BattleGUI();
 	// CONSTRUCTOR
 	public BattleLogic(List<Entity> fighters) {
 		determineOrder();
@@ -30,8 +30,6 @@ public class BattleLogic {
 	 * determineOrder
 	 * compare each fighter's (Entity) speed
 	 * sort the list
-	 *
-	 * @return the order of fighters 1st to last, in the form of a poppable list
 	 */
 	public void determineOrder() {
 		/*
@@ -42,12 +40,11 @@ public class BattleLogic {
 			Hence why the syntax is Entity::getSpeed (:: means reference)
 			It pushes the order of fighters from least speed to most, so we have to reverse the order after everything is pushed.
 		 */
-		Collections.sort(fighters, Comparator.comparingInt(Entity::getSpeed));
+		fighters.sort(Comparator.comparingInt(Entity::getSpeed));
 		Collections.reverse(fighters);
 	}
 
 
-	/***************************************************************************************************************************************************************************************/
 	/**
 	 * damageEnemy int
 	 * This method will represent the hero's turn.
@@ -62,7 +59,7 @@ public class BattleLogic {
 		// return heroDamage;
 		return 10;
 	}
-	/***************************************************************************************************************************************************************************************/
+
 	/**
 	 * damageHero
 	 * This method will represent the enemy's turn
@@ -75,11 +72,7 @@ public class BattleLogic {
 
 		return 10;
 	}
-	/***************************************************************************************************************************************************************************************/
-
-	//							SEQUENCES	
-
-	/***************************************************************************************************************************************************************************************/
+	//	SEQUENCES
 	/**
 	 * battleSequence 
 	 * Call startBattle() if turn iteration is 0,
@@ -101,7 +94,7 @@ public class BattleLogic {
 		}
 	}
 	*/
-	/***************************************************************************************************************************************************************************************/
+
 	/**
 	 * startBattle 
 	 * This will prepare the GUI for the hero, giving them important information about the enemy they just encountered.
@@ -121,7 +114,6 @@ public class BattleLogic {
 				+ "Read your enemy's stats, and choose the move that would best counter it!\n"
 				+ "Different enemies have different weaknesses!", "Enemy Appeared!", JOptionPane.INFORMATION_MESSAGE);
 	}
-	/***************************************************************************************************************************************************************************************/		
 	/**
 	 * turnSequence int
 	 * This method will contain both the hero and enemy's turn
@@ -159,7 +151,7 @@ public class BattleLogic {
 		return turnIteration;
 		}
 	 */
-	/***************************************************************************************************************************************************************************************/	
+
 	/**
 	 * dieSequence int
 	 * prints out a death script, takes current death count and adds it need to keep up with that variable.

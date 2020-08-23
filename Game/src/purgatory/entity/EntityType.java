@@ -1,7 +1,6 @@
 package purgatory.entity;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /*
@@ -23,17 +22,18 @@ public enum EntityType {
     FIRE("Fire", CharacterType.ENEMY, false); // don't forget about this semicolon '-'
     // variables for construction of the entity types
     private enum CharacterType {HERO, ENEMY, PARTY}
-    private String typeName;
-    private CharacterType type;
-    private boolean isHero;
+    private final String typeName;
+    private final CharacterType characterType;
+    private final boolean isHero;
     // CONSTRUCTOR
     EntityType(String typeName, CharacterType type, boolean isHero) {
         this.typeName = typeName;
-        this.type = type;
+        this.characterType = type;
         this.isHero = isHero;
     }
     // ACCESSORS
-    public String getHeroTypeName() { return typeName; }
+    public String getHeroType() { return typeName; }
+    public CharacterType getCharacterType() {return characterType; }
     public boolean isHero() { return isHero; }
     // METHODS
     /**

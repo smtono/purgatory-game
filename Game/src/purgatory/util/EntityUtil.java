@@ -10,7 +10,8 @@ public class EntityUtil {
     // CONSTRUCTOR
     public EntityUtil() { }
     // METHODS
-    public static List<Entity> getHeroesFromSet(List<Entity> entities) {
+    // TODO rewrite because awkward
+    public static List<Entity> getHeroesFromSet(List<Entity> entities, EntityType entityType) {
         List<Entity> result = new ArrayList<>();
         entities.iterator().forEachRemaining(entity -> {
             if (entity.getEntityType().isHero())

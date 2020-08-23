@@ -97,10 +97,9 @@ public class BattleGUI {
     public void appendBattleText(String text) {
         battleText.append(text);
     }
-    public void appendStatsText(String text) {
-        statsText.append(text);
-    }
+    public void appendStatsText(String text) { statsText.append(text); }
     // ACCESSORS / MUTATORS
+    public String getMoveSelected() { return moveSelected; }
     public void setMoves(String[] heroMoves) {
         for (int i = 0; i < heroMoves.length; i++ ) {
             moves.add(i, heroMoves[i]);
