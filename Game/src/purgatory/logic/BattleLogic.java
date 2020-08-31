@@ -30,7 +30,8 @@ public class BattleLogic {
 	private final BattleGUI gui = new BattleGUI();
 	// CONSTRUCTOR
 	public BattleLogic(List<Entity> fighters) {
-		determineOrder();
+		this.fighters = fighters;
+		determineOrder(fighters);
 		startBattle();
 	}
 	//	CALCULATIONS
@@ -39,7 +40,7 @@ public class BattleLogic {
 	 * compare each fighter's (Entity) speed
 	 * sort the list
 	 */
-	public void determineOrder() {
+	public void determineOrder(List<Entity> fighters) {
 		/*
 			Explaining how this works:
 			Collections has a sort function, which can take two parameters. What is being sorted, and how to sort them.

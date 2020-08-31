@@ -23,7 +23,9 @@ import java.util.Random;
 public class Entity {
     //	for specification
     private EntityType entityType;
-    private List<EntityMoves.AttackType> attackType;
+    private List<EntityWeapons.AttackType> attackTypes;
+    private List<EntityWeapons> weaponTypes;
+    private List<EntityMoves> moveSet;
     // for battle
     private final String name;
     private final int maxHealth;
@@ -36,8 +38,8 @@ public class Entity {
     //	CONSTRUCTORS
     // The default constructor is tailored for a level 1 hero.
     public Entity(EntityType entityType) {
-            this(entityType, 100, 20, 10, 0.6, 0, 0, 0, null, 1);
-            this.attackType = entityType.getAttackTypes();
+            this(entityType, 100, 20, 10, 0.6, 0, 0, 0, null, null, null, 1);
+            this.attackTypes = entityType.getAttackTypes();
     }
     // parametrized
     // TODO: use a switch case to specify each entity type's starting stats
@@ -49,7 +51,9 @@ public class Entity {
                   int xp,
                   int strength,
                   int magic,
-                  List<EntityMoves.AttackType> attackType,
+                  List<EntityWeapons.AttackType> attackTypes,
+                  List<EntityWeapons> weaponTypes,
+                  List<EntityMoves> moveSet,
                   int level)
     {
         this.entityType = entityType;
@@ -60,7 +64,7 @@ public class Entity {
         this.xp = xp;
         this.strength = strength;
         this.magic = magic;
-        this.attackType = attackType;
+        this.attackTypes = attackTypes;
         this.level = level;
         // TODO fix for hero
         this.name = Reference.NAMES[new Random().nextInt(Reference.NAMES.length)];
@@ -89,8 +93,14 @@ public class Entity {
     public int getMagic() { return magic; }
     public void setMagic(int magic) { this.magic = magic; }
 
-    public List<EntityMoves.AttackType> getAttackTypes() { return attackType; }
-    public void setAttackType(List<EntityMoves.AttackType> attackType) { this.attackType = attackType; }
+    public List<EntityWeapons.AttackType> getAttackTypes() { return attackTypes; }
+    public void setAttackTypes(List<EntityWeapons.AttackType> attackTypes) { this.attackTypes = attackTypes; }
+
+    public List<EntityWeapons> getWeaponTypes() { return weaponTypes; }
+    public void setWeaponTypes(List<EntityWeapons> weaponTypes) { this.weaponTypes = weaponTypes; }
+
+    public List<EntityMoves> getMoveSet() { return moveSet; }
+    public void setMoveSet(List<EntityMoves> moveSet) { this.moveSet = moveSet; }
 
     public int getLevel() { return level; }
     public void setLevel(int level) { this.level = level; }

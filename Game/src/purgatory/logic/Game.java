@@ -58,8 +58,7 @@ public class Game {
 		List<EntityMoves> heroMoves = EntityUtil.getAccessibleMoves(hero);
 		System.out.println(heroMoves);
 		 */
-		Entity hero = new Entity(EntityType.CLERIC);
-		hero.setLevel(10);
-		System.out.println(EntityMoves.getAccessibleMoves(hero));
+		List<Entity> fighters = Arrays.asList(new Entity(EntityType.SOLDIER), new Entity(EntityType.SOLDIER), new Entity(EntityType.MAGICIAN));
+		new BattleLogic(fighters);
 	}
 }

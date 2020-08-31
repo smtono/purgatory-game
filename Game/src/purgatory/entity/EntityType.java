@@ -10,57 +10,55 @@ import java.util.List;
     Purpose: To declare different "entity (heroes/enemies/and eventually party members) in one place, since they
     all use similar methods. This is to reduce the amount of redundant / similar code in my files.
     More files =/= more complexity. Also, finally a chance to properly learn enums and how to use them!
-
-
  */
 public enum EntityType {
     //	ENTITY TYPES
     // heroes
     WARRIOR("Warrior",
             CharacterType.HERO,
-            Arrays.asList(EntityMoves.AttackType.SLASH, EntityMoves.AttackType.BLUNT),
-            Arrays.asList(EntityMoves.WeaponType.SWORD, EntityMoves.WeaponType.CLUB),
+            Arrays.asList(EntityWeapons.AttackType.SLASH, EntityWeapons.AttackType.BLUNT),
+            Arrays.asList(EntityWeapons.SWORD, EntityWeapons.CLUB),
             true),
     MAGE("Mage",
             CharacterType.HERO,
-            Arrays.asList(EntityMoves.AttackType.ELEMENTAL),
-            Arrays.asList(EntityMoves.WeaponType.WAND, EntityMoves.WeaponType.STAFF),
+            Arrays.asList(EntityWeapons.AttackType.ELEMENTAL),
+            Arrays.asList(EntityWeapons.WAND, EntityWeapons.STAFF),
             true),
     CLERIC("Cleric",
             CharacterType.HERO,
-            Arrays.asList(EntityMoves.AttackType.HOLY),
-            Arrays.asList(EntityMoves.WeaponType.STAFF),
+            Arrays.asList(EntityWeapons.AttackType.HOLY),
+            Arrays.asList(EntityWeapons.STAFF),
             true),
     SCHOLAR("Scholar",
             CharacterType.HERO,
-            Arrays.asList(EntityMoves.AttackType.DARK),
-            Arrays.asList(EntityMoves.WeaponType.TOME),
+            Arrays.asList(EntityWeapons.AttackType.DARK),
+            Arrays.asList(EntityWeapons.TOME),
             true),
 
     // enemies
     SOLDIER("Soldier",
             CharacterType.ENEMY,
-            Arrays.asList(EntityMoves.AttackType.SLASH, EntityMoves.AttackType.BLUNT),
-            Arrays.asList(EntityMoves.WeaponType.SWORD, EntityMoves.WeaponType.CLUB),
+            Arrays.asList(EntityWeapons.AttackType.SLASH, EntityWeapons.AttackType.BLUNT),
+            Arrays.asList(EntityWeapons.SWORD, EntityWeapons.CLUB),
             false),
     MAGICIAN("Magician",
             CharacterType.ENEMY,
-            Arrays.asList(EntityMoves.AttackType.ELEMENTAL),
-            Arrays.asList(EntityMoves.WeaponType.WAND, EntityMoves.WeaponType.STAFF),
+            Arrays.asList(EntityWeapons.AttackType.ELEMENTAL),
+            Arrays.asList(EntityWeapons.WAND, EntityWeapons.STAFF),
             false); // don't forget about this semicolon '-'
 
     // variables for construction of the entity types
     public enum CharacterType {HERO, ENEMY, PARTY} // public so this enum can be accessed.
     private final String typeName;
     private final CharacterType characterType;
-    private final List<EntityMoves.AttackType> attackTypes;
-    private final List<EntityMoves.WeaponType> weaponTypes;
+    private final List<EntityWeapons.AttackType> attackTypes;
+    private final List<EntityWeapons> weaponTypes;
     private final boolean isHero;
     // CONSTRUCTOR
     EntityType(String typeName,
                CharacterType type,
-               List<EntityMoves.AttackType> attackTypes,
-               List<EntityMoves.WeaponType> weaponTypes,
+               List<EntityWeapons.AttackType> attackTypes,
+               List<EntityWeapons> weaponTypes,
                boolean isHero)
     {
         this.typeName = typeName;
@@ -72,7 +70,7 @@ public enum EntityType {
     // ACCESSORS
     public String getHeroType() { return typeName; }
     public CharacterType getCharacterType() {return characterType; }
-    public List<EntityMoves.AttackType> getAttackTypes() { return attackTypes; }
+    public List<EntityWeapons.AttackType> getAttackTypes() { return attackTypes; }
     public boolean isHero() { return isHero; }
     // METHODS
     /**
