@@ -19,9 +19,14 @@ public enum EntityType {
             Arrays.asList(EntityWeapons.AttackType.SLASH, EntityWeapons.AttackType.BLUNT),
             Arrays.asList(EntityWeapons.SWORD, EntityWeapons.CLUB),
             true),
+    ARCHER("Archer",
+            CharacterType.HERO,
+            null,
+            Arrays.asList(EntityWeapons.BOW),
+            true),
     MAGE("Mage",
             CharacterType.HERO,
-            Arrays.asList(EntityWeapons.AttackType.ELEMENTAL),
+            Arrays.asList(EntityWeapons.AttackType.ELEMENTAL, EntityWeapons.AttackType.DARK, EntityWeapons.AttackType.HOLY),
             Arrays.asList(EntityWeapons.WAND, EntityWeapons.STAFF),
             true),
     CLERIC("Cleric",
@@ -31,7 +36,7 @@ public enum EntityType {
             true),
     SCHOLAR("Scholar",
             CharacterType.HERO,
-            Arrays.asList(EntityWeapons.AttackType.DARK),
+            Arrays.asList(EntityWeapons.AttackType.DARK, EntityWeapons.AttackType.HOLY),
             Arrays.asList(EntityWeapons.TOME),
             true),
 
@@ -71,6 +76,7 @@ public enum EntityType {
     public String getHeroType() { return typeName; }
     public CharacterType getCharacterType() {return characterType; }
     public List<EntityWeapons.AttackType> getAttackTypes() { return attackTypes; }
+    public List<EntityWeapons> getWeaponTypes() { return weaponTypes; }
     public boolean isHero() { return isHero; }
     // METHODS
     /**
