@@ -2,6 +2,7 @@ package purgatory.entity;
 
 import purgatory.Reference;
 
+import java.util.List;
 import java.util.Random;
 
 /*
@@ -22,29 +23,45 @@ import java.util.Random;
 public class Entity {
     //	for specification
     private EntityType entityType;
-
+    private List<EntityMoves.AttackType> attackType;
     // for battle
     private final String name;
     private final int maxHealth;
     private int mana;
     private int speed;
-    private int accuracy;
+    private double accuracy;
     private int strength, magic;
     private int xp, level;
 
     //	CONSTRUCTORS
     // The default constructor is tailored for a level 1 hero.
     public Entity(EntityType entityType) {
-            this(entityType, 100, 20, 10, 0.6, 0, 0, 0, 1);
+            this(entityType, 100, 20, 10, 0.6, 0, 0, 0, null, 1);
+            this.attackType = entityType.getAttackTypes();
     }
     // parametrized
     // TODO: use a switch case to specify each entity type's starting stats
-    public Entity(EntityType entityType, int maxHealth, int mana, int speed, double accuracy, int xp, int strength, int magic, int level) {
+    public Entity(EntityType entityType,
+                  int maxHealth,
+                  int mana,
+                  int speed,
+                  double accuracy,
+                  int xp,
+                  int strength,
+                  int magic,
+                  List<EntityMoves.AttackType> attackType,
+                  int level)
+    {
         this.entityType = entityType;
         this.maxHealth = maxHealth;
-        this.xp = xp;
-        this.level = level;
+        this.mana = mana;
         this.speed = speed;
+        this.accuracy = accuracy;
+        this.xp = xp;
+        this.strength = strength;
+        this.magic = magic;
+        this.attackType = attackType;
+        this.level = level;
         // TODO fix for hero
         this.name = Reference.NAMES[new Random().nextInt(Reference.NAMES.length)];
     }
@@ -60,7 +77,7 @@ public class Entity {
     public int getSpeed() { return speed; }
     public void setSpeed(int speed) { this.speed = speed; }
 
-    public int getAccuracy() { return accuracy; }
+    public double getAccuracy() { return accuracy; }
     public void setAccuracy(int accuracy) { this.accuracy = accuracy; }
 
     public int getXp() { return xp; }
@@ -71,6 +88,9 @@ public class Entity {
 
     public int getMagic() { return magic; }
     public void setMagic(int magic) { this.magic = magic; }
+
+    public List<EntityMoves.AttackType> getAttackTypes() { return attackType; }
+    public void setAttackType(List<EntityMoves.AttackType> attackType) { this.attackType = attackType; }
 
     public int getLevel() { return level; }
     public void setLevel(int level) { this.level = level; }
