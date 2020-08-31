@@ -13,11 +13,11 @@ import javax.swing.*;
  * This particular file will include all the components needed, and set them up correctly.
  * A separate file will deal with the implementation of methods.
  *
- * TODO:
- * Figure out how to recursively use heroMoveSelected.
- * Possibly by using a while loop and keeping track of the iteration
- * Reset all hard coded class variables to use objects instead
- * Clean up class variables so that appropriate variables go to their respective classes
+ * TODO: Figure out how to recursively use heroMoveSelected.
+ *  Possibly by using a while loop and keeping track of the iteration...
+ *  Reset all hard coded class variables to use objects instead...
+ *  Clean up class variables so that appropriate variables go to their respective classes
+ *  ***Find a way to push the strings of the hero's moves into the GUI.***
  */
 @SuppressWarnings("DanglingJavadoc")
 public class BattleGUI {
@@ -79,12 +79,8 @@ public class BattleGUI {
                     menuSelected = source.getSelectedValue(); // stores the value into a string variable
                 }
             });
-            /***************************************************************************************************************************************************************************************/
 
-            //							FRAME CONSTRUCTION
-
-            /***************************************************************************************************************************************************************************************/
-            // setting up the frame
+            //  FRAME CONSTRUCTION
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.add(panel);
             frame.setSize(500, 500);

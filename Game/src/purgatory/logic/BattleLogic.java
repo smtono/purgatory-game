@@ -14,6 +14,14 @@ import java.util.List;
  * 
  * Purpose: This file implements all the battle mechanics and logic, using Entity and EntityType.
  * BattleLogic constructor will be called to initiate a battle.
+ *
+ * TODO: find a way to compare strings against the enum types in Entity Moves (you can probably do this by using Collections or Comparator)
+ *  use iterator on hero move
+ * forEachRemaining (move -> {
+ * 	compare (string of move selected in GUI) against each string for each enum
+ * 	if they are ==, then use that enum,
+ *  may have to find a way to efficiently sort through all the moves, because i do plan on having lots of moves.
+ * }
  */
 
 public class BattleLogic {
@@ -40,7 +48,7 @@ public class BattleLogic {
 			Hence why the syntax is Entity::getSpeed (:: means reference)
 			It pushes the order of fighters from least speed to most, so we have to reverse the order after everything is pushed.
 		 */
-		fighters.sort(Comparator.comparingInt(Entity::getSpeed));
+		Collections.sort(fighters, Comparator.comparingInt(Entity::getSpeed));
 		Collections.reverse(fighters);
 	}
 

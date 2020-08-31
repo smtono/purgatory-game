@@ -2,9 +2,7 @@ package purgatory.logic;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /*
@@ -73,7 +71,7 @@ public class GameLogic {
 		// return enemy;
 
 		// place holder enemy
-		Entity enemy = new Entity(EntityType.SLIME);
+		Entity enemy = new Entity(EntityType.SOLDIER);
 		return enemy;
 	}
 	/******************************************************/

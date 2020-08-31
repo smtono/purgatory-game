@@ -1,7 +1,10 @@
 package purgatory.logic;
 import purgatory.entity.Entity;
+import purgatory.entity.EntityMoves;
 import purgatory.entity.EntityType;
+import purgatory.util.EntityUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 /*
@@ -51,5 +54,12 @@ public class Game {
 		boolean isHero = hero.getEntityType().isHero();
 		System.out.println(isHero);
 		 */
+		/*Entity hero = new Entity(EntityType.WARRIOR);
+		List<EntityMoves> heroMoves = EntityUtil.getAccessibleMoves(hero);
+		System.out.println(heroMoves);
+		 */
+		Entity hero = new Entity(EntityType.CLERIC);
+		hero.setLevel(10);
+		System.out.println(EntityMoves.getAccessibleMoves(hero));
 	}
 }
