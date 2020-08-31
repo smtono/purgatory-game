@@ -1,6 +1,7 @@
 package purgatory.entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -15,25 +16,63 @@ import java.util.List;
 public enum EntityType {
     //	ENTITY TYPES
     // heroes
-    WARRIOR("Warrior", CharacterType.HERO, true),
-    MAGE("Mage", CharacterType.HERO, true),
+    WARRIOR("Warrior",
+            CharacterType.HERO,
+            Arrays.asList(EntityMoves.AttackType.SLASH, EntityMoves.AttackType.BLUNT),
+            Arrays.asList(EntityMoves.WeaponType.SWORD, EntityMoves.WeaponType.CLUB),
+            true),
+    MAGE("Mage",
+            CharacterType.HERO,
+            Arrays.asList(EntityMoves.AttackType.ELEMENTAL),
+            Arrays.asList(EntityMoves.WeaponType.WAND, EntityMoves.WeaponType.STAFF),
+            true),
+    CLERIC("Cleric",
+            CharacterType.HERO,
+            Arrays.asList(EntityMoves.AttackType.HOLY),
+            Arrays.asList(EntityMoves.WeaponType.STAFF),
+            true),
+    SCHOLAR("Scholar",
+            CharacterType.HERO,
+            Arrays.asList(EntityMoves.AttackType.DARK),
+            Arrays.asList(EntityMoves.WeaponType.TOME),
+            true),
+
     // enemies
-    SLIME("Slime", CharacterType.ENEMY, false),
-    FIRE("Fire", CharacterType.ENEMY, false); // don't forget about this semicolon '-'
+    SOLDIER("Soldier",
+            CharacterType.ENEMY,
+            Arrays.asList(EntityMoves.AttackType.SLASH, EntityMoves.AttackType.BLUNT),
+            Arrays.asList(EntityMoves.WeaponType.SWORD, EntityMoves.WeaponType.CLUB),
+            false),
+    MAGICIAN("Magician",
+            CharacterType.ENEMY,
+            Arrays.asList(EntityMoves.AttackType.ELEMENTAL),
+            Arrays.asList(EntityMoves.WeaponType.WAND, EntityMoves.WeaponType.STAFF),
+            false); // don't forget about this semicolon '-'
+
     // variables for construction of the entity types
-    private enum CharacterType {HERO, ENEMY, PARTY}
+    public enum CharacterType {HERO, ENEMY, PARTY} // public so this enum can be accessed.
     private final String typeName;
     private final CharacterType characterType;
+    private final List<EntityMoves.AttackType> attackTypes;
+    private final List<EntityMoves.WeaponType> weaponTypes;
     private final boolean isHero;
     // CONSTRUCTOR
-    EntityType(String typeName, CharacterType type, boolean isHero) {
+    EntityType(String typeName,
+               CharacterType type,
+               List<EntityMoves.AttackType> attackTypes,
+               List<EntityMoves.WeaponType> weaponTypes,
+               boolean isHero)
+    {
         this.typeName = typeName;
         this.characterType = type;
+        this.attackTypes = attackTypes;
+        this.weaponTypes = weaponTypes;
         this.isHero = isHero;
     }
     // ACCESSORS
     public String getHeroType() { return typeName; }
     public CharacterType getCharacterType() {return characterType; }
+    public List<EntityMoves.AttackType> getAttackTypes() { return attackTypes; }
     public boolean isHero() { return isHero; }
     // METHODS
     /**
