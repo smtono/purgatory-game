@@ -65,6 +65,8 @@ public class Entity {
         this.strength = strength;
         this.magic = magic;
         this.attackTypes = attackTypes;
+        this.weaponTypes = weaponTypes;
+        this.moveSet = moveSet;
         this.level = level;
         // TODO fix for hero
         this.name = Reference.NAMES[new Random().nextInt(Reference.NAMES.length)];

@@ -37,6 +37,8 @@ public enum EntityMoves {
     SLICE("Slice", 27, 0, 0.55, false, MoveType.ATTACK, EntityWeapons.AttackType.SLASH, EntityWeapons.SWORD, 2),
     RIPOSTE("Riposte", 35, 10, 0.6, true, MoveType.ATTACK, EntityWeapons.AttackType.SLASH, EntityWeapons.SWORD, 5),
     // UPGRADE great sword
+    // bow
+
     // club
     BLUDGEON("Bludgeon", 30, 0, 0.4, false, MoveType.ATTACK, EntityWeapons.AttackType.BLUNT, EntityWeapons.CLUB, 1),
     CLOBBER("Clobber", 35, 0, 0.4, false, MoveType.ATTACK, EntityWeapons.AttackType.BLUNT, EntityWeapons.CLUB, 1),
