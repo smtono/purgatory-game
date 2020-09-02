@@ -2,6 +2,7 @@ package purgatory.entity;
 
 import purgatory.Reference;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -23,12 +24,12 @@ import java.util.Random;
 public class Entity {
     //	for specification
     private EntityType entityType;
-    private List<EntityWeapons.AttackType> attackTypes;
-    private List<EntityWeapons> weaponTypes;
-    private List<EntityMoves> moveSet;
+    private List<AttackType> attackTypes;
+    private List<Weapon> weaponTypes;
+    private List<Move> moveSet;
     // for battle
     private final String name;
-    private final int maxHealth;
+    private final int MAX_HEALTH;
     private int mana;
     private int speed;
     private double accuracy;
@@ -38,34 +39,48 @@ public class Entity {
     //	CONSTRUCTORS
     // The default constructor is tailored for a level 1 hero.
     public Entity(EntityType entityType) {
-            this(entityType, 100, 20, 10, 0.6, 0, 0, 0, null, null, null, 1);
-            this.attackTypes = entityType.getAttackTypes();
+            this(entityType, 100, 20, 10, 0.6, 0, 0, 0, null, 1);
+       // define base move set
+        switch (entityType) {
+            // HEROES
+            case WARRIOR:
+                moveSet = Arrays.asList(Move.SLASH, Move.LUNGE, Move.BLUDGEON);
+                break;
+            case MAGE:
+                moveSet = Arrays.asList(Move.FROSTBITE, Move.GUST, Move.FIRESTORM);
+                break;
+            case ARCHER:
+                moveSet = Arrays.asList(Move.AIM, Move.FIRE, Move.ARROWSTORM);
+                break;
+            case CLERIC:
+                moveSet = Arrays.asList(Move.LUX, Move.LUMINESCENCE, Move.MEND);
+                break;
+            case SCHOLAR:
+                moveSet = Arrays.asList(Move.ANGEL, Move.LEVIATHAN, Move.ABADDON);
+                break;
+        }
     }
     // parametrized
     // TODO: use a switch case to specify each entity type's starting stats
     public Entity(EntityType entityType,
-                  int maxHealth,
+                  int MAX_HEALTH,
                   int mana,
                   int speed,
                   double accuracy,
                   int xp,
                   int strength,
                   int magic,
-                  List<EntityWeapons.AttackType> attackTypes,
-                  List<EntityWeapons> weaponTypes,
-                  List<EntityMoves> moveSet,
+                  List<Move> moveSet,
                   int level)
     {
         this.entityType = entityType;
-        this.maxHealth = maxHealth;
+        this.MAX_HEALTH = MAX_HEALTH;
         this.mana = mana;
         this.speed = speed;
         this.accuracy = accuracy;
         this.xp = xp;
         this.strength = strength;
         this.magic = magic;
-        this.attackTypes = attackTypes;
-        this.weaponTypes = weaponTypes;
         this.moveSet = moveSet;
         this.level = level;
         // TODO fix for hero
@@ -75,7 +90,7 @@ public class Entity {
     public EntityType getEntityType() { return entityType; }
     public void setEntityType(EntityType entityType) { this.entityType = entityType; }
 
-    public int getMaxHealth() { return maxHealth; }
+    public int getMaxHealth() { return MAX_HEALTH; }
 
     public int getMana() { return mana; }
     public void setMana(int mana) { this.mana = mana; }
@@ -95,29 +110,23 @@ public class Entity {
     public int getMagic() { return magic; }
     public void setMagic(int magic) { this.magic = magic; }
 
-    public List<EntityWeapons.AttackType> getAttackTypes() { return attackTypes; }
-    public void setAttackTypes(List<EntityWeapons.AttackType> attackTypes) { this.attackTypes = attackTypes; }
-
-    public List<EntityWeapons> getWeaponTypes() { return weaponTypes; }
-    public void setWeaponTypes(List<EntityWeapons> weaponTypes) { this.weaponTypes = weaponTypes; }
-
-    public List<EntityMoves> getMoveSet() { return moveSet; }
-    public void setMoveSet(List<EntityMoves> moveSet) { this.moveSet = moveSet; }
+    public List<Move> getMoveSet() { return moveSet; }
+    public void setMoveSet(List<Move> moveSet) { this.moveSet = moveSet; }
 
     public int getLevel() { return level; }
     public void setLevel(int level) { this.level = level; }
 
-    public String getEnemyInfo() {
+    public String getInfo() {
        return name + "\n" +
                entityType.toString() +
-               "\nHealth: " + maxHealth +
+               "\nHealth: " + MAX_HEALTH +
                 "\nLevel " + level;
     }
     @Override
     public String toString() {
         return "Entity{" +
                 "entityType=" + entityType +
-                ", maxHealth=" + maxHealth +
+                ", maxHealth=" + MAX_HEALTH +
                 ", mana=" + mana +
                 ", speed=" + speed +
                 ", strength=" + strength +
