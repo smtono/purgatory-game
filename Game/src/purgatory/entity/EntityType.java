@@ -16,54 +16,54 @@ public enum EntityType {
     // heroes
     WARRIOR("Warrior",
             CharacterType.HERO,
-            Arrays.asList(EntityWeapons.AttackType.SLASH, EntityWeapons.AttackType.BLUNT),
-            Arrays.asList(EntityWeapons.SWORD, EntityWeapons.CLUB),
+            Arrays.asList(AttackType.SLASH, AttackType.BLUNT),
+            Arrays.asList(Weapon.SWORD, Weapon.CLUB),
             true),
     ARCHER("Archer",
             CharacterType.HERO,
-            null,
-            Arrays.asList(EntityWeapons.BOW),
+            Arrays.asList(AttackType.SHOOT),
+            Arrays.asList(Weapon.BOW),
             true),
     MAGE("Mage",
             CharacterType.HERO,
-            Arrays.asList(EntityWeapons.AttackType.ELEMENTAL, EntityWeapons.AttackType.DARK, EntityWeapons.AttackType.HOLY),
-            Arrays.asList(EntityWeapons.WAND, EntityWeapons.STAFF),
+            Arrays.asList(AttackType.ELEMENTAL, AttackType.DARK, AttackType.HOLY),
+            Arrays.asList(Weapon.WAND, Weapon.STAFF),
             true),
     CLERIC("Cleric",
             CharacterType.HERO,
-            Arrays.asList(EntityWeapons.AttackType.HOLY),
-            Arrays.asList(EntityWeapons.STAFF),
+            Arrays.asList(AttackType.HOLY),
+            Arrays.asList(Weapon.STAFF),
             true),
     SCHOLAR("Scholar",
             CharacterType.HERO,
-            Arrays.asList(EntityWeapons.AttackType.DARK, EntityWeapons.AttackType.HOLY),
-            Arrays.asList(EntityWeapons.TOME),
+            Arrays.asList(AttackType.DARK, AttackType.HOLY),
+            Arrays.asList(Weapon.TOME),
             true),
 
     // enemies
     SOLDIER("Soldier",
             CharacterType.ENEMY,
-            Arrays.asList(EntityWeapons.AttackType.SLASH, EntityWeapons.AttackType.BLUNT),
-            Arrays.asList(EntityWeapons.SWORD, EntityWeapons.CLUB),
+            Arrays.asList(AttackType.SLASH, AttackType.BLUNT),
+            Arrays.asList(Weapon.SWORD, Weapon.CLUB),
             false),
     MAGICIAN("Magician",
             CharacterType.ENEMY,
-            Arrays.asList(EntityWeapons.AttackType.ELEMENTAL),
-            Arrays.asList(EntityWeapons.WAND, EntityWeapons.STAFF),
+            Arrays.asList(AttackType.ELEMENTAL),
+            Arrays.asList(Weapon.WAND, Weapon.STAFF),
             false); // don't forget about this semicolon '-'
 
     // variables for construction of the entity types
     public enum CharacterType {HERO, ENEMY, PARTY} // public so this enum can be accessed.
     private final String typeName;
     private final CharacterType characterType;
-    private final List<EntityWeapons.AttackType> attackTypes;
-    private final List<EntityWeapons> weaponTypes;
+    private final List<AttackType> attackTypes;
+    private final List<Weapon> weaponTypes;
     private final boolean isHero;
     // CONSTRUCTOR
     EntityType(String typeName,
                CharacterType type,
-               List<EntityWeapons.AttackType> attackTypes,
-               List<EntityWeapons> weaponTypes,
+               List<AttackType> attackTypes,
+               List<Weapon> weaponTypes,
                boolean isHero)
     {
         this.typeName = typeName;
@@ -75,8 +75,8 @@ public enum EntityType {
     // ACCESSORS
     public String getHeroType() { return typeName; }
     public CharacterType getCharacterType() {return characterType; }
-    public List<EntityWeapons.AttackType> getAttackTypes() { return attackTypes; }
-    public List<EntityWeapons> getWeaponTypes() { return weaponTypes; }
+    public List<AttackType> getAttackTypes() { return attackTypes; }
+    public List<Weapon> getWeaponTypes() { return weaponTypes; }
     public boolean isHero() { return isHero; }
     // METHODS
     /**
