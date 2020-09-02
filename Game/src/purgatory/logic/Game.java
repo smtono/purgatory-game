@@ -1,10 +1,7 @@
 package purgatory.logic;
 import purgatory.entity.Entity;
-import purgatory.entity.EntityMoves;
 import purgatory.entity.EntityType;
-import purgatory.util.EntityUtil;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 /*

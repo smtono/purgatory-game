@@ -3,7 +3,6 @@ import javax.swing.JOptionPane;
 
 import purgatory.entity.Entity;
 import purgatory.gui.BattleGUI;
-import purgatory.logic.GameLogic;
 import purgatory.util.EntityUtil;
 
 import java.util.Collections;
@@ -52,7 +51,15 @@ public class BattleLogic {
 		Collections.sort(fighters, Comparator.comparingInt(Entity::getSpeed));
 		Collections.reverse(fighters);
 	}
+	/**
+	 * determineAdvantage
+	 * Compare the weapon types of each entity in the battle, rank the weapons over who has advantage over another.
+	 * Give an advantage (WEAK!)
+	 */
+	public void determineAdvantage() {
+		// method variables
 
+	}
 
 	/**
 	 * damageEnemy int
@@ -83,28 +90,6 @@ public class BattleLogic {
 	}
 	//	SEQUENCES
 	/**
-	 * battleSequence 
-	 * Call startBattle() if turn iteration is 0,
-	 * determine enemy level,
-	 * determine order,
-	 * recursively call turnSequence.
-	 * TODO: redo
-	 */
-	/*
-		public void battleSequence() {
-		// method variables
-		int enemyLevel;
-		Type order;
-		if (turnIteration == 0) {
-			startBattle();
-			enemyLevel = enemy.determineEnemyLevel();
-			order = determineOrder();
-			battleText.append("\n" + order + "Will be going first!\n");
-		}
-	}
-	*/
-
-	/**
 	 * startBattle 
 	 * This will prepare the GUI for the hero, giving them important information about the enemy they just encountered.
 	 * will tell the user they encountered an enemy and then will bring up the turn based combat system.
@@ -113,7 +98,7 @@ public class BattleLogic {
 	public void startBattle() {
 		StringBuilder builder = new StringBuilder();
 		EntityUtil.getEnemiesFromSet(fighters).iterator().forEachRemaining(entity -> {
-			builder.append(entity.getEnemyInfo());
+			builder.append(entity.getInfo());
 			builder.append("\n\n");
 		});
 		gui.appendBattleText("A team of wild monsters appeared!\n");
@@ -165,16 +150,12 @@ public class BattleLogic {
 	 * dieSequence int
 	 * prints out a death script, takes current death count and adds it need to keep up with that variable.
 	 * returns amount of time hero has died
-	 * 
-	 * @return amount of times hero has died
 	 */
-	public int dieSequence(int currentDeath) {
-		currentDeath++;
+	public void dieSequence() {
 		JOptionPane.showMessageDialog
 		(null, 
-				"\nHero! You have died.\nYou have died: " + currentDeath + " times.\n",
+				"\nHero! You have died.",
 				"You have died!", 
 				JOptionPane.INFORMATION_MESSAGE);
-		return currentDeath;
 	}
 }
