@@ -1,6 +1,8 @@
 package purgatory.gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.*;
 
 /*
@@ -38,10 +40,10 @@ public class BattleGUI {
     private final JList<String> menuSet = new JList<>(menu); // displays menu choices
     private final JList<String> moveSet = new JList<>(moves); // displays moves in a list
     // JLabels
-    private final JLabel enemyName = new JLabel("Enemy"); // displays the enemy's name.
+    private final JLabel enemyName = new JLabel("You have entered a battle!"); // header
     private final JLabel heroName = new JLabel("Hero"); // displays hero's name
     // JSplitPanes, used to store components together in one spot on the GUI
-    private final JSplitPane eastSide = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, statsText, menuSet); // to split up the components on the east side of the GUI
+    private final JSplitPane eastSide = new JSplitPane(JSplitPane.VERTICAL_SPLIT, statsText, menuSet); // to split up the components on the east side of the GUI
     private final JSplitPane southSide = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, heroName, moveSet); // to split up the components on the south side of the GUI
     // CONSTRUCTOR
     public BattleGUI() {

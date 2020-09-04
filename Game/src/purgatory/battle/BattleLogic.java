@@ -4,7 +4,10 @@ import javax.swing.JOptionPane;
 import purgatory.entity.Entity;
 import purgatory.gui.BattleGUI;
 import purgatory.entity.EntityUtil;
+import purgatory.main.Game;
+import purgatory.main.GameLogic;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -13,14 +16,6 @@ import java.util.List;
  * 
  * Purpose: This file implements all the battle mechanics and logic, using Entity and EntityType.
  * BattleLogic constructor will be called to initiate a battle.
- *
- * TODO: find a way to compare strings against the enum types in Entity Moves (you can probably do this by using Collections or Comparator)
- *  use iterator on hero move
- * forEachRemaining (move -> {
- * 	compare (string of move selected in GUI) against each string for each enum
- * 	if they are ==, then use that enum,
- *  may have to find a way to efficiently sort through all the moves, because i do plan on having lots of moves.
- * }
  */
 
 public class BattleLogic {
@@ -28,10 +23,20 @@ public class BattleLogic {
 	private List<Entity> fighters;
 	private final BattleGUI gui = new BattleGUI();
 	// CONSTRUCTOR
+	// TODO: fix a tutorial so that this battle sequence won't be repetitive, i.e deletion of startBattle() (or tweak)
 	public BattleLogic(List<Entity> fighters) {
+		// variables
+		List<String> moves = new ArrayList<>();
+		// setting up moves for hero
+		Game.hero.getMoveSet().forEach(move -> {
+			String moveName = move.getName();
+			moves.add(moveName);
+		});
 		this.fighters = fighters;
-		determineOrder(fighters);
+		gui.setMoves(moves.toArray(value -> new String[value]));
+
 		startBattle();
+		determineOrder(fighters);
 	}
 	//	CALCULATIONS
 	/**                   
@@ -50,6 +55,15 @@ public class BattleLogic {
 		 */
 		Collections.sort(fighters, Comparator.comparingInt(Entity::getSpeed));
 		Collections.reverse(fighters);
+
+		// printing out the order
+		StringBuilder builder = new StringBuilder();
+		builder.append("The order of battle is: \n");
+		fighters.forEach(fighter -> {
+			builder.append(fighter.getName());
+			builder.append(" \n");
+		});
+		gui.appendBattleText(builder.toString());
 	}
 	/**
 	 * damageEnemy int
@@ -91,10 +105,10 @@ public class BattleLogic {
 			builder.append(entity.getInfo());
 			builder.append("\n\n");
 		});
-		gui.appendBattleText("A team of wild monsters appeared!\n");
+		gui.appendBattleText("A team of wild monsters appeared!\n\n");
 		gui.appendStatsText(builder.toString());
 		// prompts hero that they have encountered and enemy, and gives a brief tutorial on how to play.
-		JOptionPane.showMessageDialog(null, "You have just enter a battle!\n"
+		JOptionPane.showMessageDialog(null, "You have just entered a battle!\n"
 				+ "Read your enemy's stats, and choose the move that would best counter it!\n"
 				+ "Different enemies have different weaknesses!", "Enemy Appeared!", JOptionPane.INFORMATION_MESSAGE);
 	}

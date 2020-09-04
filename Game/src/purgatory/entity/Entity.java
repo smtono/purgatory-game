@@ -83,10 +83,12 @@ public class Entity {
         this.magic = magic;
         this.moveSet = moveSet;
         this.level = level;
-        // TODO fix for hero
         this.name = Reference.NAMES[new Random().nextInt(Reference.NAMES.length)];
     }
     //  ACCESSORS / MUTATORS
+
+    public String getName() { return name; }
+
     public EntityType getEntityType() { return entityType; }
     public void setEntityType(EntityType entityType) { this.entityType = entityType; }
 
