@@ -1,6 +1,11 @@
 package purgatory.main;
+import purgatory.battle.BattleLogic;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
+import purgatory.gui.BattleGUI;
+
+import java.util.ArrayList;
+import java.util.List;
 /*
  * Author: Shannon Thornton
  * 
@@ -37,9 +42,14 @@ public class Game {
 	 * read up on serializable
 	 * find a way to be able to save this game
 	 */
+	public static Entity hero = new Entity(EntityType.SCHOLAR);
 	public static void main(String[] args) {
 
-		Entity hero = new Entity(EntityType.WARRIOR);
-		System.out.println(hero);
+		List<Entity> enemies = new ArrayList<Entity>();
+		enemies.add(new Entity(EntityType.MOON));
+		enemies.add(new Entity(EntityType.MOON));
+		enemies.add(new Entity(EntityType.MOON));
+		enemies.add(new Entity(EntityType.WARRIOR));
+		new BattleLogic(enemies);
 	}
 }
