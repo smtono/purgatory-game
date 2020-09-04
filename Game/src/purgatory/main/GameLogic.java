@@ -1,6 +1,7 @@
-package purgatory.logic;
+package purgatory.main;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
+import purgatory.entity.EntityUtil;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -57,7 +58,7 @@ public class GameLogic {
 	//TODO: Fix with new Moves enum
 	public Entity generateEnemy() {
 		// adding enemies to a list
-		List<EntityType> enemies = EntityType.getEnemies();
+		List<EntityType> enemies = EntityUtil.getEnemies();
 		// method variables
 		int heroCurrentLevel = hero.getLevel();
 		EntityType enemyType = enemies.get(ThreadLocalRandom.current().nextInt(enemies.size()));
@@ -71,7 +72,7 @@ public class GameLogic {
 		// return enemy;
 
 		// place holder enemy
-		Entity enemy = new Entity(EntityType.SOLDIER);
+		Entity enemy = new Entity(EntityType.GUARDIAN);
 		return enemy;
 	}
 	/******************************************************/

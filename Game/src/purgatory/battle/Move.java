@@ -1,4 +1,7 @@
-package purgatory.entity;
+package purgatory.battle;
+
+import purgatory.battle.AttackType;
+import purgatory.entity.Entity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -140,7 +143,8 @@ public enum Move {
                 the element we are referring to after the '->'
                 In this case, it is the current move we are on.
              */
-            if (!(entity.getEntityType().getAttackTypes().stream().anyMatch(heroMoves -> heroMoves.equals(move.getAttackType())))) {
+            // TODO: check to see if this actually works lol
+            if (!(entity.getEntityType().getWeaponTypes().stream().anyMatch(heroWeapon -> heroWeapon.getAttackTypes().equals(move.getAttackType())))) {
                 moves.remove(move);
             }
         }

@@ -1,9 +1,6 @@
-package purgatory.logic;
+package purgatory.main;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
-
-import java.util.Arrays;
-import java.util.List;
 /*
  * Author: Shannon Thornton
  * 
@@ -41,21 +38,8 @@ public class Game {
 	 * find a way to be able to save this game
 	 */
 	public static void main(String[] args) {
-		/*
-		 * TODO:
-		 * Prompt user for hero type (Test)
-		 * Enter battle (Test)
-		 */
-		// for reference:
-		/* Entity hero = new Entity(EntityType.WARRIOR);
-		boolean isHero = hero.getEntityType().isHero();
-		System.out.println(isHero);
-		 */
-		/*Entity hero = new Entity(EntityType.WARRIOR);
-		List<EntityMoves> heroMoves = EntityUtil.getAccessibleMoves(hero);
-		System.out.println(heroMoves);
-		 */
-		List<Entity> fighters = Arrays.asList(new Entity(EntityType.SOLDIER), new Entity(EntityType.SOLDIER), new Entity(EntityType.MAGICIAN));
-		new BattleLogic(fighters);
+
+		Entity hero = new Entity(EntityType.WARRIOR);
+		System.out.println(hero);
 	}
 }

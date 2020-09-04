@@ -1,4 +1,4 @@
-package purgatory.entity;
+package purgatory.battle;
 
 /*
     Author: Shannon Thornton
@@ -25,7 +25,20 @@ public enum Weapon {
     CLUB("Club", "A heavy stick with a thick end", Arrays.asList(AttackType.BLUNT)),
     WAND("Wand", "A stick or rod thought to have magic properties", Arrays.asList(AttackType.ELEMENTAL, AttackType.HOLY, AttackType.DARK)),
     TOME("Tome", "A book filled with mystery", Arrays.asList(AttackType.HOLY, AttackType.DARK)),
-    STAFF("Staff", "A strong wooden stick", Arrays.asList(AttackType.HOLY));
+    STAFF("Staff", "A strong wooden stick", Arrays.asList(AttackType.HOLY)),
+
+    // BOSS WEAPONS
+    /*
+    GLUTTONY,
+        SLOTH,
+        AVARICE,
+        PRIDE,
+        ENVY,
+        LUST,
+        WRATH;
+     */
+    TRIDENT("Trident", "Looks like a big fork!", Arrays.asList(AttackType.HOLY, AttackType.PIERCE));
+    // TODO: add the rest of the boss weapons
 
     // variables for construction
     private String name;

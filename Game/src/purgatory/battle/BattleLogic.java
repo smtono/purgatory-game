@@ -1,9 +1,9 @@
-package purgatory.logic;
+package purgatory.battle;
 import javax.swing.JOptionPane;
 
 import purgatory.entity.Entity;
 import purgatory.gui.BattleGUI;
-import purgatory.util.EntityUtil;
+import purgatory.entity.EntityUtil;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -51,16 +51,6 @@ public class BattleLogic {
 		Collections.sort(fighters, Comparator.comparingInt(Entity::getSpeed));
 		Collections.reverse(fighters);
 	}
-	/**
-	 * determineAdvantage
-	 * Compare the weapon types of each entity in the battle, rank the weapons over who has advantage over another.
-	 * Give an advantage (WEAK!)
-	 */
-	public void determineAdvantage() {
-		// method variables
-
-	}
-
 	/**
 	 * damageEnemy int
 	 * This method will represent the hero's turn.

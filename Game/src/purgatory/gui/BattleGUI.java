@@ -1,8 +1,5 @@
 package purgatory.gui;
 
-import purgatory.entity.Entity;
-import purgatory.logic.GameLogic;
-
 import java.awt.BorderLayout;
 import javax.swing.*;
 

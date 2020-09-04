@@ -5,6 +5,7 @@ import purgatory.Reference;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import purgatory.battle.*;
 
 /*
     Author: Shannon Thornton
@@ -24,8 +25,6 @@ import java.util.Random;
 public class Entity {
     //	for specification
     private EntityType entityType;
-    private List<AttackType> attackTypes;
-    private List<Weapon> weaponTypes;
     private List<Move> moveSet;
     // for battle
     private final String name;
@@ -43,6 +42,7 @@ public class Entity {
        // define base move set
         switch (entityType) {
             // HEROES
+            // These are for a LEVEL 1 hero! This will change as the hero levels up.
             case WARRIOR:
                 moveSet = Arrays.asList(Move.SLASH, Move.LUNGE, Move.BLUDGEON);
                 break;
