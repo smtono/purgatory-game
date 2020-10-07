@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import purgatory.battle.*;
+import purgatory.util.EntityUtil;
+import purgatory.util.MoveUtil;
 
 /*
     Author: Shannon Thornton
@@ -38,31 +40,21 @@ public class Entity {
     //	CONSTRUCTORS
     // The default constructor is tailored for a level 1 hero.
     public Entity(EntityType entityType) {
-            this(entityType, 100, 20, 10, 0.6, 0, 0, 0, null, 1);
+            this("", entityType, 100, 20, 10, 0.6, 0, 0, 0, null, 1);
        // define base move set
-        switch (entityType) {
-            // HEROES
-            // These are for a LEVEL 1 hero! This will change as the hero levels up.
-            case WARRIOR:
-                moveSet = Arrays.asList(Move.SLASH, Move.LUNGE, Move.BLUDGEON);
-                break;
-            case MAGE:
-                moveSet = Arrays.asList(Move.FROSTBITE, Move.GUST, Move.FIRESTORM);
-                break;
-            case ARCHER:
-                moveSet = Arrays.asList(Move.AIM, Move.FIRE, Move.ARROWSTORM);
-                break;
-            case CLERIC:
-                moveSet = Arrays.asList(Move.LUX, Move.LUMINESCENCE, Move.MEND);
-                break;
-            case SCHOLAR:
-                moveSet = Arrays.asList(Move.ANGEL, Move.LEVIATHAN, Move.ABADDON);
-                break;
-        }
+        moveSet = MoveUtil.getHeroMoveSet(entityType);
     }
-    // parametrized
+    public Entity(String name, EntityType entityType) {
+        this(name, entityType, 100, 20, 10, 0.6, 0, 0, 0, null, 1);
+        // TODO: fix so it is not repeat code
+        // define base move set
+        moveSet = MoveUtil.getHeroMoveSet(entityType);
+
+    }
+    // fully parametrized
     // TODO: use a switch case to specify each entity type's starting stats
-    public Entity(EntityType entityType,
+    public Entity(String name,
+                  EntityType entityType,
                   int MAX_HEALTH,
                   int mana,
                   int speed,
@@ -73,6 +65,7 @@ public class Entity {
                   List<Move> moveSet,
                   int level)
     {
+        this.name = name;
         this.entityType = entityType;
         this.MAX_HEALTH = MAX_HEALTH;
         this.mana = mana;
@@ -83,10 +76,9 @@ public class Entity {
         this.magic = magic;
         this.moveSet = moveSet;
         this.level = level;
-        this.name = Reference.NAMES[new Random().nextInt(Reference.NAMES.length)];
     }
-    //  ACCESSORS / MUTATORS
 
+    //  ACCESSORS / MUTATORS
     public String getName() { return name; }
 
     public EntityType getEntityType() { return entityType; }
@@ -119,9 +111,9 @@ public class Entity {
     public void setLevel(int level) { this.level = level; }
 
     public String getInfo() {
-       return name + "\n" +
-               entityType.toString() +
-               "\nHealth: " + MAX_HEALTH +
+        return name + "\n" +
+                entityType.toString() +
+                "\nHealth: " + MAX_HEALTH +
                 "\nLevel " + level;
     }
     @Override

@@ -111,46 +111,7 @@ public enum Move {
     public double getAccuracy() { return accuracy; }
     public AttackType getAttackType() { return attackType; }
     public int getLevelOfAccess() { return levelOfAccess; }
-
-    // METHODS
-    /*
-       getAllMoves List
-       Returns every possible move that exists.
-
-       @return list of every move that exists
-    */
-    public static List<Move> getAllMoves() {
-        List<Move> allMoves = new ArrayList();
-        Collections.addAll(allMoves, Move.values());
-        return allMoves;
-    }
-    /*
-       getAccessibleMoves List
-       gives a list of possible moves available to the hero based on their level
-
-       @return a list of possible moves available to the hero based on level
-   */
-    public static List<Move> getAccessibleMoves(Entity entity) {
-        List<Move> moves = new ArrayList<>();
-        for (Move move : Move.values()) {
-            if (move.getLevelOfAccess() <= entity.getLevel()) {
-                moves.add(move);
-            }
-            /*
-                Explaining the following code down below
-                we get the list of attack types the entity type can use and store it in a stream, which will allow us
-                to use the anyMatch method, which basically uses a lambda to see if the elements in the list match with
-                the element we are referring to after the '->'
-                In this case, it is the current move we are on.
-             */
-            // TODO: check to see if this actually works lol
-            if (!(entity.getEntityType().getWeaponTypes().stream().anyMatch(heroWeapon -> heroWeapon.getAttackTypes().equals(move.getAttackType())))) {
-                moves.remove(move);
-            }
-        }
-        return moves;
-    }
-
+    
     @Override
     public String toString() {
         return "HeroMoves{" +
