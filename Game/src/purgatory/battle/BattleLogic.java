@@ -3,8 +3,7 @@ import javax.swing.JOptionPane;
 
 import purgatory.entity.Entity;
 import purgatory.gui.BattleGUI;
-import purgatory.entity.EntityUtil;
-import purgatory.main.Game;
+import purgatory.util.EntityUtil;
 import purgatory.main.GameLogic;
 
 import java.util.ArrayList;
@@ -20,21 +19,22 @@ import java.util.List;
 
 public class BattleLogic {
 	//	CLASS VARIABLES
-	private List<Entity> fighters;
+	private final List<Entity> fighters;
 	private final BattleGUI gui = new BattleGUI();
 	// CONSTRUCTOR
 	// TODO: fix a tutorial so that this battle sequence won't be repetitive, i.e deletion of startBattle() (or tweak)
 	public BattleLogic(List<Entity> fighters) {
 		// variables
+		Entity hero = GameLogic.getHero();
 		List<String> moves = new ArrayList<>();
 		// setting up moves for hero
-		Game.hero.getMoveSet().forEach(move -> {
+		hero.getMoveSet().forEach(move -> {
 			String moveName = move.getName();
 			moves.add(moveName);
 		});
 		this.fighters = fighters;
-		gui.setMoves(moves.toArray(value -> new String[value]));
-
+		gui.setMoves(moves.toArray(String[]::new));
+		// starting the battle
 		startBattle();
 		determineOrder(fighters);
 	}
@@ -50,7 +50,7 @@ public class BattleLogic {
 			Collections has a sort function, which can take two parameters. What is being sorted, and how to sort them.
 			So the first parameter is everyone fighting in the battle (fighters)
 			The second parameter is using Comparator, which will compare each fighter using the getSpeed method in the Entity class
-			Hence why the syntax is Entity::getSpeed (:: means reference)
+			Hence why the syntax is Entity::getSpeed (:: qualifies the name to a given scope)
 			It pushes the order of fighters from least speed to most, so we have to reverse the order after everything is pushed.
 		 */
 		Collections.sort(fighters, Comparator.comparingInt(Entity::getSpeed));

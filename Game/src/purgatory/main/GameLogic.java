@@ -1,9 +1,12 @@
 package purgatory.main;
+import purgatory.Reference;
+import purgatory.battle.Move;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
-import purgatory.entity.EntityUtil;
+import purgatory.util.EntityUtil;
+import purgatory.util.MoveUtil;
 
-import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /*
@@ -17,31 +20,19 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 @SuppressWarnings("DanglingJavadoc")
 public class GameLogic {
-	//	CLASS VARIABLES
-	public static Entity hero = new Entity(EntityType.MAGE);
+	public static Entity hero;
+
 	// CONSTRUCTOR
 	public GameLogic() {
 
 	}
-	//	CLASS METHODS
-	// General
-	/**
-	 *  chooseHero 
-	 *  using JOptionPane we will store what type of hero the user wants to be.
-	 *  prompt the user of which hero type they would like to be
-	 *  possibly provide a description for each
-	 *  set the entity type of the generic hero to the type the user picks.
-	 */
-	public void chooseHero() {
-		EntityType userChoice = null;
-		/*TODO:
-			make a gui for choosing a hero (Make it a quiz?)
-			implement logic for gui
-			call that logic here
-		 */
 
-		hero.setEntityType(userChoice);
+	// ACCESSORS / MUTATORS
+	public static Entity getHero() { return hero; }
+	public static void setHero(String heroName, EntityType heroType) {
+		hero = new Entity(heroName, heroType);
 	}
+
 	// Battle
 	/**
 	 * generateEnemy
@@ -57,23 +48,29 @@ public class GameLogic {
 	 */
 	//TODO: Fix with new Moves enum
 	public Entity generateEnemy() {
-		// adding enemies to a list
-		List<EntityType> enemies = EntityUtil.getEnemies();
-		// method variables
-		int heroCurrentLevel = hero.getLevel();
-		EntityType enemyType = enemies.get(ThreadLocalRandom.current().nextInt(enemies.size()));
-		int enemyHealth = hero.getMaxHealth() * 2;
+		// setting random generator
+		Random gen = new Random();
+
+		// calculating enemy stats
+		String enemyName = Reference.NAMES_GENERIC[gen.nextInt(Reference.NAMES_GENERIC.length)]; // **********FIX*************
+		EntityType enemyType = EntityUtil.getEnemies().get(ThreadLocalRandom.current().nextInt(EntityUtil.getEnemies().size()));
+		int enemyCurrentHealth = hero.getMaxHealth() * 2;
+		final int ENEMY_MAX_HEALTH = hero.getMaxHealth() * 2;
 		int enemySpeed = ThreadLocalRandom.current().nextInt(1, 30 + 1);
 		double enemyAccuracy = ThreadLocalRandom.current().nextDouble(0.6, 1);
-		int enemyLevel = ThreadLocalRandom.current().nextInt(heroCurrentLevel, heroCurrentLevel + 3);
-		// private Entity enemy = new Entity(null, 200, 0, 10, 0.6, 0, 1); // generic enemy
-		//public Entity(EntityType entityType, int maxHealth, int mana, int speed, double accuracy, int xp, int strength, int magic, int level)
-		//Entity enemy = new Entity(enemyType, enemyHealth, 0, enemySpeed, enemyAccuracy, 0, enemyLevel);
-		// return enemy;
+		int enemyLevel = ThreadLocalRandom.current().nextInt(hero.getLevel(), hero.getLevel() + 3);
 
-		// place holder enemy
-		Entity enemy = new Entity(EntityType.GUARDIAN);
-		return enemy;
+		return new Entity(enemyName,
+						enemyType,
+						ENEMY_MAX_HEALTH,
+						0,
+						enemySpeed,
+						enemyAccuracy,
+						0,
+						0, // strength
+						0, //int magic,
+						MoveUtil.getEnemyMoveSet(enemyType, 1), // move set
+						enemyLevel);
 	}
 	/******************************************************/
 	/**

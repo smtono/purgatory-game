@@ -1,6 +1,6 @@
 package purgatory.gui;
 /*
-    Author: Shannon Thornton
+    Author:
 
     Purpose: To create a simple GUI for the user to make a character.
     Some stuff to keep in mind:

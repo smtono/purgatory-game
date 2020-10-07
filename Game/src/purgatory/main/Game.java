@@ -1,11 +1,13 @@
 package purgatory.main;
+import purgatory.Reference;
 import purgatory.battle.BattleLogic;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
-import purgatory.gui.BattleGUI;
+import purgatory.player.CharacterCreation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 /*
  * Author: Shannon Thornton
  * 
@@ -42,14 +44,12 @@ public class Game {
 	 * read up on serializable
 	 * find a way to be able to save this game
 	 */
-	public static Entity hero = new Entity(EntityType.SCHOLAR);
 	public static void main(String[] args) {
-
-		List<Entity> enemies = new ArrayList<Entity>();
-		enemies.add(new Entity(EntityType.MOON));
-		enemies.add(new Entity(EntityType.MOON));
-		enemies.add(new Entity(EntityType.MOON));
-		enemies.add(new Entity(EntityType.WARRIOR));
-		new BattleLogic(enemies);
+		List<Entity> fighters = new ArrayList<>();
+		Random gen = new Random();
+		new CharacterCreation();
+		fighters.add(GameLogic.getHero());
+		fighters.add(new Entity(Reference.NAMES_GENERIC[gen.nextInt(Reference.NAMES_GENERIC.length)],EntityType.MOON));
+		new BattleLogic(fighters);
 	}
 }

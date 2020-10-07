@@ -1,4 +1,4 @@
-package purgatory.entity;
+package purgatory.util;
 
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
@@ -52,43 +52,5 @@ public class EntityUtil {
                 enemies.add(entity);
         }
         return enemies;
-    }
-    /*
-        Returns a list of moves depending on the enemy type
-     */
-    public static List<Move> getEnemyMoveSet(EntityType enemy) {
-        List moves = new ArrayList();
-        switch(enemy) {
-            // normal enemies
-            case GUARDIAN:
-                moves = Arrays.asList();
-                break;
-            case MOON:
-                moves = Arrays.asList();
-                break;
-            // boss enemies
-            case GLUTTONY:
-                moves = Arrays.asList();
-                break;
-            case SLOTH:
-                moves = Arrays.asList();
-            break;
-            case AVARICE:
-                moves = Arrays.asList();
-                break;
-            case PRIDE:
-                moves = Arrays.asList();
-                break;
-            case ENVY:
-                moves = Arrays.asList();
-                break;
-            case LUST:
-                moves = Arrays.asList();
-                break;
-            case WRATH:
-                moves = Arrays.asList();
-                break;
-        }
-        return moves;
     }
 }
