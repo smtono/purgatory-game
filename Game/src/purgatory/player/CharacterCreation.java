@@ -1,5 +1,7 @@
 package purgatory.player;
 
+import purgatory.Reference;
+import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
 import purgatory.util.EntityUtil;
 import purgatory.main.GameLogic;
@@ -19,7 +21,7 @@ public class CharacterCreation {
     public CharacterCreation() {
         askName();
         chooseType();
-        GameLogic.setHero(name, heroType);
+        Reference.hero = new Entity(name, heroType);
     }
 
     /**

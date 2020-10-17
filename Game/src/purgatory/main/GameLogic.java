@@ -1,10 +1,10 @@
 package purgatory.main;
 import purgatory.Reference;
-import purgatory.battle.Move;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
 import purgatory.util.EntityUtil;
 import purgatory.util.MoveUtil;
+import purgatory.util.StatUtil;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -12,32 +12,17 @@ import java.util.concurrent.ThreadLocalRandom;
 /*
  * Author: Shannon Thornton
  * 
- * Purpose: This file implements all the game logic.
- * 
- * TODO:
- * Make this file the drive for the main method.
- * Call methods from here to the main method
+ * Purpose: To implement all the game logic / calculations needed to call everything in the main method from here.
  */
-@SuppressWarnings("DanglingJavadoc")
 public class GameLogic {
-	public static Entity hero;
 
-	// CONSTRUCTOR
 	public GameLogic() {
 
 	}
 
-	// ACCESSORS / MUTATORS
-	public static Entity getHero() { return hero; }
-	public static void setHero(String heroName, EntityType heroType) {
-		hero = new Entity(heroName, heroType);
-	}
-
 	// Battle
 	/**
-	 * generateEnemy
-	 * hero's level will change, so must be done outside of the battle GUI.
-	 * the enemy will be 3 levels above or below what the hero currently is.
+	 * Get a parametrized enemy based on hero stats
 	 *
 	 * formula to determine what each stat will be based on the hero's:
 	 * type: random
@@ -50,9 +35,11 @@ public class GameLogic {
 	public Entity generateEnemy() {
 		// setting random generator
 		Random gen = new Random();
+		// hero
+		Entity hero = Reference.hero;
 
 		// calculating enemy stats
-		String enemyName = Reference.NAMES_GENERIC[gen.nextInt(Reference.NAMES_GENERIC.length)]; // **********FIX*************
+		String enemyName = StatUtil.generateRandomName();
 		EntityType enemyType = EntityUtil.getEnemies().get(ThreadLocalRandom.current().nextInt(EntityUtil.getEnemies().size()));
 		int enemyCurrentHealth = hero.getMaxHealth() * 2;
 		final int ENEMY_MAX_HEALTH = hero.getMaxHealth() * 2;
@@ -72,12 +59,8 @@ public class GameLogic {
 						MoveUtil.getEnemyMoveSet(enemyType, 1), // move set
 						enemyLevel);
 	}
-	/******************************************************/
-	/**
-	 * generateBattle
-	 * originally this was going to be done in BattleLogic, however it would make more sense to put the logic for it here.
-	 * This method will call the BattleGUI and implement logic needed for turn sequences
-	 */
+
+	/** Get a battle sequence that interacts with the BattleGUI and user input */
 	public void generateBattle() {
 
 	}

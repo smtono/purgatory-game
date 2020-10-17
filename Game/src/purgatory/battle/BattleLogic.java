@@ -13,7 +13,7 @@ import java.util.List;
 /*
  * Author: Shannon Thornton
  * 
- * Purpose: This file implements all the battle mechanics and logic, using Entity and EntityType.
+ * Purpose: To implement all the battle mechanics and logic, using Entity and EntityType.
  * BattleLogic constructor will be called to initiate a battle.
  */
 
@@ -25,7 +25,7 @@ public class BattleLogic {
 	// TODO: fix a tutorial so that this battle sequence won't be repetitive, i.e deletion of startBattle() (or tweak)
 	public BattleLogic(List<Entity> fighters) {
 		// variables
-		Entity hero = GameLogic.getHero();
+		Entity hero = GameLogic.hero;
 		List<String> moves = new ArrayList<>();
 		// setting up moves for hero
 		hero.getMoveSet().forEach(move -> {
