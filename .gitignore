@@ -36,3 +36,9 @@ tmp/
 local.properties
 .loadpath
 .factorypath
+
+# IntelliJ
+*.iml
+*.iws
+*.ipr
+.idea/
