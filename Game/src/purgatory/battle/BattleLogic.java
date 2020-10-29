@@ -1,18 +1,23 @@
 package purgatory.battle;
 import javax.swing.JOptionPane;
 
+import purgatory.Reference;
 import purgatory.entity.Entity;
-import purgatory.gui.BattleGUI;
+import purgatory.entity.EntityType;
+import purgatory.ui.BattleGUI;
 import purgatory.util.EntityUtil;
 import purgatory.main.GameLogic;
+import purgatory.util.MoveUtil;
+import purgatory.util.StatUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 /*
  * Author: Shannon Thornton
- * 
+ *
  * Purpose: To implement all the battle mechanics and logic, using Entity and EntityType.
  * BattleLogic constructor will be called to initiate a battle.
  */
@@ -25,7 +30,7 @@ public class BattleLogic {
 	// TODO: fix a tutorial so that this battle sequence won't be repetitive, i.e deletion of startBattle() (or tweak)
 	public BattleLogic(List<Entity> fighters) {
 		// variables
-		Entity hero = GameLogic.hero;
+		Entity hero = Reference.hero;
 		List<String> moves = new ArrayList<>();
 		// setting up moves for hero
 		hero.getMoveSet().forEach(move -> {
@@ -39,7 +44,7 @@ public class BattleLogic {
 		determineOrder(fighters);
 	}
 	//	CALCULATIONS
-	/**                   
+	/**
 	 * determineOrder
 	 * compare each fighter's (Entity) speed
 	 * sort the list
@@ -70,7 +75,7 @@ public class BattleLogic {
 	 * This method will represent the hero's turn.
 	 * This method will take in a string (the JList is made up of strings, so just pass the index of what the user chose in the list)
 	 * And based on the move, will return an int that will represent the damage inflicted on the enemy.
-	 * 
+	 *
 	 * @return int that will represent the damage inflicted on the enemy.
 	 */
 	public int damageEnemy(String heroMove) {
@@ -85,7 +90,7 @@ public class BattleLogic {
 	 * This method will represent the enemy's turn
 	 * This method will also take in a string like in damageEnemy, this will be taken from the Enemy class.
 	 * Based on the move, will return an int that will represent the amount of damage inflicted on the hero.
-	 * 
+	 *
 	 * @return int that will represent the amount of damage inflicted on the hero.
 	 */
 	public int damageHero() {
@@ -112,6 +117,48 @@ public class BattleLogic {
 				+ "Read your enemy's stats, and choose the move that would best counter it!\n"
 				+ "Different enemies have different weaknesses!", "Enemy Appeared!", JOptionPane.INFORMATION_MESSAGE);
 	}
+
+	/**
+	 * Get a parametrized enemy based on hero stats
+	 *
+	 * formula to determine what each stat will be based on the hero's:
+	 * type: random
+	 * hit points: x2
+	 * speed: random from 1 to 30
+	 * accuracy: random from .60 to 1.00
+	 * level: 3 above or below hero
+	 */
+	public Entity generateEnemy() {
+		// hero
+		Entity hero = Reference.hero;
+
+		// calculating enemy stats
+		String enemyName = StatUtil.generateRandomName();
+		EntityType enemyType = EntityUtil.getEnemies().get(ThreadLocalRandom.current().nextInt(EntityUtil.getEnemies().size()));
+		int enemyCurrentHealth = hero.getMaxHealth() * 2;
+		final int ENEMY_MAX_HEALTH = hero.getMaxHealth() * 2;
+		int enemySpeed = ThreadLocalRandom.current().nextInt(1, 30 + 1);
+		double enemyAccuracy = ThreadLocalRandom.current().nextDouble(0.6, 1);
+		int enemyLevel = ThreadLocalRandom.current().nextInt(hero.getLevel(), hero.getLevel() + 3);
+
+		return new Entity(enemyName,
+				enemyType,
+				ENEMY_MAX_HEALTH,
+				0,
+				enemySpeed,
+				enemyAccuracy,
+				0,
+				0, // strength
+				0, //int magic,
+				MoveUtil.getEnemyMoveSet(enemyType, 1), // move set
+				enemyLevel);
+	}
+
+	/** Get a battle sequence that interacts with the BattleGUI and user input */
+	public void generateBattle() {
+
+	}
+
 	/**
 	 * turnSequence int
 	 * This method will contain both the hero and enemy's turn
@@ -123,32 +170,6 @@ public class BattleLogic {
 	 *
 	 * @return An int which will be used to keep tack of iterations
 	 */
-	/*
-		public static int turnSequence(int iteration, int enemyLevel, Type whoFirst) {
-		// method variables
-		final int enemyFullHP = enemy.getHP();
-		final int heroFullHP = hero.getHP();
-
-		switch (whoFirst) {
-		case HERO: {
-			int heroDamage = damageEnemy(heroMoveSelected);
-			// enemy.setHP(enemy.getHP - heroDamage);
-			if (iteration == 0)
-				enemyHP = enemyFullHP - heroDamage;
-			else
-				enemyHP = enemyHP - heroDamage;
-			break;
-		}
-		case ENEMY: {
-			damageHero();
-		}
-		default :
-			JOptionPane.showMessageDialog(null, "Error! Could not determine whoFirst", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-		turnIteration++;  // use this value to determine how many turns it took the player to beat the enemy
-		return turnIteration;
-		}
-	 */
 
 	/**
 	 * dieSequence int
@@ -157,9 +178,9 @@ public class BattleLogic {
 	 */
 	public void dieSequence() {
 		JOptionPane.showMessageDialog
-		(null, 
-				"\nHero! You have died.",
-				"You have died!", 
-				JOptionPane.INFORMATION_MESSAGE);
+				(null,
+						"\nHero! You have died.",
+						"You have died!",
+						JOptionPane.INFORMATION_MESSAGE);
 	}
 }

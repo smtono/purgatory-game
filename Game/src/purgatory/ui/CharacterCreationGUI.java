@@ -1,4 +1,4 @@
-package purgatory.gui;
+package purgatory.ui;
 /*
     Author:
 

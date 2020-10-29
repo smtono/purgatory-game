@@ -1,8 +1,6 @@
-package purgatory.gui;
+package purgatory.ui;
 
 import java.awt.BorderLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.*;
 
 /*

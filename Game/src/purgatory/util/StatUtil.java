@@ -34,7 +34,7 @@ public class StatUtil {
      * level: 3 above or below hero
      * @return Returns a map of numbered stats based on the hero's level
      */
-    public static Map<String, Integer> generateStats() {
+    public static Map<String, Integer> generateEnemyStats() {
         Entity hero = Reference.hero;
         Map<String, Integer> stats = new HashMap<String, Integer>();
 
@@ -52,9 +52,9 @@ public class StatUtil {
         stats.put("health", MAX_HEALTH);
         stats.put("mana", mana);
         stats.put("speed", speed);
-        stats.put("accuracy", accuracy);
+        //stats.put("accuracy", accuracy);
         stats.put("xp", xp);
-        stats.put("strength" strength);
+        stats.put("strength", strength);
         stats.put("magic", magic);
         stats.put("level", level);
 
@@ -66,6 +66,6 @@ public class StatUtil {
      * @return Returns the type of the enemy
      */
     public static EntityType generateEnemyType() {
-
+        return EntityType.SCHOLAR;
     }
 }

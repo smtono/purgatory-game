@@ -38,7 +38,7 @@ public class Game {
 		List<Entity> fighters = new ArrayList<>();
 		Random gen = new Random();
 		new CharacterCreation();
-		fighters.add(GameLogic.hero);
+		fighters.add(Reference.hero);
 		fighters.add(new Entity(Reference.ENEMY_NAMES[gen.nextInt(Reference.ENEMY_NAMES.length)],EntityType.MOON));
 		new BattleLogic(fighters);
 	}
