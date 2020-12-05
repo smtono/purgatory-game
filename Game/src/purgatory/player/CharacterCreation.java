@@ -4,20 +4,27 @@ import purgatory.Reference;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
 import purgatory.util.EntityUtil;
-import purgatory.main.GameLogic;
 
 import javax.swing.*;
 
-/*
-    prompt for name
-    possibly make a quiz
-    otherwise, just let them pick what type of hero they want to be
+/**
+ * CharacterCreation allows the user to create the protagonist of the story with name and class.
+ *
+ * <p>A CharacterCreation object will prompt the user for their name, then their class type, and confirm each along the way.
+ *  These values will then be stored in the Reference.java file</p>
+ *
+ * @author Shannon Thornton
+ * @see Reference
  */
 public class CharacterCreation {
     // hero name
     String name = "";
     EntityType heroType = null;
 
+    /**
+     * Prompts name, then class type and stores into Reference.hero
+     * @see Reference
+     */
     public CharacterCreation() {
         askName();
         chooseType();
@@ -39,9 +46,7 @@ public class CharacterCreation {
         }
     }
 
-    /**
-     * Prompts user for the hero type they want to be
-     */
+    /** Prompts user for the hero type they want to be */
     public void chooseType() {
         EntityType[] heroTypes = EntityUtil.getHeroes().toArray(new EntityType[0]);
         int restart = 1;

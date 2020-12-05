@@ -6,7 +6,6 @@ import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
 import purgatory.ui.BattleGUI;
 import purgatory.util.EntityUtil;
-import purgatory.main.GameLogic;
 import purgatory.util.MoveUtil;
 import purgatory.util.StatUtil;
 
@@ -147,7 +146,6 @@ public class BattleLogic {
 				0,
 				enemySpeed,
 				enemyAccuracy,
-				0,
 				0, // strength
 				0, //int magic,
 				MoveUtil.getEnemyMoveSet(enemyType, 1), // move set

@@ -56,8 +56,6 @@ public class MoveUtil {
     public static List<Move> getHeroMoveSet(EntityType hero) {
         List<Move> moveSet = new ArrayList<>();
         switch (hero) {
-            // HEROES
-            // These are for a LEVEL 1 hero! This will change as the hero levels up.
             case WARRIOR:
                 moveSet = Arrays.asList(Move.SLASH, Move.LUNGE, Move.BLUDGEON);
                 break;

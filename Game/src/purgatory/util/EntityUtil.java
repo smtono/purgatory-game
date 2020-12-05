@@ -32,10 +32,11 @@ public class EntityUtil {
     }
 
     /**
-     getHeroes/Enemies
-     creates a list of every hero.
-     if the entity type returns true (or not) to isHero(), then it will be added to the list.
-     @return a list of all heroes/enemies
+     * getHeroes/Enemies
+     * creates a list of every hero.
+     * if the entity type returns true (or not) to isHero(), then it will be added to the list.
+     *
+     * @return a list of all heroes/enemies
      */
     public static List<EntityType> getHeroes() {
         List<EntityType> heroes = new ArrayList<>();

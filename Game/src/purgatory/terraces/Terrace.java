@@ -5,12 +5,15 @@ import purgatory.entity.EntityType;
 import java.util.Arrays;
 import java.util.List;
 
-/*
-    Author: Shannon Thornton
-
-   This will lay out the foundation of the "map" of the game. Purgatory is divided into seven terraces.
-   This is to represent the seven deadly sins.
-   Each terrace will have it's own enemy types and final boss.
+/**
+ * Terrace is a collection of levels in the game, each with different names, level of access, number of rooms,
+ * and enemy types seen.
+ *
+ *<p> This will lay out the foundation of the "map" of the game. Purgatory is divided into seven terraces.
+ *    This is to represent the seven deadly sins.
+ *    Each terrace will have it's own enemy types and final boss.</p>
+ *
+ * @author Shannon Thornton
  */
 public enum Terrace {
     // TODO: Fix variables for each

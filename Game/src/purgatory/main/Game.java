@@ -9,11 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 /**
- * Author: Shannon Thornton
- * 
- * Date Start: May 19, 2020
- * Date End Battle Sequence: 
- *
  * Premise:
  * I want to make a text RPG that showcases skills I’ve learned up until this point in my career as a CS student.
  *
@@ -26,13 +21,11 @@ import java.util.Random;
  * Goal (Updated):
  * Continue to work until January, if still not done, that's okay.
  * Just keep adding on, and hopefully be able to showcase this AT LATEST next year's fall career fair.
- * Showcase in the spring career fair.
  *
  * @author Shannon Thornton
  * @version 1.0
  * @since May 19, 2020
  */
-
 public class Game {
 	public static void main(String[] args) {
 		List<Entity> fighters = new ArrayList<>();

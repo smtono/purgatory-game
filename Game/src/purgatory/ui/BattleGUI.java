@@ -3,12 +3,14 @@ package purgatory.ui;
 import java.awt.BorderLayout;
 import javax.swing.*;
 
-/*
- * Author: Shannon Thornton
+/**
+ * BattleGUI launches a UI in which the player will engage in a battle with a number of enemies based on
+ * parameters such as terrace level, room number, enemy type, etc.
  *
- * Purpose: To construct the GUI for the battle sequence of the game.
  * This particular file will include all the components needed, and set them up correctly.
  * A separate file will deal with the implementation of methods.
+ *
+ * @author Shannon Thornton
  *
  * TODO: Figure out how to recursively use heroMoveSelected.
  *  Possibly by using a while loop and keeping track of the iteration...
@@ -16,7 +18,6 @@ import javax.swing.*;
  *  Clean up class variables so that appropriate variables go to their respective classes
  *  ***Find a way to push the strings of the hero's moves into the GUI.***
  */
-@SuppressWarnings("DanglingJavadoc")
 public class BattleGUI {
 
     //	VARIABLES

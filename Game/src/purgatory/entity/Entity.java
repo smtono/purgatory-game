@@ -2,64 +2,56 @@ package purgatory.entity;
 
 import purgatory.Reference;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import purgatory.battle.*;
-import purgatory.util.EntityUtil;
 import purgatory.util.MoveUtil;
 
-/*
-    Author: Shannon Thornton
-
-    Purpose: To simplify the "abstraction" I used earlier. Since heroes and enemies are so similar, it would be simpler
-    to store their data and similar methods into one file. Basically, more files =/= more complex.
-
-    health = the amount of hit points the character can take
-    mana = the amount of energy the character has to make moves
-    xp = the amount of experience a character receives to level up
-    accuracy = determines if the move chosen will hit or not
-    evasion = determines if a character will dodge an attack, and also determines the order of battle
-
-    A baseline hero will start out with 100 hit points, 20 mana points, 0 experience, and 60 accuracy.
-    A baseline enemy will start out with 200 hit points and 60 accuracy.
+/**
+ * Entity is used to create objects for characters such as the hero, part members, and enemies.
+ *
+ * Each Entity object will have a set of attributes called "stats" in game that correspond to different values:
+ * name = the given name to the character, party member, or enemy. enemies will have names coming from Reference.java
+ * @see Reference
+ * health = the amount of hit points the character can take
+ * mana = the amount of energy the character has to make moves
+ * speed = the value used to determine the entity's order in battle.
+ * accuracy = determines if the move chosen will hit or not
+ * strength = the value associated with non-magical weapons that allows for a boost in attack power
+ * magic = the value associated with magical weapons that allows for a boost in attack power
+ * defense = how much an entity will "shield" an attack, i.e. how much damage will be absorbed
+ * level = the level of play of the entity, this value will move up progressively as the game goes on.
+ *
+ * A baseline hero will start out with 100 hit points, 20 mana points, and 60 accuracy.
+ * A baseline enemy will start out with 200 hit points and 60 accuracy.
+ *
  */
 public class Entity {
-    //	for specification
     private EntityType entityType;
     private List<Move> moveSet;
-    // for battle
     private final String name;
     private final int MAX_HEALTH;
     private int mana;
     private int speed;
     private double accuracy;
     private int strength, magic;
-    private int xp, level;
+    private int level;
 
     //	CONSTRUCTORS
     // The default constructor is tailored for a level 1 hero.
-    public Entity(EntityType entityType) {
-            this("", entityType, 100, 20, 10, 0.6, 0, 0, 0, null, 1);
-       // define base move set
-        moveSet = MoveUtil.getHeroMoveSet(entityType);
-    }
     public Entity(String name, EntityType entityType) {
-        this(name, entityType, 100, 20, 10, 0.6, 0, 0, 0, null, 1);
+        this(name, entityType, 100, 20, 10, 0.6,  0, 0, null, 1);
         // TODO: fix so it is not repeat code
-        // define base move set
+        // define base move set based on hero's class (entityType)
         moveSet = MoveUtil.getHeroMoveSet(entityType);
 
     }
-    // fully parametrized
-    // TODO: use a switch case to specify each entity type's starting stats
+    // Overloaded constructor, mainly used for the creation of enemies
     public Entity(String name,
                   EntityType entityType,
                   int MAX_HEALTH,
                   int mana,
                   int speed,
                   double accuracy,
-                  int xp,
                   int strength,
                   int magic,
                   List<Move> moveSet,
@@ -71,7 +63,6 @@ public class Entity {
         this.mana = mana;
         this.speed = speed;
         this.accuracy = accuracy;
-        this.xp = xp;
         this.strength = strength;
         this.magic = magic;
         this.moveSet = moveSet;
@@ -95,9 +86,6 @@ public class Entity {
     public double getAccuracy() { return accuracy; }
     public void setAccuracy(int accuracy) { this.accuracy = accuracy; }
 
-    public int getXp() { return xp; }
-    public void setXp(int xp) { this.xp = xp; }
-
     public int getStrength() { return strength; }
     public void setStrength(int strength) { this.strength = strength; }
 
@@ -110,12 +98,18 @@ public class Entity {
     public int getLevel() { return level; }
     public void setLevel(int level) { this.level = level; }
 
+    /**
+     * Gets the stat values for the entity and returns the values back.
+     *
+     * @return A list of stat values for the given entity
+     */
     public String getInfo() {
         return name + "\n" +
                 entityType.toString() +
                 "\nHealth: " + MAX_HEALTH +
                 "\nLevel " + level;
     }
+
     @Override
     public String toString() {
         return "Entity{" +
@@ -125,7 +119,6 @@ public class Entity {
                 ", speed=" + speed +
                 ", strength=" + strength +
                 ", magic=" + magic +
-                ", xp=" + xp +
                 ", level=" + level +
                 '}';
     }

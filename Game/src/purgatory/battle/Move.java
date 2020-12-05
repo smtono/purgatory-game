@@ -1,39 +1,27 @@
 package purgatory.battle;
 
-import purgatory.battle.AttackType;
-import purgatory.entity.Entity;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-/*
-    Author: Shannon Thornton
-
-    Purpose: To keep all possible moves that the hero can use (depending on their type) in one file, along
-    with keeping track of base damage, whether it is AOE or not, etc.
-
-    How accuracy can work:
-    Take hero's current accuracy (in entity constructor)
-    multiply that by 200,
-    then take the weapon's accuracy and multiply by that
-    take whatever percent over 100 it gets and use that for critical
-    critical can be calculated by taking whatever percentage it is after the above calculations and adding that percent
-    of damage on top of the base damage.
-
-    Attributes of a move:
-    name,
-    base damage,
-    mana usage
-    accuracy,
-    magic or strength
-    TODO: implement support moves (it may have to be separate)
+/**
+ * Purpose: To keep all possible moves that the hero can use (depending on their type) in one file, along
+ * with keeping track of base damage, whether it is AOE or not, etc.
+ *
+ * How accuracy can work:
+ * Take hero's current accuracy (in entity constructor)
+ * multiply that by 200,
+ * then take the weapon's accuracy and multiply by that
+ * take whatever percent over 100 it gets and use that for critical
+ * critical can be calculated by taking whatever percentage it is after the above calculations and adding that percent
+ * of damage on top of the base damage.
+ *
+ * Attributes of a move:
+ * name,
+ * base damage,
+ * mana usage
+ * accuracy,
+ * magic or strength
+ * TODO: implement support moves (it may have to be separate)
  */
 public enum Move {
     // These look so terrible. Is there any way to simplify all of this?
-    //  Some stuff to look into:
-    //      a builder class?
-    //      a helper class of some sort?
     // sword
     LUNGE("Lunge", 10, 0, 0.5, false, MoveType.ATTACK, AttackType.SLASH, 1),
     SLASH("Slash", 20, 0, 0.5, false, MoveType.ATTACK, AttackType.SLASH, 1),
