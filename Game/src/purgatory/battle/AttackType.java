@@ -1,20 +1,12 @@
 package purgatory.battle;
-/*
-    Author: Shannon Thornton
 
-    This is to separate attack types from moves, this is because each attack type will have a weakness.
-    These weaknesses will be expressed and implemented here.
+/**
+ * AttackType is to differentiate different weapon types that heroes can use, as wel as advantages or disadvantages
+ * they have against different weapon types.
+ *
+ * Weaknesses and strengths for each type: (May need to balance later)
+ *
  */
 public enum AttackType {
-    SLASH, PIERCE, SHOOT, BLUNT, ELEMENTAL, HOLY, DARK;
-
-    /**
-     * determineAdvantage
-     * Compare the attack types of each entity in the battle, rank the types over who has advantage over another.
-     * Give an advantage (WEAK!)
-     */
-    public void determineAdvantage() {
-        // method variables
-
-    }
+    SLASH, PIERCE, SHOOT, BLUNT, ELEMENTAL, HOLY, DARK
 }
