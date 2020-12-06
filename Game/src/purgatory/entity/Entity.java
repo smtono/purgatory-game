@@ -3,7 +3,7 @@ package purgatory.entity;
 import purgatory.Reference;
 
 import java.util.List;
-import purgatory.battle.*;
+import purgatory.battle.Move;
 import purgatory.util.MoveUtil;
 
 /**
@@ -23,7 +23,6 @@ import purgatory.util.MoveUtil;
  *
  * A baseline hero will start out with 100 hit points, 20 mana points, and 60 accuracy.
  * A baseline enemy will start out with 200 hit points and 60 accuracy.
- *
  */
 public class Entity {
     private EntityType entityType;

@@ -1,6 +1,6 @@
 package purgatory.main;
 import purgatory.Reference;
-import purgatory.battle.BattleLogic;
+import purgatory.battle.BattleModel;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
 import purgatory.player.CharacterCreation;
@@ -33,6 +33,6 @@ public class Game {
 		new CharacterCreation();
 		fighters.add(Reference.hero);
 		fighters.add(new Entity(Reference.ENEMY_NAMES[gen.nextInt(Reference.ENEMY_NAMES.length)],EntityType.MOON));
-		new BattleLogic(fighters);
+		//new BattleModel(fighters);
 	}
 }
