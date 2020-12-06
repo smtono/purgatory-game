@@ -1,4 +1,4 @@
-package purgatory.battle;
+package purgatory.weapon;
 
 /*
     Author: Shannon Thornton
@@ -14,6 +14,8 @@ package purgatory.battle;
     TODO: ***encapsulate weapons, so that you aren't using both attack type and weapon type in the same argument***
           create the weapon "triangle" with each weapon having a weakness
  */
+
+import purgatory.weapon.AttackType;
 
 import java.util.Arrays;
 import java.util.List;

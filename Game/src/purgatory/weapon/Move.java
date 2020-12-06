@@ -1,5 +1,7 @@
 package purgatory.battle;
 
+import purgatory.weapon.AttackType;
+
 /**
  * Purpose: To keep all possible moves that the hero can use (depending on their type) in one file, along
  * with keeping track of base damage, whether it is AOE or not, etc.
