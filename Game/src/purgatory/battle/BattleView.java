@@ -123,7 +123,12 @@ public class BattleView {
         }
     }
 
-    public void setCurrentHeroName(Entity hero) {
-        currHeroName = hero.getName();
+    /**
+     * Sets the current name of the current unit
+     *
+     * @param unit: The current Entity object used for the unit
+     */
+    public void setCurrentHeroName(Entity unit) {
+        currHeroName = unit.getName();
     }
 }

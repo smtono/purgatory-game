@@ -1,6 +1,8 @@
 package purgatory.main;
 import purgatory.Reference;
+import purgatory.battle.BattleController;
 import purgatory.battle.BattleModel;
+import purgatory.battle.BattleView;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
 import purgatory.player.CharacterCreation;
@@ -8,6 +10,7 @@ import purgatory.player.CharacterCreation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 /**
  * Premise:
  * I want to make a text RPG that showcases skills I’ve learned up until this point in my career as a CS student.
@@ -29,10 +32,14 @@ import java.util.Random;
 public class Game {
 	public static void main(String[] args) {
 		List<Entity> fighters = new ArrayList<>();
+		Entity hero = CharacterCreation.getHero();
 		Random gen = new Random();
-		new CharacterCreation();
-		fighters.add(Reference.hero);
+		fighters.add(hero);
 		fighters.add(new Entity(Reference.ENEMY_NAMES[gen.nextInt(Reference.ENEMY_NAMES.length)],EntityType.MOON));
-		//new BattleModel(fighters);
+		BattleModel model = new BattleModel(fighters);
+		BattleView view = new BattleView();
+		BattleController control = new BattleController(view, model);
+		control.setMoves(hero);
+		control.startBattle();
 	}
 }

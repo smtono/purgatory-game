@@ -1,11 +1,11 @@
 package purgatory.battle;
 
-import purgatory.Reference;
+import purgatory.entity.CharacterType;
 import purgatory.entity.Entity;
 import purgatory.util.EntityUtil;
+import purgatory.util.MoveUtil;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,35 +17,19 @@ import java.util.List;
 public class BattleController {
     private final BattleView view;
     private final BattleModel model;
-    private final List<Entity> fighters;
 
-    public BattleController(BattleView view, BattleModel model, List<Entity> fighters) {
+    // CONSTRUCTOR
+    public BattleController(BattleView view, BattleModel model) {
         this.view = view;
         this.model = model;
-        this.fighters = fighters;
     }
 
     /**
-     * Sets the move set JList in the BattleView GUI based on the move set of the current hero
-     */
-    public void setMoves() {
-        List<String> moves = new ArrayList<>();
-
-        Reference.hero.getMoveSet().forEach(move -> {
-            String moveName = move.getName();
-            moves.add(moveName);
-        });
-
-        view.setMoves(moves.toArray(String[]::new));
-    }
-
-    /**
-     * Prepares the view for the first turn by telling the user they encountered an enemy and then
-     * will bring up the turn based combat system.
+     * Prepares the view for the first turn by telling the user they encountered an enemy and displaying stats.
      */
     public void startBattle() {
         StringBuilder builder = new StringBuilder();
-        EntityUtil.getEnemiesFromSet(fighters).iterator().forEachRemaining(entity -> {
+        EntityUtil.getEntitiesOfType(model.getFighters(), CharacterType.ENEMY).iterator().forEachRemaining(entity -> {
             builder.append(entity.getInfo());
             builder.append("\n\n");
         });
@@ -58,28 +42,61 @@ public class BattleController {
     }
 
     /**
-     * turnSequence int
-     * This method will contain both the hero and enemy's turn
+     * Sets the move set JList in the BattleView GUI based on the move set of the current hero
+     *
+     * @param hero: The current Entity object used for the hero (player)
+     */
+    public void setMoves(Entity hero) {
+        List<String> moves = MoveUtil.getHeroMoveSetByName(hero);
+        view.setMoves(moves.toArray(String[]::new));
+    }
+
+    /**
+     * Gets the ordered list of fighters and returns them as a string
+     *
+     * @param fighters: A list of all the fighters in battle
+     * @return A string of the order of fighters
+     */
+    private String getFighterOrder(List<Entity> fighters) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("The order for this turn is: \n");
+        fighters.forEach(fighter -> {
+            builder.append(fighter.getName());
+            builder.append(" \n");
+        });
+        return builder.toString();
+    }
+
+    /**
+     * Prints out a death script, takes current death count and adds it need to keep up with that variable.
+     * returns amount of time hero has died
+     *
+     * @param playerDeaths: The current amount of times the user has died
+     * @return The current amount of player deaths
+     */
+    public int dieSequence(int playerDeaths) {
+        JOptionPane.showMessageDialog
+                (null,
+                        "\nHero! You have died.",
+                        "You have died!",
+                        JOptionPane.INFORMATION_MESSAGE);
+        playerDeaths += 1;
+        return playerDeaths;
+    }
+
+    /**
+     * Refreshes text appearing on the view of the UI
+     *
      * Call this method recursively until one of the following exit conditions are reached:
      * The hero HP reaches 0 (die sequence)
      * the enemy HP reaches 0 (level up/ gain loot, etc.)
      * the hero runs away (return to main screen, implement this one last.)
      * returns an int which will be used to keep tack of iterations, since this method will be called recursively.
      *
+     * @param i: The current turn iteration
      * @return An int which will be used to keep tack of iterations
      */
-
-
-    /**
-     * dieSequence int
-     * prints out a death script, takes current death count and adds it need to keep up with that variable.
-     * returns amount of time hero has died
-     */
-    public void dieSequence() {
-        JOptionPane.showMessageDialog
-                (null,
-                        "\nHero! You have died.",
-                        "You have died!",
-                        JOptionPane.INFORMATION_MESSAGE);
+    public int updateView(int i) {
+       return 0;
     }
 }
