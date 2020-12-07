@@ -1,6 +1,7 @@
 package purgatory.player;
 
 import purgatory.Reference;
+import purgatory.entity.CharacterType;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
 import purgatory.util.EntityUtil;
@@ -9,46 +10,38 @@ import javax.swing.*;
 
 /**
  * CharacterCreation allows the user to create the protagonist of the story with name and class.
+ * <p>
+ * These methods can be called to construct attributes associated with an Entity object.
  *
- * <p>A CharacterCreation object will prompt the user for their name, then their class type, and confirm each along the way.
- *  These values will then be stored in the Reference.java file</p>
- *
- * @author Shannon Thornton
- * @see Reference
+ * @see Entity
  */
 public class CharacterCreation {
-    // hero name
-    String name = "";
-    EntityType heroType = null;
-
-    /**
-     * Prompts name, then class type and stores into Reference.hero
-     * @see Reference
-     */
-    public CharacterCreation() {
-        askName();
-        chooseType();
-        Reference.hero = new Entity(name, heroType);
-    }
-
     /**
      * Prompts the user for the name they will give their hero. The name is "Robin" by default.
-     * TODO: setup for when the user selects "cancel"
+     *
+     * @return A string of the chosen hero name.
      */
-    public void askName() {
+    private static String askName() {
+        // TODO: setup for when the user selects "cancel"
+
+        String name = "";
         int restart = 1;
         while (restart == 1) {
             name = JOptionPane.showInputDialog("What is your name?", "Robin");
-           restart = JOptionPane.showConfirmDialog(null, "Ah, so your name is ".concat(name).concat("?"));
+            restart = JOptionPane.showConfirmDialog(null, "Ah, so your name is ".concat(name).concat("?"));
             if (restart == 1) {
                 JOptionPane.showMessageDialog(null, "Oh, sorry, can you tell me again?");
             }
         }
+        return name;
     }
 
-    /** Prompts user for the hero type they want to be */
-    public void chooseType() {
-        EntityType[] heroTypes = EntityUtil.getHeroes().toArray(new EntityType[0]);
+    /**
+     * Prompts user for the hero type they want to be
+     */
+    private static EntityType chooseType() {
+        EntityType[] heroTypes = EntityUtil.getEntityTypes(CharacterType.HERO).toArray(new EntityType[0]);
+        EntityType heroType = null;
         int restart = 1;
         while (restart == 1) {
             int type = JOptionPane.showOptionDialog(null,
@@ -65,18 +58,27 @@ public class CharacterCreation {
                 JOptionPane.showMessageDialog(null, "Oh, sorry, can you tell me again?");
             }
         }
+        return heroType;
     }
 
     /**
      * Returns the information of the given entity type.
+     *
+     * @param type: The EntityType associated with the unit.
      * @return the information of the given entity type.
      */
-    public String typeInfo(EntityType type) {
+    public static String typeInfo(EntityType type) {
         return type.getTypeName() +
                 "\n\n" +
                 type.getDescription();
     }
 
-
-
+    /**
+     * Constructs a new Entity object tailored to user input
+     *
+     * @return A new Entity object that represents the hero (user)
+     */
+    public static Entity getHero() {
+        return new Entity(askName(), chooseType());
+    }
 }

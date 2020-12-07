@@ -1,57 +1,45 @@
 package purgatory.util;
 
+import purgatory.entity.CharacterType;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
-import purgatory.battle.Move;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+/**
+ * EntityUtil is used to extrapolate data from Entity objects.
+ */
 public class EntityUtil {
-    // CONSTRUCTOR
-    public EntityUtil() { }
 
-    // TODO rewrite because awkward
-    // HERO - ENEMY - PARTY
-    public static List<Entity> getHeroesFromSet(List<Entity> entities, EntityType entityType) {
+    /**
+     * Returns a list of entities that match the character type passed.
+     *
+     * @param entities:      A list of entities with various character types (hero, party, enemy, boss)
+     * @param characterType: The certain character type (hero, party, enemy, boss) being looked for from the entity list.
+     * @return A list with only the entities with the specified character type.
+     */
+    public static List<Entity> getEntitiesOfType(List<Entity> entities, CharacterType characterType) {
         List<Entity> result = new ArrayList<>();
         entities.iterator().forEachRemaining(entity -> {
-            if (entity.getEntityType().getCharacterType().equals(EntityType.CharacterType.HERO))
-                result.add(entity);
-        });
-        return result;
-    }
-    public static List<Entity> getEnemiesFromSet(List<Entity> entities) {
-        List<Entity> result = new ArrayList<>();
-        entities.iterator().forEachRemaining(entity -> {
-            if (entity.getEntityType().getCharacterType() == EntityType.CharacterType.ENEMY)
+            if (entity.getEntityType().getCharacterType().equals(characterType))
                 result.add(entity);
         });
         return result;
     }
 
     /**
-     * getHeroes/Enemies
-     * creates a list of every hero.
-     * if the entity type returns true (or not) to isHero(), then it will be added to the list.
+     * Returns a list of entity types that match the character type passed.
      *
-     * @return a list of all heroes/enemies
+     * @param characterType: A type from the CharacterType enum either hero, enemy, or party
+     * @return A list of all types associated with the type passed.
      */
-    public static List<EntityType> getHeroes() {
-        List<EntityType> heroes = new ArrayList<>();
-        for (EntityType entity : EntityType.values()) {
-            if(entity.getCharacterType().equals(EntityType.CharacterType.HERO))
-                heroes.add(entity);
+    public static List<EntityType> getEntityTypes(CharacterType characterType) {
+        List<EntityType> types = new ArrayList<>();
+        for (EntityType type : EntityType.values()) {
+            if (type.getCharacterType().equals(characterType))
+                types.add(type);
         }
-        return heroes;
-    }
-    public static List<EntityType> getEnemies() {
-        List<EntityType> enemies = new ArrayList<>();
-        for (EntityType entity : EntityType.values()) {
-            if(entity.getCharacterType().equals(EntityType.CharacterType.ENEMY))
-                enemies.add(entity);
-        }
-        return enemies;
+        return types;
     }
 }

@@ -8,12 +8,10 @@ import java.util.List;
 /**
  * Terrace is a collection of levels in the game, each with different names, level of access, number of rooms,
  * and enemy types seen.
- *
- *<p> This will lay out the foundation of the "map" of the game. Purgatory is divided into seven terraces.
- *    This is to represent the seven deadly sins.
- *    Each terrace will have it's own enemy types and final boss.</p>
- *
- * @author Shannon Thornton
+ * <p>
+ * This will lay out the foundation of the "map" of the game. Purgatory is divided into seven terraces.
+ * This is to represent the seven deadly sins.
+ * Each terrace will have it's own enemy types and final boss.
  */
 public enum Terrace {
     // TODO: Fix variables for each
@@ -46,11 +44,25 @@ public enum Terrace {
     }
 
     // ACCESSORS
-    public String getName() { return name; }
-    public String getDescription() { return description; }
-    public int getLevel() { return level; }
-    public int getNumRooms() { return numRooms; }
-    public List<EntityType> getEnemyTypes() { return enemyTypes; }
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getNumRooms() {
+        return numRooms;
+    }
+
+    public List<EntityType> getEnemyTypes() {
+        return enemyTypes;
+    }
 
     @Override
     public String toString() {

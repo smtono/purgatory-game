@@ -1,6 +1,4 @@
-package purgatory.battle;
-
-import purgatory.weapon.AttackType;
+package purgatory.weapon;
 
 /**
  * Purpose: To keep all possible moves that the hero can use (depending on their type) in one file, along
@@ -20,10 +18,10 @@ import purgatory.weapon.AttackType;
  * mana usage
  * accuracy,
  * magic or strength
- * TODO: implement support moves (it may have to be separate)
  */
 public enum Move {
-    // These look so terrible. Is there any way to simplify all of this?
+    // TODO: implement support moves (it may have to be separate)
+    // TODO: separate into different weapons? MAKE THIS AN INTERFACE?
     // sword
     LUNGE("Lunge", 10, 0, 0.5, false, MoveType.ATTACK, AttackType.SLASH, 1),
     SLASH("Slash", 20, 0, 0.5, false, MoveType.ATTACK, AttackType.SLASH, 1),

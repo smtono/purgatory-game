@@ -1,59 +1,65 @@
 package purgatory.util;
 
-import purgatory.battle.Move;
+import purgatory.weapon.Move;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
+/**
+ * MoveUtil is used to extrapolate data from Move enum constants
+ */
 public class MoveUtil {
-    // METHODS
-    /**
-     getAllMoves List
-     Returns every possible move that exists.
 
-     @return list of every move that exists
+    /**
+     * Returns a list of every possible move that exists.
+     *
+     * @return list of every move that exists
      */
     public static List<Move> getAllMoves() {
-        List<Move> allMoves = new ArrayList();
-        Collections.addAll(allMoves, Move.values());
-        return allMoves;
+        return Arrays.asList(Move.values().clone());
     }
-    /**
-     getAccessibleMoves List
-     gives a list of possible moves available to the hero based on their level
 
-     @return a list of possible moves available to the hero based on level
+    /**
+     * Returns a list of possible moves available to the hero based on their level
+     *
+     * @param hero: An entity object associated with the hero (player)
+     * @return a list of possible moves available to the hero based on level
      */
-    public static List<Move> getAccessibleMoves(Entity entity) {
+    public static List<Move> getAccessibleMoves(Entity hero) {
         List<Move> moves = new ArrayList<>();
         for (Move move : Move.values()) {
-            if (move.getLevelOfAccess() <= entity.getLevel()) {
+            if (move.getLevelOfAccess() <= hero.getLevel()) {
                 moves.add(move);
             }
-            /*
-                Explaining the following code down below
-                we get the list of attack types the entity type can use and store it in a stream, which will allow us
-                to use the anyMatch method, which basically uses a lambda to see if the elements in the list match with
-                the element we are referring to after the '->'
-                In this case, it is the current move we are on.
-             */
+
             // TODO: check to see if this actually works lol
-            if (entity.getEntityType().getWeaponTypes().stream().noneMatch(heroWeapon -> heroWeapon.getAttackTypes().equals(move.getAttackType()))) {
+            if (hero.getEntityType()
+                    .getWeaponTypes()
+                    .stream()
+                    .noneMatch(heroWeapon ->
+                            heroWeapon.getAttackTypes()
+                                    .equals(move
+                                            .getAttackType()
+                                    )
+                    )
+            ) {
                 moves.remove(move);
             }
         }
         return moves;
     }
+
     /**
-     * Depending on the hero type, a different move set will be returned.
+     * Returns a list of moves dependent on the hero type of the hero Entity Object passed.
      * These moves are based off of a level 1 hero.
-     * @return Returns a list of moves base on the hero type
+     *
+     * @param hero: The EntityType of the hero Entity object.
+     * @return Returns a list of moves based on the hero type
      */
-    public static List<Move> getHeroMoveSet(EntityType hero) {
+    public static List<Move> getBaseHeroMoveSet(EntityType hero) {
         List<Move> moveSet = new ArrayList<>();
         switch (hero) {
             case WARRIOR:
@@ -75,17 +81,35 @@ public class MoveUtil {
         return moveSet;
     }
 
+    /**
+     * Returns the current move set of the hero Entity object passed as a list of strings.
+     *
+     * @param hero: An entity object associated with the hero (player)
+     * @return A list of the string values of the Move enum constants.
+     */
+    public static List<String> getHeroMoveSetByName(Entity hero) {
+        List<String> moves = new ArrayList<>();
+
+        hero.getMoveSet().forEach(move -> {
+            String moveName = move.getName();
+            moves.add(moveName);
+        });
+
+        return moves;
+    }
+
 
     /**
      * Depending on the enemy entity type, a different move set will be set.
      * The moves will be based on the level of the enemy.
-        @return Returns a list of moves depending on the enemy type
-        
-        TODO: edit for levels
+     *
+     * @param enemy:      The EntityType of the enemy Entity object.
+     * @param enemyLevel: The current level of the enemy
+     * @return Returns a list of moves based on the enemy type.
      */
     public static List<Move> getEnemyMoveSet(EntityType enemy, int enemyLevel) {
         List<Move> moveSet = new ArrayList<>();
-        switch(enemy) {
+        switch (enemy) {
             // normal enemies
             case GUARDIAN:
                 moveSet = Arrays.asList();

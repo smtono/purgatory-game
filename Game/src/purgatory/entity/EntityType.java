@@ -5,12 +5,10 @@ import purgatory.weapon.Weapon;
 import java.util.Arrays;
 import java.util.List;
 
-/*
-    Author: Shannon Thornton
-
-    Purpose: To declare different "entity (heroes/enemies/and eventually party members) in one place, since they
-    all use similar methods. This is to reduce the amount of redundant / similar code in my files.
-    More files =/= more complexity. Also, finally a chance to properly learn enums and how to use them!
+/**
+ * EntityType is an enum that lists out different hero/enemy/boss types a unit can be.
+ * <p>
+ * Each unit type has a different name, description, character type, and weapons that they can use.
  */
 public enum EntityType {
     //	ENTITY TYPES
@@ -91,8 +89,6 @@ public enum EntityType {
             Arrays.asList()
     );
 
-    // variables for construction of the entity types
-    public enum CharacterType {HERO, ENEMY, BOSS} // public so this enum can be accessed.
     private final String typeName;
     private final String description;
     private final CharacterType characterType;
@@ -110,12 +106,22 @@ public enum EntityType {
     }
 
     // ACCESSORS
-    public String getTypeName() { return typeName; }
-    public String getDescription() { return description; }
-    public CharacterType getCharacterType() {return characterType; }
-    public List<Weapon> getWeaponTypes() { return weaponTypes; }
+    public String getTypeName() {
+        return typeName;
+    }
 
-    // toString
+    public String getDescription() {
+        return description;
+    }
+
+    public CharacterType getCharacterType() {
+        return characterType;
+    }
+
+    public List<Weapon> getWeaponTypes() {
+        return weaponTypes;
+    }
+
     @Override
     public String toString() {
         return typeName;
