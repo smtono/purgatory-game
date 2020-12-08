@@ -4,7 +4,7 @@ import purgatory.Reference;
 
 import java.util.List;
 
-import purgatory.weapon.Move;
+import purgatory.move.Move;
 import purgatory.util.MoveUtil;
 
 /**

@@ -1,9 +1,9 @@
 package purgatory.util;
 
-import purgatory.weapon.Move;
+import purgatory.move.Move;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
-import purgatory.weapon.SwordMoves;
+import purgatory.move.SwordMoves;
 
 import java.util.ArrayList;
 import java.util.Arrays;

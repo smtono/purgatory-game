@@ -1,6 +1,6 @@
-package purgatory.weapon;
+package purgatory.move;
 
-public enum WandMoves implements Move {
+public enum WandMoves implements Attack {
     FROSTBITE("Frostbite", 10, 2, 0.7, false, 1),
     FIRESTORM("Firestorm", 25, 10, 0.7, true, 1),
     GUST("Gust", 12, 3, 0.7, true, 1),
@@ -24,6 +24,55 @@ public enum WandMoves implements Move {
         this.accuracy = accuracy;
         this.isAffectAll = isAffectAll;
         this.levelOfAccess = levelOfAccess;
+    }
+
+    // ACCESSORS
+    public String getName() {
+        return name;
+    }
+
+    public int getResult() {
+        return result;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public double getAccuracy() {
+        return accuracy;
+    }
+
+    public boolean getIsAffectAll() {
+        return isAffectAll;
+    }
+
+    public int getLevelOfAccess() {
+        return levelOfAccess;
+    }
+
+    public MoveType getMoveType() {
+        return moveType;
+    }
+
+    public AttackType getAttackType() {
+        return attackType;
+    }
+
+    // IMPLEMENTED METHODS
+    @Override
+    public int attack() {
+        return 0;
+    }
+
+    @Override
+    public int useMana(int currMana) {
+        return 0;
+    }
+
+    @Override
+    public boolean doesHit(double unitAccuracy) {
+        return false;
     }
 
     @Override

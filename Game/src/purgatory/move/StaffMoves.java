@@ -1,6 +1,6 @@
-package purgatory.weapon;
+package purgatory.move;
 
-public enum StaffMoves implements Move {
+public enum StaffMoves implements Attack, Heal {
     // NORMAL STAFF
 
     // ATTACKS
@@ -36,6 +36,61 @@ public enum StaffMoves implements Move {
         this.attackType = attackType;
     }
 
+    // ACCESSORS
+    public String getName() {
+        return name;
+    }
+
+    public int getResult() {
+        return result;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public double getAccuracy() {
+        return accuracy;
+    }
+
+    public boolean getIsAffectAll() {
+        return isAffectAll;
+    }
+
+    public int getLevelOfAccess() {
+        return levelOfAccess;
+    }
+
+    public MoveType getMoveType() {
+        return moveType;
+    }
+
+    public AttackType getAttackType() {
+        return attackType;
+    }
+
+    // IMPLEMENTED METHODS
+    @Override
+    public int attack() {
+        return 0;
+    }
+
+    @Override
+    public int heal() {
+        return 0;
+    }
+
+    @Override
+    public int useMana(int currMana) {
+        return 0;
+    }
+
+    @Override
+    public boolean doesHit(double unitAccuracy) {
+        return false;
+    }
+}
+
     @Override
     public String toString() {
         return "HeroMoves{" +
@@ -48,4 +103,3 @@ public enum StaffMoves implements Move {
                 '}' +
                 "\n";
     }
-}

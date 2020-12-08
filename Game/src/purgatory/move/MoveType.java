@@ -1,4 +1,4 @@
-package purgatory.weapon;
+package purgatory.move;
 
 /**
  * MoveType is an enum used to differentiate different types of moves that can be done.

@@ -1,6 +1,6 @@
-package purgatory.weapon;
+package purgatory.move;
 
-public enum TomeMoves implements Move {
+public enum TomeMoves implements Attack {
     ANGEL("Angel", 30, 10, 0.6, true, 1),
     LEVIATHAN("Leviathan", 40, 15, 0.7, true, 1),
     ABADDON("Abaddon", 50, 17, 0.7, true, 1),
@@ -28,6 +28,55 @@ public enum TomeMoves implements Move {
         this.accuracy = accuracy;
         this.isAffectAll = isAffectAll;
         this.levelOfAccess = levelOfAccess;
+    }
+
+    // ACCESSORS
+    public String getName() {
+        return name;
+    }
+
+    public int getResult() {
+        return result;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public double getAccuracy() {
+        return accuracy;
+    }
+
+    public boolean getIsAffectAll() {
+        return isAffectAll;
+    }
+
+    public int getLevelOfAccess() {
+        return levelOfAccess;
+    }
+
+    public MoveType getMoveType() {
+        return moveType;
+    }
+
+    public AttackType getAttackType() {
+        return attackType;
+    }
+
+    // IMPLEMENTED METHODS
+    @Override
+    public int attack() {
+        return 0;
+    }
+
+    @Override
+    public int useMana(int currMana) {
+        return 0;
+    }
+
+    @Override
+    public boolean doesHit(double unitAccuracy) {
+        return false;
     }
 
     @Override

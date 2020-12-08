@@ -1,11 +1,13 @@
-package purgatory.weapon;
+package purgatory.move;
 
 /**
  * Move is an interface with move constants that are associated with different hero types, weapon types,
  * and move types (attack or support)
- *
+ * <p>
  * Can be used to keep track of base damage, AOE attack or not.
- *
+ * <p>
+ * Classes or enums that implement Move will have to implement
+ * <p>
  * How accuracy for moves work:
  * Take hero's current accuracy (in entity constructor)
  * multiply that by 200,
@@ -13,7 +15,7 @@ package purgatory.weapon;
  * take whatever percent over 100 it gets and use that for critical
  * critical can be calculated by taking whatever percentage it is after the above calculations and adding that percent
  * of damage on top of the base damage.
- *
+ * <p>
  * A move enum constant contains a
  * NAME: The name of the move
  * RESULT: damage/heal/utility
@@ -26,14 +28,21 @@ package purgatory.weapon;
  * LEVEL OF ACCESS: When (at what level) the move can be unlocked for a unit.
  */
 public interface Move {
-    //  ACCESSORS
-    public String getName();
-    public int getResult();
-    public int getMana();
-    public double getAccuracy();
-    public AttackType getAttackType();
-    public int getLevelOfAccess();
-    
-    @Override
-    public String toString();
+    /**
+     * Determines how much mana is going to be subtracted from the current hero
+     * or party member's total mana, and returns that value to be subtracted.
+     *
+     * @param currMana: The current amount of mana the unit passed has
+     * @return The amount of mana points to be subtracted from the current mana.
+     */
+    public int useMana(int currMana);
+
+    /**
+     * Uses the accuracy stat passed that both the hero or party member has as well as the move used
+     * to determine if the move hits or not, and returns true if it does hit, and false if it does not.
+     *
+     * @param unitAccuracy: The accuracy stat of the current unit passed.
+     * @return A boolean true if the move hits and false if it does not.
+     */
+    public boolean doesHit(double unitAccuracy);
 }

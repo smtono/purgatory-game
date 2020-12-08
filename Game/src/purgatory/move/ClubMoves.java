@@ -1,10 +1,12 @@
-package purgatory.weapon;
+package purgatory.move;
 
-public enum AxeMoves implements Move {
-    ;
-    // NORMAL AXE
+public enum ClubMoves implements Attack {
+    // NORMAL CLUB
+    BLUDGEON("Bludgeon", 30, 0, 0.4, false, 1),
+    CLOBBER("Clobber", 35, 0, 0.4, false, 1),
+    BATTER("Batter", 45, 0, 0.3, false, 5);
 
-    // GREAT AXE
+    // MORNING STAR
 
     // ATTRIBUTES
     private final String name;
@@ -17,7 +19,7 @@ public enum AxeMoves implements Move {
     private final AttackType attackType = AttackType.BLUNT;
 
     //  CONSTRUCTOR
-    AxeMoves(String name, int result, int mana, double accuracy, boolean isAffectAll, int levelOfAccess) {
+    ClubMoves(String name, int result, int mana, double accuracy, boolean isAffectAll, int levelOfAccess) {
         this.name = name;
         this.result = result;
         this.mana = mana;
@@ -26,34 +28,53 @@ public enum AxeMoves implements Move {
         this.levelOfAccess = levelOfAccess;
     }
 
-    @Override
+    // ACCESSORS
     public String getName() {
-        return null;
+        return name;
     }
 
-    @Override
     public int getResult() {
-        return 0;
+        return result;
     }
 
-    @Override
     public int getMana() {
-        return 0;
+        return mana;
     }
 
-    @Override
     public double getAccuracy() {
-        return 0;
+        return accuracy;
     }
 
-    @Override
-    public AttackType getAttackType() {
-        return null;
+    public boolean getIsAffectAll() {
+        return isAffectAll;
     }
 
-    @Override
     public int getLevelOfAccess() {
+        return levelOfAccess;
+    }
+
+    public MoveType getMoveType() {
+        return moveType;
+    }
+
+    public AttackType getAttackType() {
+        return attackType;
+    }
+
+    // IMPLEMENTED METHODS
+    @Override
+    public int attack() {
         return 0;
+    }
+
+    @Override
+    public int useMana(int currMana) {
+        return 0;
+    }
+
+    @Override
+    public boolean doesHit(double unitAccuracy) {
+        return false;
     }
 
     @Override

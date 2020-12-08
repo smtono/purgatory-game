@@ -1,6 +1,4 @@
-package purgatory.weapon;
-
-import purgatory.weapon.AttackType;
+package purgatory.move;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +7,7 @@ import java.util.List;
  * Weapon is an enum to declare weapon constants used by heroes and enemies in the game. Also to separate weapons from
  * move types, so that both enums can exist separately. Each weapon will have an advantage and disadvantage
  * over other weapons. Much like the weapon triangle in fire emblem.
- * 
+ *
  * A weapon has the following
  * NAME: What the weapon is called
  * DESCRIPTION: A short passage about the weapon
