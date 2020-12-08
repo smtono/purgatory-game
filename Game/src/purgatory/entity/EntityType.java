@@ -16,78 +16,64 @@ public enum EntityType {
     WARRIOR("Warrior",
             "A seasoned fighter skilled with a sword and a club, fights for the thrill of battle, and the rush of tomorrow.",
             CharacterType.HERO,
-            Arrays.asList(Weapon.SWORD, Weapon.CLUB)
-    ),
+            Arrays.asList(Weapon.SWORD, Weapon.CLUB)),
     ARCHER("Archer",
             "One who shoots arrows with a bow with precision and accuracy done so, quite beautifully.",
             CharacterType.HERO,
-            Arrays.asList(Weapon.BOW)
-    ),
+            Arrays.asList(Weapon.BOW)),
     MAGE("Mage",
             "A powerful magic user, one who can control the elements, holy, and darkness with the use of a magical medium.",
             CharacterType.HERO,
-            Arrays.asList(Weapon.WAND, Weapon.STAFF)
-    ),
+            Arrays.asList(Weapon.WAND, Weapon.STAFF)),
     CLERIC("Cleric",
             "A tender or healer by nature, user of holy magic to sustain their loved ones through grief-stricken torment.",
             CharacterType.HERO,
-            Arrays.asList(Weapon.STAFF)
-    ),
+            Arrays.asList(Weapon.STAFF)),
     SCHOLAR("Scholar",
             "Deeply impassioned with knowledge, and a love of learning, they wield the powers of the beasts they read of.",
             CharacterType.HERO,
-            Arrays.asList(Weapon.TOME)
-    ),
+            Arrays.asList(Weapon.TOME)),
 
     // enemies
     GUARDIAN("Guardian",
             "A hearty foe, the lowest order of angels. They wield a sword and club.",
             CharacterType.ENEMY,
-            Arrays.asList(Weapon.SWORD, Weapon.CLUB)
-    ),
+            Arrays.asList(Weapon.SWORD, Weapon.CLUB)),
     MOON("Moon",
             "The first sphere of Paradiso, a powerful elemental magic user.",
             CharacterType.ENEMY,
-            Arrays.asList(Weapon.WAND, Weapon.STAFF)
-    ),
+            Arrays.asList(Weapon.WAND, Weapon.STAFF)),
 
     // bosses
     // TODO: add weapon types
     GLUTTONY("Gluttony",
             "Overindulgence to the point of waste.",
             CharacterType.BOSS,
-            Arrays.asList(Weapon.TRIDENT)
-    ),
+            Arrays.asList(Weapon.TRIDENT)),
     SLOTH("Sloth",
             "Failure to act in pursuit of love",
             CharacterType.BOSS,
-            Arrays.asList()
-    ),
+            Arrays.asList()),
     AVARICE("Avarice",
             "Love of good things in excess",
             CharacterType.BOSS,
-            Arrays.asList()
-    ),
+            Arrays.asList()),
     PRIDE("Pride",
             "Directed perverted love",
             CharacterType.BOSS,
-            Arrays.asList()
-    ),
+            Arrays.asList()),
     ENVY("Envy",
             "Excessive desire to have material things",
             CharacterType.BOSS,
-            Arrays.asList()
-    ),
+            Arrays.asList()),
     LUST("Lust",
             "Misdirected sexual desire",
             CharacterType.BOSS,
-            Arrays.asList()
-    ),
+            Arrays.asList()),
     WRATH("Wrath",
             "Untreated prolific hatred",
             CharacterType.BOSS,
-            Arrays.asList()
-    );
+            Arrays.asList());
 
     private final String typeName;
     private final String description;

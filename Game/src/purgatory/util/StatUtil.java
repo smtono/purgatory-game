@@ -36,6 +36,10 @@ public class StatUtil {
      * type: random
      * health: x2
      * mana: 0
+     *
+     * TODO: add this attribute
+     * critical: 0.0 double
+     *
      * speed: random from 1 to 30
      * accuracy: random from .60 to 1.00
      * strength:

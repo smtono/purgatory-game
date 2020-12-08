@@ -3,6 +3,7 @@ package purgatory.util;
 import purgatory.weapon.Move;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
+import purgatory.weapon.SwordMoves;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,7 +64,7 @@ public class MoveUtil {
         List<Move> moveSet = new ArrayList<>();
         switch (hero) {
             case WARRIOR:
-                moveSet = Arrays.asList(Move.SLASH, Move.LUNGE, Move.BLUDGEON);
+                moveSet = Arrays.asList(SwordMoves.SLASH, SwordMoves.LUNGE, Move.BLUDGEON);
                 break;
             case MAGE:
                 moveSet = Arrays.asList(Move.FROSTBITE, Move.GUST, Move.FIRESTORM);

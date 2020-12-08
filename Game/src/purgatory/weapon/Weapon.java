@@ -1,25 +1,20 @@
 package purgatory.weapon;
 
-/*
-    Author: Shannon Thornton
-
-    Purpose: To declare weapon constants used by heroes and enemies in the game. Also to separate weapons from
-    move types, so that both enums can exist separately. Each weapon will have an advantage and disadvantage
-    over other weapons. Much like the weapon triangle in fire emblem.
-    Attributes of a weapon:
-    Name
-    Description
-    The attack types it can use
-
-    TODO: ***encapsulate weapons, so that you aren't using both attack type and weapon type in the same argument***
-          create the weapon "triangle" with each weapon having a weakness
- */
-
 import purgatory.weapon.AttackType;
 
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Weapon is an enum to declare weapon constants used by heroes and enemies in the game. Also to separate weapons from
+ * move types, so that both enums can exist separately. Each weapon will have an advantage and disadvantage
+ * over other weapons. Much like the weapon triangle in fire emblem.
+ * 
+ * A weapon has the following
+ * NAME: What the weapon is called
+ * DESCRIPTION: A short passage about the weapon
+ * ATTACK TYPES: The "attack type" that the weapon is viz. how the weapon is used, and what moves the weapon can do.
+ */
 public enum Weapon {
     // WEAPONS
     SWORD("Sword", "A long metal blade", Arrays.asList(AttackType.SLASH)),
@@ -54,8 +49,17 @@ public enum Weapon {
         this.attackTypes = attackTypes;
 
     }
+
     // ACCESSORS
-    public String getName() { return name; }
-    public String getDescription() { return description; }
-    public List<AttackType> getAttackTypes() { return attackTypes; }
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public List<AttackType> getAttackTypes() {
+        return attackTypes;
+    }
 }
