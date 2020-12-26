@@ -5,15 +5,14 @@ import purgatory.Reference;
 import java.util.List;
 
 import purgatory.move.Move;
-import purgatory.util.MoveUtil;
+import purgatory.move.MoveUtil;
 
 /**
  * Entity is used to create objects for characters such as the hero, part members, and enemies.
  * <p>
  * Each Entity object will have a set of attributes called "stats" in game that correspond to different values:
  * name = the given name to the character, party member, or enemy. enemies will have names coming from Reference.java
- *
- * @see Reference
+ *<l>
  * health = the amount of hit points the character can take
  * mana = the amount of energy the character has to make moves
  * speed = the value used to determine the entity's order in battle.
@@ -22,6 +21,7 @@ import purgatory.util.MoveUtil;
  * magic = the value associated with magical weapons that allows for a boost in attack power
  * defense = how much an entity will "shield" an attack viz. how much damage will be absorbed
  * level = the level of play of the entity, this value will move up progressively as the game goes on.
+ * </l>
  * <p>
  * A baseline hero will start out with 100 hit points, 20 mana points, and 60 accuracy.
  * A baseline enemy will start out with 200 hit points and 60 accuracy.

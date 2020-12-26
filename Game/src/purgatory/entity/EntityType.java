@@ -1,6 +1,6 @@
 package purgatory.entity;
 
-import purgatory.move.Weapon;
+import purgatory.move.WeaponType;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,40 +16,40 @@ public enum EntityType {
     WARRIOR("Warrior",
             "A seasoned fighter skilled with a sword and a club, fights for the thrill of battle, and the rush of tomorrow.",
             CharacterType.HERO,
-            Arrays.asList(Weapon.SWORD, Weapon.CLUB)),
+            Arrays.asList(WeaponType.SWORD, WeaponType.CLUB)),
     ARCHER("Archer",
             "One who shoots arrows with a bow with precision and accuracy done so, quite beautifully.",
             CharacterType.HERO,
-            Arrays.asList(Weapon.BOW)),
+            Arrays.asList(WeaponType.BOW)),
     MAGE("Mage",
             "A powerful magic user, one who can control the elements, holy, and darkness with the use of a magical medium.",
             CharacterType.HERO,
-            Arrays.asList(Weapon.WAND, Weapon.STAFF)),
+            Arrays.asList(WeaponType.WAND, WeaponType.STAFF)),
     CLERIC("Cleric",
             "A tender or healer by nature, user of holy magic to sustain their loved ones through grief-stricken torment.",
             CharacterType.HERO,
-            Arrays.asList(Weapon.STAFF)),
+            Arrays.asList(WeaponType.STAFF)),
     SCHOLAR("Scholar",
             "Deeply impassioned with knowledge, and a love of learning, they wield the powers of the beasts they read of.",
             CharacterType.HERO,
-            Arrays.asList(Weapon.TOME)),
+            Arrays.asList(WeaponType.TOME)),
 
     // enemies
     GUARDIAN("Guardian",
             "A hearty foe, the lowest order of angels. They wield a sword and club.",
             CharacterType.ENEMY,
-            Arrays.asList(Weapon.SWORD, Weapon.CLUB)),
+            Arrays.asList(WeaponType.SWORD, WeaponType.CLUB)),
     MOON("Moon",
             "The first sphere of Paradiso, a powerful elemental magic user.",
             CharacterType.ENEMY,
-            Arrays.asList(Weapon.WAND, Weapon.STAFF)),
+            Arrays.asList(WeaponType.WAND, WeaponType.STAFF)),
 
     // bosses
     // TODO: add weapon types
     GLUTTONY("Gluttony",
             "Overindulgence to the point of waste.",
             CharacterType.BOSS,
-            Arrays.asList(Weapon.TRIDENT)),
+            Arrays.asList(WeaponType.TRIDENT)),
     SLOTH("Sloth",
             "Failure to act in pursuit of love",
             CharacterType.BOSS,
@@ -78,17 +78,17 @@ public enum EntityType {
     private final String typeName;
     private final String description;
     private final CharacterType characterType;
-    private final List<Weapon> weaponTypes;
+    private final List<WeaponType> weaponTypeTypes;
 
     // CONSTRUCTOR
     EntityType(String typeName,
                String description,
                CharacterType type,
-               List<Weapon> weaponTypes) {
+               List<WeaponType> weaponTypeTypes) {
         this.typeName = typeName;
         this.description = description;
         this.characterType = type;
-        this.weaponTypes = weaponTypes;
+        this.weaponTypeTypes = weaponTypeTypes;
     }
 
     // ACCESSORS
@@ -104,8 +104,8 @@ public enum EntityType {
         return characterType;
     }
 
-    public List<Weapon> getWeaponTypes() {
-        return weaponTypes;
+    public List<WeaponType> getWeaponTypes() {
+        return weaponTypeTypes;
     }
 
     @Override

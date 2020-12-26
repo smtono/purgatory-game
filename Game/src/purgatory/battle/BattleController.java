@@ -2,8 +2,8 @@ package purgatory.battle;
 
 import purgatory.entity.CharacterType;
 import purgatory.entity.Entity;
-import purgatory.util.EntityUtil;
-import purgatory.util.MoveUtil;
+import purgatory.entity.EntityUtil;
+import purgatory.move.MoveUtil;
 
 import javax.swing.*;
 import java.util.List;
@@ -97,6 +97,6 @@ public class BattleController {
      * @return An int which will be used to keep tack of iterations
      */
     public int updateView(int i) {
-       return 0;
+        return 0;
     }
 }

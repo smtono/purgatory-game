@@ -1,9 +1,11 @@
-package purgatory.util;
+package purgatory.stats;
 
 import purgatory.Reference;
 import purgatory.entity.CharacterType;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
+import purgatory.entity.EntityUtil;
+import purgatory.move.MoveUtil;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -66,6 +68,6 @@ public class StatUtil {
         int enemyLevel = ThreadLocalRandom.current().nextInt(hero.getLevel(), hero.getLevel() + 3);
 
         return new Entity(enemyName, enemyType, ENEMY_MAX_HEALTH, 0, enemySpeed, enemyAccuracy, strength, magic,
-                MoveUtil.getEnemyMoveSet(enemyType, 1), enemyLevel);
+                MoveUtil.getNewEnemyMoveSet(enemyType, 1), enemyLevel);
     }
 }

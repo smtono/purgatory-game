@@ -1,4 +1,4 @@
-package purgatory.util;
+package purgatory.entity;
 
 import purgatory.entity.CharacterType;
 import purgatory.entity.Entity;
@@ -13,7 +13,7 @@ import java.util.List;
 public class EntityUtil {
 
     /**
-     * Returns a list of entities that match the character type passed.
+     * Returns a list of entities gathered from the list passed that match the character type passed.
      *
      * @param entities:      A list of entities with various character types (hero, party, enemy, boss)
      * @param characterType: The certain character type (hero, party, enemy, boss) being looked for from the entity list.
@@ -29,7 +29,7 @@ public class EntityUtil {
     }
 
     /**
-     * Returns a list of entity types that match the character type passed.
+     * Returns a list of entity types from the EntityType enum that match the character type passed.
      *
      * @param characterType: A type from the CharacterType enum either hero, enemy, or party
      * @return A list of all types associated with the type passed.

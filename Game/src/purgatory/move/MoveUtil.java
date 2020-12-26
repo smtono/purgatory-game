@@ -1,19 +1,16 @@
-package purgatory.util;
+package purgatory.move;
 
-import purgatory.move.Move;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
-import purgatory.move.SwordMoves;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.swing.*;
+import java.util.*;
 
 /**
  * MoveUtil is used to extrapolate data from Move enum constants
  */
 public class MoveUtil {
-
+    // ACCESSING MOVES/SPECIFIC MOVE SETS
     /**
      * Returns a list of every possible move that exists.
      *
@@ -26,7 +23,7 @@ public class MoveUtil {
     /**
      * Returns a list of possible moves available to the hero based on their level
      *
-     * @param hero: An entity object associated with the hero (player)
+     * @param hero: The entity object associated with the hero character
      * @return a list of possible moves available to the hero based on level
      */
     public static List<Move> getAccessibleMoves(Entity hero) {
@@ -143,4 +140,13 @@ public class MoveUtil {
         }
         return moveSet;
     }
+
+    // PERTAINING TO SPECIFIC MOVES
+    /**
+     * Uses the accuracy stat passed that both the hero or party member has as well as the move used
+     * to determine if the move hits or not, and returns true if it does hit, and false if it does not.
+     *
+     * @param unitAccuracy: The accuracy stat of the current unit passed.
+     * @return A boolean true if the move hits and false if it does not.
+     */
 }

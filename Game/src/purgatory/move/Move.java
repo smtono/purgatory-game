@@ -37,12 +37,4 @@ public interface Move {
      */
     public int useMana(int currMana);
 
-    /**
-     * Uses the accuracy stat passed that both the hero or party member has as well as the move used
-     * to determine if the move hits or not, and returns true if it does hit, and false if it does not.
-     *
-     * @param unitAccuracy: The accuracy stat of the current unit passed.
-     * @return A boolean true if the move hits and false if it does not.
-     */
-    public boolean doesHit(double unitAccuracy);
 }

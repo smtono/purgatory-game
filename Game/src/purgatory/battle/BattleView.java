@@ -85,6 +85,7 @@ public class BattleView {
         frame.setVisible(true);
     }
 
+    // UTILITY METHODS
     /**
      * Appends to the battleText JTextArea in the BattleView GUI
      *

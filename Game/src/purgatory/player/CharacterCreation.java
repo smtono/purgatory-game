@@ -1,10 +1,9 @@
 package purgatory.player;
 
-import purgatory.Reference;
 import purgatory.entity.CharacterType;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
-import purgatory.util.EntityUtil;
+import purgatory.entity.EntityUtil;
 
 import javax.swing.*;
 
