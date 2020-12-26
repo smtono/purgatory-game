@@ -6,16 +6,17 @@ import java.util.List;
 /**
  * Weapon is an enum to declare weapon constants used by heroes and enemies in the game. Also to separate weapons from
  * move types, so that both enums can exist separately. Each weapon will have an advantage and disadvantage
- * over other weapons. Much like the weapon triangle in fire emblem.
+ * over other weapons. Similar to the weapon triangle in fire emblem.
  *
  * A weapon has the following
  * NAME: What the weapon is called
  * DESCRIPTION: A short passage about the weapon
  * ATTACK TYPES: The "attack type" that the weapon is viz. how the weapon is used, and what moves the weapon can do.
  */
-public enum Weapon {
+public enum WeaponType {
     // WEAPONS
     SWORD("Sword", "A long metal blade", Arrays.asList(AttackType.SLASH)),
+    AXE("Axe", "A steel blade attached at a right angle to a wooden handle.", Arrays.asList()),
     BOW("Bow", "A weapon for shooting arrows", Arrays.asList(AttackType.SHOOT)),
     CLUB("Club", "A heavy stick with a thick end", Arrays.asList(AttackType.BLUNT)),
     WAND("Wand", "A stick or rod thought to have magic properties", Arrays.asList(AttackType.ELEMENTAL, AttackType.HOLY, AttackType.DARK)),
@@ -36,12 +37,12 @@ public enum Weapon {
     // TODO: add the rest of the boss weapons
 
     // variables for construction
-    private String name;
-    private String description;
-    private List<AttackType> attackTypes;
+    private final String name;
+    private final String description;
+    private final List<AttackType> attackTypes;
 
     // CONSTRUCTOR
-    Weapon(String name, String description, List<AttackType> attackTypes) {
+    WeaponType(String name, String description, List<AttackType> attackTypes) {
         this.name = name;
         this.description = description;
         this.attackTypes = attackTypes;

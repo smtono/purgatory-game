@@ -1,10 +1,16 @@
 package purgatory.move;
 
-public enum WandMoves implements Attack {
-    FROSTBITE("Frostbite", 10, 2, 0.7, false, 1),
-    FIRESTORM("Firestorm", 25, 10, 0.7, true, 1),
-    GUST("Gust", 12, 3, 0.7, true, 1),
-    LIGHTNING("Lightning", 40, 10, 0.7, false, 2 );
+import purgatory.entity.Entity;
+
+public enum Tome implements Attack {
+    ANGEL("Angel", 30, 10, 0.6, true, 1),
+    LEVIATHAN("Leviathan", 40, 15, 0.7, true, 1),
+    ABADDON("Abaddon", 50, 17, 0.7, true, 1),
+    CHERUBIM("Cherubim", 60, 20, 0.75, true, 2),
+    NEPHILUM("Nephilum", 70, 22, 0.75, true, 5),
+    BEHEMOTH("Behemoth", 100, 25, 0.8, true, 7),
+    SERAPHIM("Seraphim", 150, 30, 0.9, true, 9),
+    LUCIFER("Lucifer", 250, 35, 0.9, true, 10);
 
     // ATTRIBUTES
     private final String name;
@@ -14,10 +20,10 @@ public enum WandMoves implements Attack {
     private final boolean isAffectAll;
     private final int levelOfAccess;
     private final MoveType moveType = MoveType.ATTACK;
-    private final AttackType attackType = AttackType.ELEMENTAL;
+    private final AttackType attackType = AttackType.DARK;
 
     //  CONSTRUCTOR
-    WandMoves(String name, int result, int mana, double accuracy, boolean isAffectAll, int levelOfAccess) {
+    Tome(String name, int result, int mana, double accuracy, boolean isAffectAll, int levelOfAccess) {
         this.name = name;
         this.result = result;
         this.mana = mana;
@@ -43,7 +49,7 @@ public enum WandMoves implements Attack {
         return accuracy;
     }
 
-    public boolean getIsAffectAll() {
+    public boolean isAffectAll() {
         return isAffectAll;
     }
 
@@ -61,18 +67,23 @@ public enum WandMoves implements Attack {
 
     // IMPLEMENTED METHODS
     @Override
-    public int attack() {
+    public int attack(Entity hero) {
         return 0;
+    }
+
+    @Override
+    public boolean isStrength() {
+        return false;
+    }
+
+    @Override
+    public boolean isMagic() {
+        return true;
     }
 
     @Override
     public int useMana(int currMana) {
         return 0;
-    }
-
-    @Override
-    public boolean doesHit(double unitAccuracy) {
-        return false;
     }
 
     @Override

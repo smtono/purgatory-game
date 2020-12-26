@@ -1,16 +1,12 @@
 package purgatory.move;
 
-/**
- *
- */
-public enum SwordMoves implements Attack {
-    // NORMAL SWORD
-    LUNGE("Lunge", 10, 0, 0.5, false, 1),
-    SLASH("Slash", 20, 0, 0.5, false, 1),
-    SLICE("Slice", 27, 0, 0.55, false, 2),
-    RIPOSTE("Riposte", 35, 10, 0.6, true, 5);
+import purgatory.entity.Entity;
 
-    // GREAT SWORD
+public enum Wand implements Attack {
+    FROSTBITE("Frostbite", 10, 2, 0.7, false, 1),
+    FIRESTORM("Firestorm", 25, 10, 0.7, true, 1),
+    GUST("Gust", 12, 3, 0.7, true, 1),
+    LIGHTNING("Lightning", 40, 10, 0.7, false, 2 );
 
     // ATTRIBUTES
     private final String name;
@@ -20,10 +16,10 @@ public enum SwordMoves implements Attack {
     private final boolean isAffectAll;
     private final int levelOfAccess;
     private final MoveType moveType = MoveType.ATTACK;
-    private final AttackType attackType = AttackType.SLASH;
+    private final AttackType attackType = AttackType.ELEMENTAL;
 
     //  CONSTRUCTOR
-    SwordMoves(String name, int result, int mana, double accuracy, boolean isAffectAll, int levelOfAccess) {
+    Wand(String name, int result, int mana, double accuracy, boolean isAffectAll, int levelOfAccess) {
         this.name = name;
         this.result = result;
         this.mana = mana;
@@ -49,7 +45,7 @@ public enum SwordMoves implements Attack {
         return accuracy;
     }
 
-    public boolean getIsAffectAll() {
+    public boolean isAffectAll() {
         return isAffectAll;
     }
 
@@ -67,18 +63,23 @@ public enum SwordMoves implements Attack {
 
     // IMPLEMENTED METHODS
     @Override
-    public int attack() {
+    public int attack(Entity hero) {
         return 0;
+    }
+
+    @Override
+    public boolean isStrength() {
+        return false;
+    }
+
+    @Override
+    public boolean isMagic() {
+        return true;
     }
 
     @Override
     public int useMana(int currMana) {
         return 0;
-    }
-
-    @Override
-    public boolean doesHit(double unitAccuracy) {
-        return false;
     }
 
     @Override

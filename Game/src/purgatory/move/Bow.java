@@ -1,10 +1,12 @@
 package purgatory.move;
 
-public enum AxeMoves implements Attack {
-    ;
-    // NORMAL AXE
+public enum Bow implements Move {
+    // NORMAL BOW
+    AIM("Aim", 10, 0, 0.4, false, 1),
+    FIRE("Fire", 15, 0, 0.3, false, 1),
+    ARROWSTORM("Arrowstorm", 25, 0, 0.4, false, 1);
 
-    // GREAT AXE
+    // LONGBOW
 
     // ATTRIBUTES
     private final String name;
@@ -14,10 +16,10 @@ public enum AxeMoves implements Attack {
     private final boolean isAffectAll;
     private final int levelOfAccess;
     private final MoveType moveType = MoveType.ATTACK;
-    private final AttackType attackType = AttackType.BLUNT;
+    private final AttackType attackType = AttackType.SHOOT;
 
     //  CONSTRUCTOR
-    AxeMoves(String name, int result, int mana, double accuracy, boolean isAffectAll, int levelOfAccess) {
+    Bow(String name, int result, int mana, double accuracy, boolean isAffectAll, int levelOfAccess) {
         this.name = name;
         this.result = result;
         this.mana = mana;
@@ -43,7 +45,7 @@ public enum AxeMoves implements Attack {
         return accuracy;
     }
 
-    public boolean getIsAffectAll() {
+    public boolean isAffectAll() {
         return isAffectAll;
     }
 
@@ -61,18 +63,8 @@ public enum AxeMoves implements Attack {
 
     // IMPLEMENTED METHODS
     @Override
-    public int attack() {
-        return 0;
-    }
-
-    @Override
     public int useMana(int currMana) {
         return 0;
-    }
-
-    @Override
-    public boolean doesHit(double unitAccuracy) {
-        return false;
     }
 
     @Override

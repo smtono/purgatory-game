@@ -1,12 +1,20 @@
 package purgatory.move;
 
-public enum ClubMoves implements Attack {
-    // NORMAL CLUB
-    BLUDGEON("Bludgeon", 30, 0, 0.4, false, 1),
-    CLOBBER("Clobber", 35, 0, 0.4, false, 1),
-    BATTER("Batter", 45, 0, 0.3, false, 5);
+import purgatory.entity.Entity;
 
-    // MORNING STAR
+public enum Staff implements Attack, Heal {
+    // NORMAL STAFF
+
+    // ATTACKS
+    LUX("Lux", 10, 5, 0.7, true, 1, MoveType.ATTACK, AttackType.HOLY),
+    LUMINESCENCE("Luminescence", 15, 8, 0.7, true, 1, MoveType.ATTACK, AttackType.HOLY),
+
+    // HEALS
+    MEND("Mend", 10, 2, 0.7, false, 1, MoveType.HEAL, AttackType.HOLY),
+    REMEDIAL("Remedial", 25, 5, 0.75, false, 2, MoveType.HEAL, AttackType.HOLY),
+    RECOVERY("Recovery", 45, 10, 0.8, true, 5, MoveType.HEAL, AttackType.HOLY);
+
+    // SCEPTER
 
     // ATTRIBUTES
     private final String name;
@@ -15,17 +23,19 @@ public enum ClubMoves implements Attack {
     private final double accuracy;
     private final boolean isAffectAll;
     private final int levelOfAccess;
-    private final MoveType moveType = MoveType.ATTACK;
-    private final AttackType attackType = AttackType.BLUNT;
+    private final MoveType moveType;
+    private final AttackType attackType;
 
     //  CONSTRUCTOR
-    ClubMoves(String name, int result, int mana, double accuracy, boolean isAffectAll, int levelOfAccess) {
+    Staff(String name, int result, int mana, double accuracy, boolean isAffectAll, int levelOfAccess, MoveType moveType, AttackType attackType) {
         this.name = name;
         this.result = result;
         this.mana = mana;
         this.accuracy = accuracy;
         this.isAffectAll = isAffectAll;
         this.levelOfAccess = levelOfAccess;
+        this.moveType = moveType;
+        this.attackType = attackType;
     }
 
     // ACCESSORS
@@ -45,7 +55,7 @@ public enum ClubMoves implements Attack {
         return accuracy;
     }
 
-    public boolean getIsAffectAll() {
+    public boolean isAffectAll() {
         return isAffectAll;
     }
 
@@ -63,18 +73,28 @@ public enum ClubMoves implements Attack {
 
     // IMPLEMENTED METHODS
     @Override
-    public int attack() {
+    public int attack(Entity hero) {
+        return 0;
+    }
+
+    @Override
+    public boolean isStrength() {
+        return false;
+    }
+
+    @Override
+    public boolean isMagic() {
+        return true;
+    }
+
+    @Override
+    public int heal() {
         return 0;
     }
 
     @Override
     public int useMana(int currMana) {
         return 0;
-    }
-
-    @Override
-    public boolean doesHit(double unitAccuracy) {
-        return false;
     }
 
     @Override

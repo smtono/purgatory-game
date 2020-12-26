@@ -1,12 +1,18 @@
 package purgatory.move;
 
-public enum BowMoves implements Move {
-    // NORMAL BOW
-    AIM("Aim", 10, 0, 0.4, false, 1),
-    FIRE("Fire", 15, 0, 0.3, false, 1),
-    ARROWSTORM("Arrowstorm", 25, 0, 0.4, false, 1);
+import purgatory.entity.Entity;
 
-    // LONGBOW
+/**
+ *
+ */
+public enum Sword implements Attack {
+    // NORMAL SWORD
+    LUNGE("Lunge", 10, 0, 0.5, false, 1),
+    SLASH("Slash", 20, 0, 0.5, false, 1),
+    SLICE("Slice", 27, 0, 0.55, false, 2),
+    RIPOSTE("Riposte", 35, 10, 0.6, true, 5);
+
+    // GREAT SWORD
 
     // ATTRIBUTES
     private final String name;
@@ -16,10 +22,10 @@ public enum BowMoves implements Move {
     private final boolean isAffectAll;
     private final int levelOfAccess;
     private final MoveType moveType = MoveType.ATTACK;
-    private final AttackType attackType = AttackType.SHOOT;
+    private final AttackType attackType = AttackType.SLASH;
 
     //  CONSTRUCTOR
-    BowMoves(String name, int result, int mana, double accuracy, boolean isAffectAll, int levelOfAccess) {
+    Sword(String name, int result, int mana, double accuracy, boolean isAffectAll, int levelOfAccess) {
         this.name = name;
         this.result = result;
         this.mana = mana;
@@ -45,7 +51,7 @@ public enum BowMoves implements Move {
         return accuracy;
     }
 
-    public boolean getIsAffectAll() {
+    public boolean isAffectAll() {
         return isAffectAll;
     }
 
@@ -63,13 +69,23 @@ public enum BowMoves implements Move {
 
     // IMPLEMENTED METHODS
     @Override
-    public int useMana(int currMana) {
+    public int attack(Entity hero) {
         return 0;
     }
 
     @Override
-    public boolean doesHit(double unitAccuracy) {
+    public boolean isStrength() {
+        return true;
+    }
+
+    @Override
+    public boolean isMagic() {
         return false;
+    }
+
+    @Override
+    public int useMana(int currMana) {
+        return 0;
     }
 
     @Override
