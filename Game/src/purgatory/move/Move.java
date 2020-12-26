@@ -37,4 +37,20 @@ public interface Move {
      */
     public int useMana(int currMana);
 
+    // ACCESSORS
+    public String getName();
+
+    public int getResult();
+
+    public int getMana();
+
+    public double getAccuracy();
+
+    public boolean isAffectAll();
+
+    public int getLevelOfAccess();
+
+    public MoveType getMoveType();
+
+    public AttackType getAttackType();
 }
