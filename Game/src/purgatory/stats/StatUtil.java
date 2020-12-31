@@ -1,10 +1,6 @@
 package purgatory.stats;
 
-import purgatory.Reference;
-import purgatory.entity.CharacterType;
 import purgatory.entity.Entity;
-import purgatory.entity.EntityType;
-import purgatory.entity.EntityUtil;
 import purgatory.move.MoveUtil;
 
 import java.util.*;
@@ -18,6 +14,12 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class StatUtil {
     // TODO: write different methods that calculate different random stats.
+    static Random gen = new Random();
+    public final static String[] ENEMY_NAMES = {"Alastor", "Asura", "Azazel", "Astaroth", "Barbatos",
+                                                "Beleth", "Belial", "Eblis", "Dev", "Focalor", "Forneus",
+                                                "Legion", "Lilith", "Murmur", "Moloch", "Orcus", "Alichino"
+                                                "Barbariccia", "Cagnazzo", "Calcabrina", "Ciriatto", "Draghignazzo",
+                                                 "Farfarello", "Graffiacane", "Libicocco", "Rubicante", "Scarmiglione"};
 
     /**
      * Returns a random name for an enemy.
@@ -26,9 +28,8 @@ public class StatUtil {
      */
     public static String generateRandomName() {
         // TODO: fix so that multiple enemies cannot have the same name
-        Random gen = new Random();
-        int index = gen.nextInt(Reference.ENEMY_NAMES.length);
-        return Reference.ENEMY_NAMES[index];
+        int index = gen.nextInt(ENEMY_NAMES.length);
+        return ENEMY_NAMES[index];
     }
 
     /**
@@ -53,21 +54,10 @@ public class StatUtil {
      * @return An enemy Entity object with stats tailored to hero's level.
      */
     private Entity generateEnemy(Entity hero) {
-        Random ran = new Random();
-
         // calculating enemy stats
-        String enemyName = StatUtil.generateRandomName();
-        EntityType enemyType = EntityUtil.getEntityTypes(CharacterType.ENEMY).get(ran.nextInt(EntityUtil.getEntityTypes(CharacterType.ENEMY).size()));
-        int enemyCurrentHealth = hero.getMaxHealth() * 2;
-        final int ENEMY_MAX_HEALTH = hero.getMaxHealth() * 2;
-        int enemySpeed = ran.nextInt(30);
-        double enemyAccuracy = ThreadLocalRandom.current().nextDouble(0.6, 1);
+        String enemyName = generateRandomName();
         int strength = 0;
         int magic = 0;
         int defense = 0;
-        int enemyLevel = ThreadLocalRandom.current().nextInt(hero.getLevel(), hero.getLevel() + 3);
-
-        return new Entity(enemyName, enemyType, ENEMY_MAX_HEALTH, 0, enemySpeed, enemyAccuracy, strength, magic,
-                MoveUtil.getNewEnemyMoveSet(enemyType, 1), enemyLevel);
     }
 }
