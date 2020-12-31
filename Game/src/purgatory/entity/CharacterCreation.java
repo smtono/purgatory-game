@@ -1,4 +1,4 @@
-package purgatory.player;
+package purgatory.entity;
 
 import purgatory.entity.CharacterType;
 import purgatory.entity.Entity;

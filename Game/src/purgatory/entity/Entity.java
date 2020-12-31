@@ -1,7 +1,5 @@
 package purgatory.entity;
 
-import purgatory.Reference;
-
 import java.util.List;
 
 import purgatory.move.Move;

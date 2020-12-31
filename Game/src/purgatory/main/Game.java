@@ -1,11 +1,9 @@
 package purgatory.main;
-import purgatory.Reference;
 import purgatory.battle.BattleController;
 import purgatory.battle.BattleModel;
 import purgatory.battle.BattleView;
 import purgatory.entity.Entity;
-import purgatory.entity.EntityType;
-import purgatory.player.CharacterCreation;
+import purgatory.entity.CharacterCreation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +33,7 @@ public class Game {
 		Entity hero = CharacterCreation.getHero();
 		Random gen = new Random();
 		fighters.add(hero);
-		fighters.add(new Entity(Reference.ENEMY_NAMES[gen.nextInt(Reference.ENEMY_NAMES.length)],EntityType.MOON));
+		//fighters.add(new Entity(Reference.ENEMY_NAMES[gen.nextInt(Reference.ENEMY_NAMES.length)],EntityType.MOON));
 		BattleModel model = new BattleModel(fighters);
 		BattleView view = new BattleView();
 		BattleController control = new BattleController(view, model);

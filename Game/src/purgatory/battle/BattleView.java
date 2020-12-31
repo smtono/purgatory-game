@@ -1,6 +1,5 @@
 package purgatory.battle;
 
-import purgatory.Reference;
 import purgatory.entity.Entity;
 
 import java.awt.BorderLayout;
