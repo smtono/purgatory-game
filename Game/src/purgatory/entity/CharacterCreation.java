@@ -45,7 +45,7 @@ public class CharacterCreation {
         while (restart == 1) {
             int type = JOptionPane.showOptionDialog(null,
                     "Choose hero type!",
-                    "Choose Hero",
+                    "",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
                     null,

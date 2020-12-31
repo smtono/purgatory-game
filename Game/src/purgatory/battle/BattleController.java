@@ -39,6 +39,9 @@ public class BattleController {
         JOptionPane.showMessageDialog(null, "You have just entered a battle!\n"
                 + "Read your enemy's stats, and choose the move that would best counter it!\n"
                 + "Different enemies have different weaknesses!", "Enemy Appeared!", JOptionPane.INFORMATION_MESSAGE);
+
+        model.determineOrder();
+        view.appendBattleText(getFighterOrder(model.getFighters()));
     }
 
     /**

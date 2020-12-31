@@ -4,6 +4,8 @@ import purgatory.battle.BattleModel;
 import purgatory.battle.BattleView;
 import purgatory.entity.Entity;
 import purgatory.entity.CharacterCreation;
+import purgatory.stats.StatUtil;
+import purgatory.terraces.Terrace;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +35,13 @@ public class Game {
 		Entity hero = CharacterCreation.getHero();
 		Random gen = new Random();
 		fighters.add(hero);
-		//fighters.add(new Entity(Reference.ENEMY_NAMES[gen.nextInt(Reference.ENEMY_NAMES.length)],EntityType.MOON));
+		fighters.add(StatUtil.generateEnemy(hero, Terrace.GLUTTONY));
+		fighters.add(StatUtil.generateSuperEnemy(hero, Terrace.GLUTTONY));
 		BattleModel model = new BattleModel(fighters);
 		BattleView view = new BattleView();
 		BattleController control = new BattleController(view, model);
 		control.setMoves(hero);
 		control.startBattle();
+
 	}
 }

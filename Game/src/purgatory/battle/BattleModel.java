@@ -85,6 +85,6 @@ public class BattleModel {
      */
     public int damageHero(Entity enemy, Attack move) {
 
-
+        return 0;
     }
 }
