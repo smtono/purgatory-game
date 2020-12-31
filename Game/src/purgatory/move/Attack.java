@@ -7,12 +7,12 @@ public interface Attack extends Move {
      * First determine if the move hits using doesHit() from Move
      * Takes the stats of the hero and formulates the attack power of the move
      * based on base damage along with the hero's strength/magic
-     *
-     * Take whatever percent over 100 for the accuracy of the move from doesHit() and use that for critical
      * <p>
-     * Critical can be calculated by taking whatever percentage it is
-     * after the above calculations and adding that percent
-     * of damage on top of the base damage.
+     * Critical is calculated by choosing randomly. A move has a chance to critical 0.5 * Level of unit
+     *
+     * Each weapon/attack type is weak and strong against other weapon/attack types.
+     * If a weapon is weak it will have a 25% reduction in base damage.
+     * If it is strong it will have a 25% increase in base damage.
      *
      * @param hero: The entity object associated with the hero character
      * @return An int of the damage dealt by the hero unit

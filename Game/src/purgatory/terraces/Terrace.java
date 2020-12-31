@@ -24,11 +24,11 @@ public enum Terrace {
     WRATH("Wrath", "", 7, 0, Arrays.asList());
 
     // variables for construction
-    private String name;
-    private String description;
-    private int level;
-    private int numRooms;
-    private List<EntityType> enemyTypes;
+    private final String name;
+    private final String description;
+    private final int level;
+    private final int numRooms;
+    private final List<EntityType> enemyTypes;
 
     // CONSTRUCTOR
     Terrace(String name,
