@@ -15,7 +15,7 @@ import java.util.List;
  */
 public enum Terrace {
     // TODO: Fix variables for each
-    GLUTTONY("Gluttony", "", 1, 0, Arrays.asList()),
+    GLUTTONY("Gluttony", "", 1, 0, Arrays.asList(EntityType.GUARDIAN, EntityType.MOON)),
     SLOTH("Sloth", "", 2, 0, Arrays.asList()),
     AVARICE("Avarice", "", 3, 0, Arrays.asList()),
     PRIDE("Pride", "", 4, 0, Arrays.asList()),

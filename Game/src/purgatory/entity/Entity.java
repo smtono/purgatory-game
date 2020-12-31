@@ -32,13 +32,14 @@ public class Entity {
     private int mana;
     private int speed;
     private double accuracy;
-    private int strength, magic;
+    private double strength, magic;
+    private double defense;
     private int level;
 
     //	CONSTRUCTORS
     // The default constructor is tailored for a level 1 hero.
     public Entity(String name, EntityType entityType) {
-        this(name, entityType, 100, 20, 10, 0.6, 0, 0, null, 1);
+        this(name, entityType, 100, 20, 10, 0.6, 0, 0, 0, null, 1);
 
         // define base move set based on hero's class (entityType)
         moveSet = MoveUtil.getBaseHeroMoveSet(entityType);
@@ -51,8 +52,9 @@ public class Entity {
                   int mana,
                   int speed,
                   double accuracy,
-                  int strength,
-                  int magic,
+                  double strength,
+                  double magic,
+                  double defense,
                   List<Move> moveSet,
                   int level) {
         this.name = name;
@@ -63,6 +65,7 @@ public class Entity {
         this.accuracy = accuracy;
         this.strength = strength;
         this.magic = magic;
+        this.defense = defense;
         this.moveSet = moveSet;
         this.level = level;
     }
@@ -108,7 +111,7 @@ public class Entity {
         this.accuracy = accuracy;
     }
 
-    public int getStrength() {
+    public double getStrength() {
         return strength;
     }
 
@@ -116,13 +119,17 @@ public class Entity {
         this.strength = strength;
     }
 
-    public int getMagic() {
+    public double getMagic() {
         return magic;
     }
 
     public void setMagic(int magic) {
         this.magic = magic;
     }
+
+    public double getDefense() { return defense; }
+
+    public void setDefense(double defense) { this.defense = defense; }
 
     public List<Move> getMoveSet() {
         return moveSet;
@@ -149,7 +156,7 @@ public class Entity {
         return name + "\n" +
                 entityType.toString() +
                 "\nHealth: " + MAX_HEALTH +
-                "\nLevel " + level;
+                "\nLevel: " + level;
     }
 
     @Override
@@ -161,6 +168,7 @@ public class Entity {
                 ", speed=" + speed +
                 ", strength=" + strength +
                 ", magic=" + magic +
+                ", defense=" + defense +
                 ", level=" + level +
                 '}';
     }
