@@ -2,10 +2,9 @@ package purgatory.stats;
 
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
-import purgatory.move.WeaponType;
+import purgatory.weapon.WeaponType;
 import purgatory.terraces.Terrace;
 
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -73,28 +72,34 @@ public class StatMath {
      * The first element in the array return represents the magic stat
      * The second element in the array return represents the strength stat
      *
+     * @param level: The current level of the enemy being made
      * @param weaponTypes: A list of the types of weapon that will determine if magic or strength is calculated
      * @return An int that represents the strength/magic stat
      */
-    public static double[] generateEnemyStrengthOrMagic(List<WeaponType> weaponTypes) {
+    public static double[] generateEnemyStrengthOrMagic(int level, List<WeaponType> weaponTypes) {
         double[] manaStats = new double[2];
 
-        if (weaponTypes.size() == 1) { // calculate only one stat
-            WeaponType weaponType = weaponTypes.get(0);
+        if (level <= 5) { // if an enemy is less than level 5 it shouldn't get increased damage
+            manaStats[0] = 0;
+            manaStats[1] = 0;
+        } else {
+            if (weaponTypes.size() == 1) { // calculate only one stat if there's only one weapon
+                WeaponType weaponType = weaponTypes.get(0);
 
-            switch (weaponType.getManaType()) {
-                case MAGIC:
-                    manaStats[0] = Math.round(ThreadLocalRandom.current().nextDouble(0, 1.0) * 100D) / 100D;
-                    manaStats[1] = 0;
-                    break;
-                case STRENGTH:
-                    manaStats[1] = Math.round(ThreadLocalRandom.current().nextDouble(0, 1.0) * 100D) / 100D;
-                    manaStats[0] = 0;
-                    break;
+                switch (weaponType.getManaType()) {
+                    case MAGIC:
+                        manaStats[0] = Math.round(ThreadLocalRandom.current().nextDouble(0, 1.0) * 100D) / 100D;
+                        manaStats[1] = 0;
+                        break;
+                    case STRENGTH:
+                        manaStats[1] = Math.round(ThreadLocalRandom.current().nextDouble(0, 1.0) * 100D) / 100D;
+                        manaStats[0] = 0;
+                        break;
+                }
+            } else { // calculate both stats otherwise
+                manaStats[1] = Math.round(ThreadLocalRandom.current().nextDouble(0, 1.0) * 100D) / 100D;
+                manaStats[0] = Math.round(ThreadLocalRandom.current().nextDouble(0, 1.0) * 100D) / 100D;
             }
-        } else { // calculate both stats
-            manaStats[1] = Math.round(ThreadLocalRandom.current().nextDouble(0, 1.0) * 100D) / 100D;
-            manaStats[0] = Math.round(ThreadLocalRandom.current().nextDouble(0, 1.0) * 100D) / 100D;
         }
         return manaStats;
     }
@@ -108,8 +113,6 @@ public class StatMath {
      * @return A double that represents a defense stat.
      */
     public static double generateEnemyDefense() {
-        // TODO: make defense stat a double so it can act as a percent
-        // so that a percent of the damage can be taken off
         return Math.round(ThreadLocalRandom.current().nextDouble(0, 0.5) * 100D) / 100D;
     }
 
