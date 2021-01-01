@@ -39,10 +39,19 @@ public class StatMath {
      * @return An int that is the max health based on the current level the hero is on
      */
     public static int generateEnemyMaxHealth(Terrace terrace) {
-        int lowerBound = terrace.getLevel() * 50;
-        int upperBound = lowerBound + 200;
-
-        return rng.nextInt(upperBound - lowerBound) + lowerBound;
+        if (terrace.getLevel() < 3) {
+         int lowerBound = terrace.getLevel() * 50;
+         int upperBound = lowerBound + 200;
+         return rng.nextInt(upperBound - lowerBound) + lowerBound;
+        } else if (terrace.getLevel() == 7) {
+            int lowerBound = terrace.getLevel() * 300;
+            int upperBound = lowerBound + 10000;
+            return rng.nextInt(upperBound - lowerBound) + lowerBound;
+        } else {
+            int lowerBound = terrace.getLevel() * 100;
+            int upperBound = lowerBound + 1000;
+            return rng.nextInt(upperBound - lowerBound) + lowerBound;
+        }
     }
 
     /**

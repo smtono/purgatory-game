@@ -1,7 +1,9 @@
 package purgatory.stats;
 
+import purgatory.entity.CharacterType;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
+import purgatory.entity.EntityUtil;
 import purgatory.terraces.Terrace;
 
 import java.util.*;
@@ -117,5 +119,33 @@ public class StatUtil {
                 enemyDefense,
                 null,
                 enemyLevel);
+    }
+
+    /**
+     * Returns a list of enemies based on hero stats.
+     *
+     * Uses a set of methods for stat manipulation
+     *
+     * @param numEnemies: The amount of enemies that will be returned
+     * @return A list with a number of requested enemies based on hero stats
+     */
+    public static List<Entity> generateEnemies(int numEnemies, Entity hero, Terrace terrace) {
+        List<Entity> enemies = new ArrayList<>();
+
+        for (int i = 0; i < numEnemies; i++) {
+            enemies.add(generateEnemy(hero, terrace));
+        }
+
+        if (terrace.getLevel() > 3) {
+            enemies.add(generateSuperEnemy(hero, terrace));
+        }
+        if (terrace.getLevel() > 5) {
+            enemies.add(generateSuperEnemy(hero, terrace));
+        }
+        if (terrace.getLevel() >= 6) {
+            enemies.add(generateSuperEnemy(hero, terrace));
+        }
+
+        return enemies;
     }
 }
