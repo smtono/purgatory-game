@@ -1,6 +1,6 @@
 package purgatory.entity;
 
-import purgatory.move.WeaponType;
+import purgatory.weapon.WeaponType;
 
 import java.util.Arrays;
 import java.util.List;

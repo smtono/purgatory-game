@@ -2,7 +2,7 @@ package purgatory.move;
 
 import purgatory.entity.Entity;
 
-public interface Attack extends Move {
+public interface Attack extends VirtualMove {
     /**
      * First determine if the move hits using doesHit() from Move
      * Takes the stats of the hero and formulates the attack power of the move

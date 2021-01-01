@@ -1,4 +1,4 @@
-package purgatory.move;
+package purgatory.weapon;
 
 /**
  * AttackType is to differentiate different weapon types that heroes can use, as well as advantages or disadvantages

@@ -2,11 +2,9 @@ package purgatory.stats;
 
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
-import purgatory.move.MoveUtil;
 import purgatory.terraces.Terrace;
 
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * StatUtil is used to extrapolate / manipulate stats associated with Entity objects.
@@ -64,7 +62,7 @@ public class StatUtil {
         double enemyAccuracy = StatMath.generateEnemyAccuracy();
         int enemySpeed = StatMath.generateEnemySpeed();
         EntityType enemyType = StatMath.generateEnemyEntityType(terrace);
-        double[] enemyManaStats = StatMath.generateEnemyStrengthOrMagic(enemyType.getWeaponTypes());
+        double[] enemyManaStats = StatMath.generateEnemyStrengthOrMagic(enemyLevel, enemyType.getWeaponTypes());
         double enemyDefense = StatMath.generateEnemyDefense();
 
         return new Entity(enemyName,
@@ -94,7 +92,7 @@ public class StatUtil {
         double enemyAccuracy = StatMath.generateEnemyAccuracy();
         int enemySpeed = StatMath.generateEnemySpeed();
         EntityType enemyType = StatMath.generateEnemyEntityType(terrace);
-        double[] enemyManaStats = StatMath.generateEnemyStrengthOrMagic(enemyType.getWeaponTypes());
+        double[] enemyManaStats = StatMath.generateEnemyStrengthOrMagic(enemyLevel, enemyType.getWeaponTypes());
         double enemyDefense = StatMath.generateEnemyDefense();
 
         // Enhancements

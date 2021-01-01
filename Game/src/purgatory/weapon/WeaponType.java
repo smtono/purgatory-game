@@ -1,4 +1,4 @@
-package purgatory.move;
+package purgatory.weapon;
 
 import java.util.Arrays;
 import java.util.List;

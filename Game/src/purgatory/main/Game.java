@@ -4,8 +4,11 @@ import purgatory.battle.BattleModel;
 import purgatory.battle.BattleView;
 import purgatory.entity.Entity;
 import purgatory.entity.CharacterCreation;
+import purgatory.move.Move;
 import purgatory.stats.StatUtil;
 import purgatory.terraces.Terrace;
+import purgatory.weapon.Axe;
+import purgatory.weapon.Tome;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +45,7 @@ public class Game {
 		BattleController control = new BattleController(view, model);
 		control.setMoves(hero);
 		control.startBattle();
+
 
 	}
 }

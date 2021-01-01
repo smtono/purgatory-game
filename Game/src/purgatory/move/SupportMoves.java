@@ -1,5 +1,7 @@
 package purgatory.move;
 
+import purgatory.weapon.AttackType;
+
 /**
  *
  */

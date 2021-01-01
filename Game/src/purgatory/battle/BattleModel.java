@@ -2,7 +2,6 @@ package purgatory.battle;
 
 import purgatory.entity.Entity;
 import purgatory.move.Attack;
-import purgatory.move.Move;
 import purgatory.stats.StatUtil;
 
 import java.util.*;

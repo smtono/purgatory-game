@@ -2,8 +2,8 @@ package purgatory.move;
 
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
+import purgatory.weapon.*;
 
-import javax.swing.*;
 import java.util.*;
 
 /**
