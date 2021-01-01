@@ -44,7 +44,7 @@ public class Game {
 		BattleView view = new BattleView();
 		BattleController control = new BattleController(view, model);
 		control.setMoves(hero);
-		control.startBattle();
+		control.startBattle(hero);
 
 
 	}

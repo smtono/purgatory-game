@@ -22,6 +22,9 @@ public class BattleView {
     private final JTextArea battleText = new JTextArea(); // text area to display what is happening in the battle
     private final JTextArea statsText = new JTextArea(); // text area to display hero stat's as they deplete (or replenish)
 
+    // JLabels
+    final JLabel heroName = new JLabel(currHeroName); // displays current hero's name
+
     // CONSTRUCTOR
     public BattleView() {
         final String[] menu = {"Run", "Profile", "Items", "Help"};
@@ -35,8 +38,7 @@ public class BattleView {
         final JList<String> moveSet = new JList<>(moves); // displays moves in a list
 
         // JLabels
-        final JLabel enemyName = new JLabel("You have entered a battle!"); // header
-        final JLabel heroName = new JLabel(currHeroName); // displays hero's name
+        final JLabel greeting = new JLabel("You have entered a battle!"); // header
 
         // JSplitPanes, used to store components together in one spot on the GUI
         final JSplitPane eastSide = new JSplitPane(JSplitPane.VERTICAL_SPLIT, statsText, menuSet); // to split up the components on the east side of the GUI
@@ -45,14 +47,22 @@ public class BattleView {
         //  COMPONENT PLACEMENT
         final BorderLayout layout = new BorderLayout();
         final JPanel panel = new JPanel();
+
         // tweaking components
         battleText.setEditable(false);
         statsText.setEditable(false);
-        eastSide.setDividerLocation(300);
+
+        eastSide.setDividerLocation(500);
+        southSide.setDividerLocation(100);
+
+        eastSide.setOneTouchExpandable(true);
+        southSide.setOneTouchExpandable(true);
+
         // tweaking panels
         panel.setLayout(layout);
+
         // adding components to the right place
-        panel.add(enemyName, BorderLayout.NORTH);
+        panel.add(greeting, BorderLayout.NORTH);
         panel.add(battleText, BorderLayout.CENTER);
         panel.add(eastSide, BorderLayout.EAST);
         panel.add(southSide, BorderLayout.SOUTH);
@@ -79,7 +89,7 @@ public class BattleView {
         //  FRAME CONSTRUCTION
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
-        frame.setSize(500, 500);
+        frame.setSize(700, 700);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -129,6 +139,6 @@ public class BattleView {
      * @param unit: The current Entity object used for the unit
      */
     public void setCurrentHeroName(Entity unit) {
-        currHeroName = unit.getName();
+        heroName.setText(unit.getName());
     }
 }

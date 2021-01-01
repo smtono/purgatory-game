@@ -26,14 +26,17 @@ public class BattleController {
 
     /**
      * Prepares the view for the first turn by telling the user they encountered an enemy and displaying stats.
+     *
+     * @param hero: The Entity object representing the hero (player)
      */
-    public void startBattle() {
+    public void startBattle(Entity hero) {
         StringBuilder builder = new StringBuilder();
+        view.setCurrentHeroName(hero);
         EntityUtil.getEntitiesOfType(model.getFighters(), CharacterType.ENEMY).iterator().forEachRemaining(entity -> {
             builder.append(entity.getInfo());
             builder.append("\n\n");
         });
-        view.appendBattleText("A team of wild monsters appeared!\n\n");
+        view.appendBattleText("A team of wild demons appeared!\n\n");
         view.appendStatsText(builder.toString());
         // prompts hero that they have encountered and enemy, and gives a brief tutorial on how to play.
         JOptionPane.showMessageDialog(null, "You have just entered a battle!\n"

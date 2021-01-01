@@ -1,8 +1,11 @@
 package purgatory.battle;
 
+import purgatory.entity.CharacterType;
 import purgatory.entity.Entity;
+import purgatory.entity.EntityUtil;
 import purgatory.move.Attack;
 import purgatory.stats.StatUtil;
+import purgatory.terraces.Terrace;
 
 import java.util.*;
 
@@ -23,23 +26,6 @@ public class BattleModel {
     }
 
     /**
-     * Returns a list of enemies based on hero stats.
-     *
-     * Uses a set of methods for stat manipulation
-     * @see StatUtil
-     *
-     * @param numEnemies: The amount of enemies that will be returned
-     * @return A list with a number of requested enemies based on hero stats
-     */
-    public static List<Entity> generateEnemies(int numEnemies) {
-        List<Entity> enemies = new ArrayList<>();
-
-        // TODO: write the loop for generating enemies and their stats
-
-        return enemies;
-    }
-
-    /**
      * Sorts the list of fighters based on speed stat of entity objects
      */
     public void determineOrder() {
@@ -49,41 +35,39 @@ public class BattleModel {
 
     // DIRECT ATTACKS
     /**
-     *
-     */
-    public void defendEnemy() {
-        // code
-    }
-
-    /**
      * Returns an int that will represent the damage inflicted on the enemy
      * based on the damage value of the move, along with the stats of the hero
      *
-	 * @param heroMove: The string value of the move that the user (player) picked.
+     * @param hero: The entity object associated with the hero attacking
+     * @param enemy: The enemy entity object being attacked
+     * @param move: The move chosen by the player, specifically an attack move
      * @return Returns an int that will represent the damage inflicted on the enemy.
      */
-    public int damageEnemy(String heroMove, Entity enemy) {
+    public int damageEnemy(Entity hero, Entity enemy, Attack move) {
         // heroDamage = hero.heroAttack(heroMove); this will call the attack function in the Hero class and return the damage output of that particular move.
         // return heroDamage;
         return 10;
     }
 
-	/**
-	 *
-	 */
-	public void defendHero() {
-    	// code
-	}
-
     /**
      * Returns an int based on the move chosen (randomly) by enemy entity
      *
      * @param enemy: The entity object associated with the enemy attacking
+     * @param hero: The entity object associated with the current hero
      * @param move: The move randomly chosen by an enemy, specifically an attack move
      * @return int that will represent the amount of damage inflicted on the hero
      */
-    public int damageHero(Entity enemy, Attack move) {
+    public int damageHero(Entity enemy, Entity hero, Attack move) {
 
         return 0;
+    }
+
+    /**
+     * Gathers current stats of all fighters
+     *
+     * @return
+     */
+    public Map<String, Object> getCurrentState() {
+
     }
 }
