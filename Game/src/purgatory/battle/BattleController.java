@@ -50,10 +50,10 @@ public class BattleController {
     /**
      * Sets the move set JList in the BattleView GUI based on the move set of the current hero
      *
-     * @param hero: The current Entity object used for the hero (player)
+     * @param currHero: The current Entity object used for the hero (player)
      */
-    public void setMoves(Entity hero) {
-        List<String> moves = MoveUtil.getHeroMoveSetByName(hero);
+    public void setMoves(Entity currHero) {
+        List<String> moves = MoveUtil.getHeroMoveSetByName(currHero);
         view.setMoves(moves.toArray(String[]::new));
     }
 

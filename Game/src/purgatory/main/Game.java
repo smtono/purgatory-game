@@ -46,6 +46,5 @@ public class Game {
 		control.setMoves(hero);
 		control.startBattle(hero);
 
-
 	}
 }
