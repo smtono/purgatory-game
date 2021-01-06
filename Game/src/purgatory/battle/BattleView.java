@@ -3,6 +3,7 @@ package purgatory.battle;
 import purgatory.entity.Entity;
 
 import java.awt.BorderLayout;
+import java.awt.event.*;
 import javax.swing.*;
 
 /**
@@ -14,7 +15,6 @@ import javax.swing.*;
  */
 public class BattleView {
     DefaultListModel<String> moves = new DefaultListModel<>();
-    private String currHeroName = "Hero";
     private String moveSelected;
     private String menuSelected;
 
@@ -23,7 +23,7 @@ public class BattleView {
     private final JTextArea statsText = new JTextArea(); // text area to display hero stat's as they deplete (or replenish)
 
     // JLabels
-    final JLabel heroName = new JLabel(currHeroName); // displays current hero's name
+    final JLabel heroName = new JLabel("Hero"); // displays current hero's name
 
     // CONSTRUCTOR
     public BattleView() {
@@ -68,21 +68,30 @@ public class BattleView {
         panel.add(southSide, BorderLayout.SOUTH);
 
         //	ACTION LISTENERS
-        // Move selected
-        moveSet.addListSelectionListener(event -> {
-            if (!event.getValueIsAdjusting()) {
-                @SuppressWarnings("unchecked")
-                JList<String> source = (JList<String>) event.getSource(); // gets which move the user picked
-                moveSelected = source.getSelectedValue(); // stores the value into a string variable
+        moveSet.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
+                    @SuppressWarnings("unchecked")
+                    JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
+                    moveSelected = source.getSelectedValue(); // stores the value into a string variable
+                    moveSet.setEnabled(false);
+                    System.out.println(moveSelected);
+                }
             }
         });
 
         // Menu item selected
-        menuSet.addListSelectionListener(event -> {
-            if (!event.getValueIsAdjusting()) {
-                @SuppressWarnings("unchecked")
-                JList<String> source = (JList<String>) event.getSource(); // gets which menu option the user picked
-                menuSelected = source.getSelectedValue(); // stores the value into a string variable
+        menuSet.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
+                    @SuppressWarnings("unchecked")
+                    JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
+                    menuSelected = source.getSelectedValue(); // stores the value into a string variable
+
+                    System.out.println(menuSelected);
+                }
             }
         });
 
@@ -95,6 +104,7 @@ public class BattleView {
     }
 
     // UTILITY METHODS
+
     /**
      * Appends to the battleText JTextArea in the BattleView GUI
      *
