@@ -8,5 +8,5 @@ package purgatory.weapon;
  *
  */
 public enum AttackType {
-    SLASH, PIERCE, SHOOT, BLUNT, ELEMENTAL, HOLY, DARK
+    SLASH, PIERCE, SHOOT, BLUNT, ELEMENTAL, HOLY, DARK, NONE
 }
