@@ -1,13 +1,13 @@
 package purgatory.battle;
 
-import purgatory.entity.CharacterType;
 import purgatory.entity.Entity;
-import purgatory.entity.EntityUtil;
 import purgatory.move.Attack;
-import purgatory.stats.StatUtil;
-import purgatory.terraces.Terrace;
+import purgatory.move.Move;
+import purgatory.move.MoveType;
+import purgatory.move.MoveUtil;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * BattleModel serves as the logic of the battle system.
@@ -34,9 +34,43 @@ public class BattleModel {
     }
 
     // DIRECT ATTACKS
+
+    /**
+     *
+     * @param hero: The entity object associated with the hero attacking
+     * @return A boolean of whether the move will critical or not
+     */
+    public boolean isCritical(Entity hero) {
+        double criticalChance = hero.getLevel() * 0.09;
+        double criticalHit = ThreadLocalRandom.current().nextDouble(0, 1);
+
+        return criticalHit < criticalChance;
+    }
+
+    private int damage(Entity unit, double defense, Attack move) {
+        if (MoveUtil.doesHit(unit, move)) {
+            int damage = move.attack(unit);
+            int damageReduction = (int) (move.attack(unit) * defense);
+
+            return damage - damageReduction;
+        } else {
+            return 0;
+        }
+    }
+
     /**
      * Returns an int that will represent the damage inflicted on the enemy
      * based on the damage value of the move, along with the stats of the hero
+     *
+     * First determine if the move hits using doesHit() from MoveUtil
+     * Takes the stats of the hero and formulates the attack power of the move
+     * based on base damage along with the hero's strength/magic
+     * <p>
+     * Critical is calculated by choosing randomly. A move has a chance to critical 0.09 * Level of unit
+     *
+     * Each weapon/attack type is weak and strong against other weapon/attack types.
+     * If a weapon is weak it will have a 25% reduction in base damage.
+     * If it is strong it will have a 25% increase in base damage.
      *
      * @param hero: The entity object associated with the hero attacking
      * @param enemy: The enemy entity object being attacked
@@ -44,9 +78,9 @@ public class BattleModel {
      * @return Returns an int that will represent the damage inflicted on the enemy.
      */
     public int damageEnemy(Entity hero, Entity enemy, Attack move) {
-        // heroDamage = hero.heroAttack(heroMove); this will call the attack function in the Hero class and return the damage output of that particular move.
-        // return heroDamage;
-        return 10;
+        double enemyDefense = enemy.getDefense(); // used to calculate percent "absorbed" by enemy
+
+       return damage(hero, enemyDefense, move);
     }
 
     /**
@@ -54,12 +88,15 @@ public class BattleModel {
      *
      * @param enemy: The entity object associated with the enemy attacking
      * @param hero: The entity object associated with the current hero
-     * @param move: The move randomly chosen by an enemy, specifically an attack move
      * @return int that will represent the amount of damage inflicted on the hero
      */
-    public int damageHero(Entity enemy, Entity hero, Attack move) {
+    public int damageHero(Entity enemy, Entity hero) {
+        List<Move> enemyAttacks = MoveUtil.getMovesByMoveType(MoveType.ATTACK, enemy.getMoveSet());
+        Attack move = (Attack) MoveUtil.getRandomMove(enemyAttacks);
 
-        return 0;
+        double heroDefense = hero.getDefense();
+
+       return damage(enemy, heroDefense, move);
     }
 
     /**
@@ -67,7 +104,7 @@ public class BattleModel {
      *
      * @return
      */
-    public Map<String, Object> getCurrentState() {
+    /*public Map<String, Object> getCurrentStats() {
 
-    }
+    }*/
 }
