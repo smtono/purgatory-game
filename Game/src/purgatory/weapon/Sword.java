@@ -32,7 +32,7 @@ public enum Sword implements Attack {
     public Move getMove() { return move; }
 
     @Override
-    public int attack(Entity hero) {
+    public int attack(Entity unit) {
         return 0;
     }
 
@@ -45,6 +45,9 @@ public enum Sword implements Attack {
     public boolean isMagic() {
         return false;
     }
+
+    @Override
+    public ManaType getManaType() { return ManaType.STRENGTH; }
 
     @Override
     public String toString() {

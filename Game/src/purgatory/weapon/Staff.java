@@ -34,7 +34,12 @@ public enum Staff implements Attack, Heal {
     public Move getMove() { return move; }
 
     @Override
-    public int attack(Entity hero) {
+    public int attack(Entity unit) {
+        return 0;
+    }
+
+    @Override
+    public int heal() {
         return 0;
     }
 
@@ -49,9 +54,7 @@ public enum Staff implements Attack, Heal {
     }
 
     @Override
-    public int heal() {
-        return 0;
-    }
+    public ManaType getManaType() { return ManaType.MAGIC; }
 
     @Override
     public String toString() {

@@ -11,6 +11,7 @@ import java.util.*;
  */
 public class MoveUtil {
     // ACCESSING MOVES/SPECIFIC MOVE SETS
+
     /**
      * Returns a list of every possible move that exists.
      *
@@ -25,8 +26,25 @@ public class MoveUtil {
         allMoves.addAll(Arrays.asList(Wand.values().clone()));
         allMoves.addAll(Arrays.asList(Staff.values().clone()));
         allMoves.addAll(Arrays.asList(Tome.values().clone()));
-        allMoves.addAll(Arrays.asList(SupportMoves.values().clone()));
+        allMoves.addAll(Arrays.asList(SupportMove.values().clone()));
         return allMoves;
+    }
+
+    /**
+     * Returns the current move set of the hero Entity object passed as a list of strings.
+     *
+     * @param hero: An entity object associated with the hero (player)
+     * @return A list of the string values of the Move enum constants.
+     */
+    public static List<String> getHeroMoveSetByName(Entity hero) {
+        List<String> moves = new ArrayList<>();
+
+        hero.getMoveSet().forEach(move -> {
+            String moveName = move.getName();
+            moves.add(moveName);
+        });
+
+        return moves;
     }
 
     /**
@@ -35,7 +53,7 @@ public class MoveUtil {
      * @param weaponType: The type of weapon used by the unit
      * @return A list of all the moves for the specific weapon
      */
-    private static List<Move> getMovesByWeapon(WeaponType weaponType) {
+    private static List<Move> getAllMovesByWeapon(WeaponType weaponType) {
         switch (weaponType) {
             case SWORD:
                 return Arrays.asList(Sword.values().clone());
@@ -56,6 +74,17 @@ public class MoveUtil {
         }
     }
 
+    public static List<Move> getMovesByMoveType(MoveType moveType, List<Move> moveSet) {
+        List<Move> moves = new ArrayList<>();
+        moveSet.forEach(move -> {
+            if (move.getMoveType() == moveType) {
+                moves.add(move);
+            }
+        });
+        return moves;
+    }
+
+
     /**
      * Returns a list of possible moves available to the hero based on their level
      *
@@ -69,7 +98,7 @@ public class MoveUtil {
 
         // loops through each weapon type hero can use
         heroWeaponTypes.forEach(weaponType -> {
-            List<Move> availableMoves = Objects.requireNonNull(getMovesByWeapon(weaponType));
+            List<Move> availableMoves = Objects.requireNonNull(getAllMovesByWeapon(weaponType));
 
             // loops through each move available for that weapon type and checks against the hero's level
             // must be a move that is less than or equal to the player's level.
@@ -106,24 +135,6 @@ public class MoveUtil {
                 return null;
         }
     }
-
-    /**
-     * Returns the current move set of the hero Entity object passed as a list of strings.
-     *
-     * @param hero: An entity object associated with the hero (player)
-     * @return A list of the string values of the Move enum constants.
-     */
-    public static List<String> getHeroMoveSetByName(Entity hero) {
-        List<String> moves = new ArrayList<>();
-
-        hero.getMoveSet().forEach(move -> {
-            String moveName = move.getName();
-            moves.add(moveName);
-        });
-
-        return moves;
-    }
-
 
     /**
      * Depending on the enemy entity type, a different move set will be set.
@@ -169,27 +180,40 @@ public class MoveUtil {
         return moveSet;
     }
 
+    /**
+     * Gets a random move from the move set passed
+     *
+     * @param moveSet: A list of moves
+     * @return A random move from the enemy's move set
+     */
+    public static Move getRandomMove(List<Move> moveSet) {
+        Random rng = new Random();
+        return moveSet.get(rng.nextInt(moveSet.size()));
+    }
+
+
+
     // PERTAINING TO SPECIFIC MOVES
+
     /**
      * Uses the accuracy stat passed that both the hero or party member has as well as the move used
      * to determine if the move hits or not, and returns true if it does hit, and false if it does not.
      *
-     * @param unitAccuracy: The accuracy stat of the current unit passed.
+     * @param unit: The entity object of the unit attacking
      * @return A boolean true if the move hits and false if it does not.
      */
-    public boolean doesHit(double unitAccuracy, Move move) {
+    public static boolean doesHit(Entity unit, Move move) {
         Random gen = new Random();
 
         // find the combined accuracy of the weapon and the hero's
-        double combinedAccuracy = unitAccuracy * move.getAccuracy();
+        double combinedAccuracy = unit.getAccuracy() * move.getAccuracy();
 
         if (combinedAccuracy > 0) {
             // find a range to pick a random number out of
             int upperBound = (int) (combinedAccuracy * 100);
             // find out if this random number is larger than 1/2
             return gen.nextInt(upperBound) > 0.5;
-        }
-        else {
+        } else {
             return false;
         }
     }

@@ -27,7 +27,7 @@ public enum Axe implements Attack {
 
 
     @Override
-    public int attack(Entity hero) {
+    public int attack(Entity unit) {
 
         return 0;
     }
@@ -39,6 +39,9 @@ public enum Axe implements Attack {
     public boolean isMagic() {
         return false;
     }
+
+    @Override
+    public ManaType getManaType() { return ManaType.STRENGTH; }
 
     @Override
     public String toString() {

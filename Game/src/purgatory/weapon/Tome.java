@@ -30,7 +30,7 @@ public enum Tome implements Attack {
     public Move getMove() { return move; }
 
     @Override
-    public int attack(Entity hero) {
+    public int attack(Entity unit) {
         return 0;
     }
 
@@ -43,6 +43,9 @@ public enum Tome implements Attack {
     public boolean isMagic() {
         return true;
     }
+
+    @Override
+    public ManaType getManaType() { return ManaType.MAGIC; }
 
     @Override
     public String toString() {

@@ -58,6 +58,8 @@ public interface Move {
     MoveType getMoveType();
 
     AttackType getAttackType();
+    
+    
 
     static Move of(final String name,
                    final int result,

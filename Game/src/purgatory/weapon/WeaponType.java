@@ -36,8 +36,6 @@ public enum WeaponType {
     TRIDENT("Trident", "Looks like a big fork!", Arrays.asList(AttackType.HOLY, AttackType.PIERCE), ManaType.STRENGTH);
     // TODO: add the rest of the boss weapons
 
-    // variables for construction
-    public enum ManaType {STRENGTH, MAGIC}
     private final String name;
     private final String description;
     private final List<AttackType> attackTypes;
