@@ -1,7 +1,6 @@
 package purgatory.move;
 
-import purgatory.entity.Entity;
-import purgatory.entity.EntityType;
+import purgatory.entity.*;
 import purgatory.weapon.*;
 
 import java.util.*;
@@ -28,23 +27,6 @@ public class MoveUtil {
         allMoves.addAll(Arrays.asList(Tome.values().clone()));
         allMoves.addAll(Arrays.asList(SupportMove.values().clone()));
         return allMoves;
-    }
-
-    /**
-     * Returns the current move set of the hero Entity object passed as a list of strings.
-     *
-     * @param hero: An entity object associated with the hero (player)
-     * @return A list of the string values of the Move enum constants.
-     */
-    public static List<String> getHeroMoveSetByName(Entity hero) {
-        List<String> moves = new ArrayList<>();
-
-        hero.getMoveSet().forEach(move -> {
-            String moveName = move.getName();
-            moves.add(moveName);
-        });
-
-        return moves;
     }
 
     /**
@@ -116,10 +98,10 @@ public class MoveUtil {
      * Returns a list of moves dependent on the hero type of the hero Entity Object passed.
      * These moves are based off of a level 1 hero.
      *
-     * @param hero: The EntityType of the hero Entity object.
+     * @param hero : The EntityType of the hero Entity object.
      * @return Returns a list of moves based on the hero type
      */
-    public static List<Move> getBaseHeroMoveSet(EntityType hero) {
+    public static List<Move> getBaseHeroMoveSet(HeroType hero) {
         switch (hero) {
             case WARRIOR:
                 return Arrays.asList(Sword.SLASH, Sword.LUNGE, Club.BLUDGEON);
@@ -144,8 +126,9 @@ public class MoveUtil {
      * @param enemyLevel: The current level of the enemy
      * @return Returns a list of moves based on the enemy type.
      */
-    public static List<Move> getNewEnemyMoveSet(EntityType enemy, int enemyLevel) {
+    public static List<Move> getNewEnemyMoveSet(EnemyType enemy, int enemyLevel) {
         List<Move> moveSet = new ArrayList<>();
+
         switch (enemy) {
             // normal enemies
             case GUARDIAN:
@@ -154,6 +137,13 @@ public class MoveUtil {
             case MOON:
                 moveSet = Arrays.asList();
                 break;
+        }
+        return moveSet;
+    }
+
+    public static List<Move> getNewBossMoveSet(BossType boss) {
+        List<Move> moveSet = new ArrayList<>();
+        switch(boss) {
             // boss enemies
             case GLUTTONY:
                 moveSet = Arrays.asList();
@@ -189,6 +179,34 @@ public class MoveUtil {
     public static Move getRandomMove(List<Move> moveSet) {
         Random rng = new Random();
         return moveSet.get(rng.nextInt(moveSet.size()));
+    }
+
+    /**
+     * Returns the current move set of the hero Entity object passed as a list of strings.
+     *
+     * @param hero: An entity object associated with the hero (player)
+     * @return A list of the string values of the Move enum constants.
+     */
+    public static List<String> getHeroMoveSetByName(Entity hero) {
+        List<String> moves = new ArrayList<>();
+
+        hero.getMoveSet().forEach(move -> {
+            String moveName = move.getName();
+            moves.add(moveName);
+        });
+
+        return moves;
+    }
+
+    /**
+     *
+     * @param unit
+     * @param moveToFind
+     * @return
+     */
+    public static Move getUnitMoveFromList(Entity unit, String moveToFind) {
+        List<Move> moveSet = unit.getMoveSet();
+
     }
 
 

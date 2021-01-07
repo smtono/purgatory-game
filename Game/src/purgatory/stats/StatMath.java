@@ -1,7 +1,7 @@
 package purgatory.stats;
 
+import purgatory.entity.EnemyType;
 import purgatory.entity.Entity;
-import purgatory.entity.EntityType;
 import purgatory.weapon.WeaponType;
 import purgatory.terraces.Terrace;
 
@@ -25,8 +25,8 @@ public class StatMath {
      * @param terrace: The current level the hero is on
      * @return A random enemy EntityType
      */
-    public static EntityType generateEnemyEntityType(Terrace terrace) {
-        List<EntityType> types = terrace.getEnemyTypes();
+    public static EnemyType generateEnemyEntityType(Terrace terrace) {
+        List<EnemyType> types = terrace.getEnemyTypes();
         return types.get(rng.nextInt(types.size()));
     }
 

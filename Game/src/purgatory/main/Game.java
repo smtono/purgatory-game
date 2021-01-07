@@ -39,12 +39,11 @@ public class Game {
 		Random gen = new Random();
 		fighters.add(hero);
 		fighters.add(StatUtil.generateEnemy(hero, Terrace.GLUTTONY));
-		fighters.add(StatUtil.generateSuperEnemy(hero, Terrace.GLUTTONY));
+		//fighters.add(StatUtil.generateSuperEnemy(hero, Terrace.GLUTTONY));
 		BattleModel model = new BattleModel(fighters);
 		BattleView view = new BattleView();
 		BattleController control = new BattleController(view, model);
-		control.setMoves(hero);
-		control.startBattle(hero);
+		control.updateView(0);
 
 	}
 }

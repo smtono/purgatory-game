@@ -1,6 +1,6 @@
 package purgatory.terraces;
 
-import purgatory.entity.EntityType;
+import purgatory.entity.EnemyType;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public enum Terrace {
     // TODO: Fix variables for each
-    GLUTTONY("Gluttony", "", 1, 0, Arrays.asList(EntityType.GUARDIAN, EntityType.MOON)),
+    GLUTTONY("Gluttony", "", 1, 0, Arrays.asList(EnemyType.GUARDIAN, EnemyType.MOON)),
     SLOTH("Sloth", "", 2, 0, Arrays.asList()),
     AVARICE("Avarice", "", 3, 0, Arrays.asList()),
     PRIDE("Pride", "", 4, 0, Arrays.asList()),
@@ -28,14 +28,14 @@ public enum Terrace {
     private final String description;
     private final int level;
     private final int numRooms;
-    private final List<EntityType> enemyTypes;
+    private final List<EnemyType> enemyTypes;
 
     // CONSTRUCTOR
     Terrace(String name,
             String description,
             int level,
             int numRooms,
-            List<EntityType> enemyTypes) {
+            List<EnemyType> enemyTypes) {
         this.name = name;
         this.description = description;
         this.level = level;
@@ -60,7 +60,7 @@ public enum Terrace {
         return numRooms;
     }
 
-    public List<EntityType> getEnemyTypes() {
+    public List<EnemyType> getEnemyTypes() {
         return enemyTypes;
     }
 
