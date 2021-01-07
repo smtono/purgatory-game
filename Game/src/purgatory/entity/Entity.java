@@ -42,7 +42,7 @@ public class Entity {
         this(name, entityType, 100, 20, 10, 0.6, 0, 0, 0, null, 1);
 
         // define base move set based on hero's class (entityType)
-        moveSet = MoveUtil.getBaseHeroMoveSet(entityType);
+        moveSet = MoveUtil.getBaseHeroMoveSet((HeroType) entityType);
     }
 
     // Overloaded constructor, mainly used for the creation of enemies

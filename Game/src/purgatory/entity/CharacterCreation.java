@@ -1,10 +1,5 @@
 package purgatory.entity;
 
-import purgatory.entity.CharacterType;
-import purgatory.entity.Entity;
-import purgatory.entity.EntityType;
-import purgatory.entity.EntityUtil;
-
 import javax.swing.*;
 
 /**
@@ -38,10 +33,11 @@ public class CharacterCreation {
     /**
      * Prompts user for the hero type they want to be
      */
-    private static EntityType chooseType() {
-        EntityType[] heroTypes = EntityUtil.getEntityTypes(CharacterType.HERO).toArray(new EntityType[0]);
-        EntityType heroType = null;
+    private static HeroType chooseType() {
+        HeroType[] heroTypes = HeroType.values().clone();
+        HeroType heroType = null;
         int restart = 1;
+
         while (restart == 1) {
             int type = JOptionPane.showOptionDialog(null,
                     "Choose hero type!",
