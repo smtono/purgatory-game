@@ -6,6 +6,8 @@ import purgatory.entity.EntityUtil;
 import purgatory.move.MoveUtil;
 
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 /**
@@ -18,21 +20,19 @@ public class BattleController {
     private final BattleView view;
     private final BattleModel model;
 
+    private MouseAdapter mouseAdapter;
+
+
     // CONSTRUCTOR
     public BattleController(BattleView view, BattleModel model) {
         this.view = view;
         this.model = model;
     }
 
-    /**
-     * Prepares the view for the first turn by telling the user they encountered an enemy and displaying stats.
-     *
-     * @param hero: The Entity object representing the hero (player)
-     */
-    public void startBattle(Entity hero) {
+    /** Prepares the view for the first turn by telling the user they encountered an enemy and displaying stats.*/
+    public void startBattle() {
         StringBuilder builder = new StringBuilder();
-        view.setCurrentHeroName(hero);
-        EntityUtil.getEntitiesOfType(model.getFighters(), CharacterType.ENEMY).iterator().forEachRemaining(entity -> {
+        EntityUtil.getEntitiesOfTypeFromList(model.getFighters(), CharacterType.ENEMY).iterator().forEachRemaining(entity -> {
             builder.append(entity.getInfo());
             builder.append("\n\n");
         });
@@ -43,18 +43,7 @@ public class BattleController {
                 + "Read your enemy's stats, and choose the move that would best counter it!\n"
                 + "Different enemies have different weaknesses!", "Enemy Appeared!", JOptionPane.INFORMATION_MESSAGE);
 
-        model.determineOrder();
-        view.appendBattleText(getFighterOrder(model.getFighters()));
-    }
-
-    /**
-     * Sets the move set JList in the BattleView GUI based on the move set of the current hero
-     *
-     * @param currHero: The current Entity object used for the hero (player)
-     */
-    public void setMoves(Entity currHero) {
-        List<String> moves = MoveUtil.getHeroMoveSetByName(currHero);
-        view.setMoves(moves.toArray(String[]::new));
+        appendOrder();
     }
 
     /**
@@ -90,9 +79,63 @@ public class BattleController {
         return playerDeaths;
     }
 
+    // HELPER METHODS
+
+    /**
+     * Sets the move set JList in the BattleView GUI based on the move set of the current hero
+     *
+     * @param currHero: The current Entity object used for the hero (player)
+     */
+    private void setMoves(Entity currHero) {
+        List<String> moves = MoveUtil.getHeroMoveSetByName(currHero);
+        view.setMoves(moves.toArray(String[]::new));
+    }
+
+    private void setCurrHeroName(Entity currHero) {
+        view.setCurrentHeroName(currHero);
+    }
+
+    /**
+     * Determines the current order of fighters and appends it to the battleText JTextArea
+     * in the BattleView GUI
+     */
+    private void appendOrder() {
+        model.determineOrder();
+        view.appendBattleText(getFighterOrder(model.getFighters()));
+    }
+
+    private void appendEnemyStats() {
+
+    }
+
+    /**
+     * Prepares each text area in the BattleView GUI for each turn of battle
+     *
+     * @param i: The current turn of battle
+     */
+    private void prepareBattleText(int i) {
+        view.clearBattleText();
+        view.clearStatsText();
+        view.appendBattleText("Turn: " + i + "\n\n");
+        view.enableMoveSet(false);
+    }
+
+    private void prepareViewForUnit(Entity currUnit) {
+        setMoves(currUnit);
+        setCurrHeroName(currUnit);
+    }
+
+    /**
+     *
+     */
+    private void prepareJListListener(MouseAdapter mouseAdapter) {
+        view.getMoveSet().addMouseListener(mouseAdapter);
+    }
+
+    // UPDATE METHOD
     /**
      * Refreshes text appearing on the view of the UI
-     *
+     * <p>
      * Call this method recursively until one of the following exit conditions are reached:
      * The hero HP reaches 0 (die sequence)
      * the enemy HP reaches 0 (level up/ gain loot, etc.)
@@ -103,6 +146,51 @@ public class BattleController {
      * @return An int which will be used to keep tack of iterations
      */
     public int updateView(int i) {
+        List<Entity> fighters = model.getFighters();
+        Entity hero = EntityUtil.getHeroFromList(fighters);
+
+        prepareViewForUnit(hero);
+        prepareBattleText(i);
+
+        if (i == 0) {
+            startBattle();
+        } else {
+            appendOrder();
+        }
+
+        for (Entity currUnit : fighters) {
+            switch (currUnit.getEntityType().getCharacterType()) { // find who is the current fighter
+                case HERO:
+                    view.enableMoveSet(true);
+
+                    // make new MouseAdapter object to pass into the JList listener
+                    mouseAdapter = new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            @SuppressWarnings("unchecked")
+                            JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
+
+                            if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { // detects double-click
+
+                                int index = source.locationToIndex(e.getPoint()); // gets index in JList
+                                if (index >= 0) {
+                                    String moveSelected = source.getModel().getElementAt(index); // gets string value at index
+
+                                    
+                                }
+                            }
+                        }
+                    };
+
+                    prepareJListListener(mouseAdapter);
+
+                case ENEMY:
+                case BOSS:
+                case PARTY:
+            }
+        }
+
+
         return 0;
     }
 }

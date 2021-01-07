@@ -15,8 +15,9 @@ import javax.swing.*;
  */
 public class BattleView {
     DefaultListModel<String> moves = new DefaultListModel<>();
-    private String moveSelected;
-    private String menuSelected;
+    private final String[] menu = {"Run", "Profile", "Items", "Help"};
+    private final JList<String> menuSet = new JList<>(menu); // displays menu choices
+    private final JList<String> moveSet = new JList<>(moves); // displays moves in a list
 
     // Text areas
     private final JTextArea battleText = new JTextArea(); // text area to display what is happening in the battle
@@ -27,15 +28,9 @@ public class BattleView {
 
     // CONSTRUCTOR
     public BattleView() {
-        final String[] menu = {"Run", "Profile", "Items", "Help"};
-
         //	PANEL COMPONENTS
         // Frame
         final JFrame frame = new JFrame("Battle!"); // the container where everything will be put
-
-        // JLists
-        final JList<String> menuSet = new JList<>(menu); // displays menu choices
-        final JList<String> moveSet = new JList<>(moves); // displays moves in a list
 
         // JLabels
         final JLabel greeting = new JLabel("You have entered a battle!"); // header
@@ -68,18 +63,23 @@ public class BattleView {
         panel.add(southSide, BorderLayout.SOUTH);
 
         //	ACTION LISTENERS
-        moveSet.addMouseListener(new MouseAdapter() {
+      /*  moveSet.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                @SuppressWarnings("unchecked")
+                JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
+
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
-                    @SuppressWarnings("unchecked")
-                    JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
-                    moveSelected = source.getSelectedValue(); // stores the value into a string variable
-                    moveSet.setEnabled(false);
-                    System.out.println(moveSelected);
+
+                    int index = source.locationToIndex(e.getPoint());
+                    if (index >= 0) {
+                        Object o = source.getModel().getElementAt(index);
+                        // System.out.println("Double-clicked on: " + o.toString());
+                        //moveSelected = o.toString();
+                    }
                 }
             }
-        });
+        }); */
 
         // Menu item selected
         menuSet.addMouseListener(new MouseAdapter() {
@@ -88,9 +88,9 @@ public class BattleView {
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
                     @SuppressWarnings("unchecked")
                     JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
-                    menuSelected = source.getSelectedValue(); // stores the value into a string variable
+                   // menuSelected = source.getSelectedValue(); // stores the value into a string variable
 
-                    System.out.println(menuSelected);
+                    //System.out.println(menuSelected);
                 }
             }
         });
@@ -115,6 +115,13 @@ public class BattleView {
     }
 
     /**
+     * Clears the battleText JTextArea in the BattleView GUI
+     */
+    public void clearBattleText() {
+        battleText.setText("");
+    }
+
+    /**
      * Appends to the statsText JTextArea in the BattleView GUI
      *
      * @param text: A string to display on the BattleView GUI
@@ -124,12 +131,15 @@ public class BattleView {
     }
 
     /**
-     * Returns the string of the move that the user chose
-     *
-     * @return the string value of the move from the move set that the user chose
+     * Clears the statsText JTextArea in the BattleView GUI
      */
-    public String getMoveSelected() {
-        return moveSelected;
+    public void clearStatsText() {
+        statsText.setText("");
+    }
+    
+
+    public void enableMoveSet(boolean enable) {
+        moveSet.setEnabled(enable);
     }
 
     /**
@@ -150,5 +160,13 @@ public class BattleView {
      */
     public void setCurrentHeroName(Entity unit) {
         heroName.setText(unit.getName());
+    }
+
+    public JList<String> getMoveSet() {
+        return moveSet;
+    }
+
+    public JList<String> getMenuSet() {
+        return menuSet;
     }
 }
