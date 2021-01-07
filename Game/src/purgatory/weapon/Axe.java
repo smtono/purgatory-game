@@ -24,13 +24,7 @@ public enum Axe implements Attack {
     // IMPLEMENTED METHODS
     @Override
     public Move getMove() { return move; }
-
-
-    @Override
-    public int attack(Entity unit) {
-
-        return 0;
-    }
+    
 
     @Override
     public boolean isStrength() { return true; }

@@ -34,11 +34,6 @@ public enum Staff implements Attack, Heal {
     public Move getMove() { return move; }
 
     @Override
-    public int attack(Entity unit) {
-        return 0;
-    }
-
-    @Override
     public int heal() {
         return 0;
     }
