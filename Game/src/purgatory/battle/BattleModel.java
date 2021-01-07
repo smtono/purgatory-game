@@ -36,12 +36,13 @@ public class BattleModel {
     // DIRECT ATTACKS
 
     /**
+     * Figures critical chance for the unit passed.
      *
-     * @param hero: The entity object associated with the hero attacking
+     * @param unit: The entity object associated with the current unit attacking
      * @return A boolean of whether the move will critical or not
      */
-    public boolean isCritical(Entity hero) {
-        double criticalChance = hero.getLevel() * 0.09;
+    public boolean isCritical(Entity unit) {
+        double criticalChance = unit.getLevel() * 0.09;
         double criticalHit = ThreadLocalRandom.current().nextDouble(0, 1);
 
         return criticalHit < criticalChance;
