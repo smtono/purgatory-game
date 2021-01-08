@@ -3,6 +3,7 @@ package purgatory.battle;
 import purgatory.entity.CharacterType;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityUtil;
+import purgatory.move.Move;
 import purgatory.move.MoveUtil;
 
 import javax.swing.*;
@@ -20,13 +21,38 @@ public class BattleController {
     private final BattleView view;
     private final BattleModel model;
 
-    private MouseAdapter mouseAdapter;
-
-
     // CONSTRUCTOR
     public BattleController(BattleView view, BattleModel model) {
         this.view = view;
         this.model = model;
+    }
+
+    /**
+     * Prepares each text area in the BattleView GUI for each turn of battle
+     *
+     * @param i: The current turn of battle
+     */
+    private void prepareBattleText(int i) {
+        view.clearBattleText();
+        view.clearStatsText();
+        view.appendBattleText("Turn: " + i + "\n\n");
+        view.enableMoveSet(false);
+    }
+
+    /**
+     *
+     * @param currUnit
+     */
+    private void prepareViewForUnit(Entity currUnit) {
+        setMoves(currUnit);
+        setCurrHeroName(currUnit);
+    }
+
+    /**
+     *
+     */
+    private void prepareJListListener(MouseAdapter mouseAdapter) {
+        view.getMoveSet().addMouseListener(mouseAdapter);
     }
 
     /** Prepares the view for the first turn by telling the user they encountered an enemy and displaying stats.*/
@@ -109,27 +135,48 @@ public class BattleController {
     }
 
     /**
-     * Prepares each text area in the BattleView GUI for each turn of battle
      *
-     * @param i: The current turn of battle
+     * @param currHero
+     * @param fighters
+     * @return
      */
-    private void prepareBattleText(int i) {
-        view.clearBattleText();
-        view.clearStatsText();
-        view.appendBattleText("Turn: " + i + "\n\n");
-        view.enableMoveSet(false);
-    }
+    private MouseAdapter doAction(Entity currHero, List<Entity> fighters) {
+        return new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                @SuppressWarnings("unchecked")
+                JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
 
-    private void prepareViewForUnit(Entity currUnit) {
-        setMoves(currUnit);
-        setCurrHeroName(currUnit);
-    }
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { // detects double-click
 
-    /**
-     *
-     */
-    private void prepareJListListener(MouseAdapter mouseAdapter) {
-        view.getMoveSet().addMouseListener(mouseAdapter);
+                    int index = source.locationToIndex(e.getPoint()); // gets index in JList
+
+                    if (index >= 0) {
+                        // battle logic from here out
+                        String moveSelected = source.getModel().getElementAt(index); // gets string value at index
+
+                        Move heroMove = MoveUtil.getUnitMoveFromList(currHero, moveSelected);
+                        List<Entity> party = EntityUtil.getEntitiesOfTypeFromList(fighters, CharacterType.PARTY);
+
+                        switch (heroMove.getMoveType()) {
+                            case ATTACK:
+                                List<Entity> enemies = EntityUtil.getEntitiesOfTypeFromList(fighters, CharacterType.ENEMY);
+                               int choice = JOptionPane.showOptionDialog(
+                                       null,
+                                       "Choose enemy to hit!",
+                                       "Choose Enemy",
+                                       JOptionPane.DEFAULT_OPTION,
+                                       JOptionPane.INFORMATION_MESSAGE,
+                                       null,
+                                       enemies.toArray(),
+                                       null);
+                            case HEAL:
+                            case SUPPORT:
+                        }
+                    }
+                }
+            }
+        };
     }
 
     // UPDATE METHOD
@@ -142,17 +189,17 @@ public class BattleController {
      * the hero runs away (return to main screen, implement this one last.)
      * returns an int which will be used to keep tack of iterations, since this method will be called recursively.
      *
-     * @param i: The current turn iteration
+     * @param currTurn: The current turn iteration
      * @return An int which will be used to keep tack of iterations
      */
-    public int updateView(int i) {
+    public int updateView(int currTurn) {
         List<Entity> fighters = model.getFighters();
         Entity hero = EntityUtil.getHeroFromList(fighters);
 
         prepareViewForUnit(hero);
-        prepareBattleText(i);
+        prepareBattleText(currTurn);
 
-        if (i == 0) {
+        if (currTurn == 0) {
             startBattle();
         } else {
             appendOrder();
@@ -164,24 +211,7 @@ public class BattleController {
                     view.enableMoveSet(true);
 
                     // make new MouseAdapter object to pass into the JList listener
-                    mouseAdapter = new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            @SuppressWarnings("unchecked")
-                            JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
-
-                            if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { // detects double-click
-
-                                int index = source.locationToIndex(e.getPoint()); // gets index in JList
-                                if (index >= 0) {
-                                    String moveSelected = source.getModel().getElementAt(index); // gets string value at index
-
-                                    
-                                }
-                            }
-                        }
-                    };
-
+                    MouseAdapter mouseAdapter = doAction(currUnit, fighters);
                     prepareJListListener(mouseAdapter);
 
                 case ENEMY:
@@ -190,7 +220,7 @@ public class BattleController {
             }
         }
 
-
-        return 0;
+        currTurn++;
+        return currTurn;
     }
 }

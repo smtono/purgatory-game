@@ -128,7 +128,6 @@ public class MoveUtil {
      */
     public static List<Move> getNewEnemyMoveSet(EnemyType enemy, int enemyLevel) {
         List<Move> moveSet = new ArrayList<>();
-
         switch (enemy) {
             // normal enemies
             case GUARDIAN:
@@ -206,7 +205,19 @@ public class MoveUtil {
      */
     public static Move getUnitMoveFromList(Entity unit, String moveToFind) {
         List<Move> moveSet = unit.getMoveSet();
+        List<String> moveSetStrings = new ArrayList<>();
+        Move moveFound = null;
 
+        moveSet.forEach(move -> { // push move names to list of strings
+            moveSetStrings.add(move.getName());
+        });
+
+        for(int i = 0; i < moveSetStrings.size(); i++) { // compare strings against strings in move set
+            if (moveSetStrings.get(i).equalsIgnoreCase(moveToFind)) {
+                moveFound = moveSet.get(i);
+            }
+        }
+        return moveFound;
     }
 
 

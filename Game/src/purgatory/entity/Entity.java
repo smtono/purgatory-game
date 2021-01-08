@@ -161,15 +161,6 @@ public class Entity {
 
     @Override
     public String toString() {
-        return "Entity{" +
-                "entityType=" + entityType +
-                ", maxHealth=" + MAX_HEALTH +
-                ", mana=" + mana +
-                ", speed=" + speed +
-                ", strength=" + strength +
-                ", magic=" + magic +
-                ", defense=" + defense +
-                ", level=" + level +
-                '}';
+        return name;
     }
 }
