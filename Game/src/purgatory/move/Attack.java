@@ -1,6 +1,7 @@
 package purgatory.move;
 
 import purgatory.entity.Entity;
+import purgatory.stats.BattleStats;
 import purgatory.weapon.ManaType;
 
 import java.util.Random;
@@ -14,13 +15,13 @@ public interface Attack extends VirtualMove {
      * @param unit: The entity object associated with the unit attacking
      * @return An int of the damage dealt by the hero unit
      */
-    default int attack(Entity unit) {
+    default int attack(BattleStats unit) {
         int damage = getMove().getResult();
       
         if(isStrength()) {
-            damage += damage * unit.getStrength();
+            damage += damage * unit.getCurrStrength();
         } else if (isMagic()) {
-            damage += damage * unit.getMagic();
+            damage += damage * unit.getCurrMagic();
         }
 
         return damage;

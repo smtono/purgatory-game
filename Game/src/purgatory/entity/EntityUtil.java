@@ -8,7 +8,6 @@ import java.util.List;
  * EntityUtil is used to extrapolate data from Entity objects.
  */
 public class EntityUtil {
-
     /**
      * Returns a list of entities gathered from the list passed that match the character type passed.
      *

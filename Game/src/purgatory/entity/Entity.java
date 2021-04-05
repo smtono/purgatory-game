@@ -147,18 +147,6 @@ public class Entity {
         this.level = level;
     }
 
-    /**
-     * Gets the stat values for the entity and returns the values back.
-     *
-     * @return A list of stat values for the given entity
-     */
-    public String getInfo() {
-        return name + "\n" +
-                entityType.toString() +
-                "\nHealth: " + MAX_HEALTH +
-                "\nLevel: " + level;
-    }
-
     @Override
     public String toString() {
         return name;

@@ -34,11 +34,11 @@ import java.util.Random;
  */
 public class Game {
 	public static void main(String[] args) {
-		List<Entity> fighters = new ArrayList<>();
 		Entity hero = CharacterCreation.getHero();
+		List<Entity> fighters = StatUtil.generateEnemies(5, hero, Terrace.GLUTTONY);
 		Random gen = new Random();
 		fighters.add(hero);
-		fighters.add(StatUtil.generateEnemy(hero, Terrace.GLUTTONY));
+
 		//fighters.add(StatUtil.generateSuperEnemy(hero, Terrace.GLUTTONY));
 		BattleModel model = new BattleModel(fighters);
 		BattleView view = new BattleView();

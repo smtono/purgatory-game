@@ -5,6 +5,8 @@ import purgatory.entity.Entity;
 import purgatory.weapon.WeaponType;
 import purgatory.terraces.Terrace;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -26,8 +28,15 @@ public class StatMath {
      * @return A random enemy EntityType
      */
     public static EnemyType generateEnemyEntityType(Terrace terrace) {
-        List<EnemyType> types = terrace.getEnemyTypes();
-        return types.get(rng.nextInt(types.size()));
+        List<EnemyType> possibleTypes = new ArrayList<>();
+
+        Arrays.asList(EnemyType.values().clone()).forEach(type -> {
+            if(type.getLowestTerrace().getLevel() <= terrace.getLevel()) {
+                possibleTypes.add(type);
+            }
+        });
+
+        return possibleTypes.get(rng.nextInt(possibleTypes.size()));
     }
 
     /**

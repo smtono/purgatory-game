@@ -1,6 +1,7 @@
 package purgatory.move;
 
 import purgatory.entity.*;
+import purgatory.stats.BattleStats;
 import purgatory.weapon.*;
 
 import java.util.*;
@@ -183,13 +184,13 @@ public class MoveUtil {
     /**
      * Returns the current move set of the hero Entity object passed as a list of strings.
      *
-     * @param hero: An entity object associated with the hero (player)
+     * @param moveSet: A list of moves for the current hero
      * @return A list of the string values of the Move enum constants.
      */
-    public static List<String> getHeroMoveSetByName(Entity hero) {
+    public static List<String> getHeroMoveSetByName(List<Move> moveSet) {
         List<String> moves = new ArrayList<>();
 
-        hero.getMoveSet().forEach(move -> {
+        moveSet.forEach(move -> {
             String moveName = move.getName();
             moves.add(moveName);
         });
@@ -203,7 +204,7 @@ public class MoveUtil {
      * @param moveToFind
      * @return
      */
-    public static Move getUnitMoveFromList(Entity unit, String moveToFind) {
+    public static Move getUnitMoveFromList(BattleStats unit, String moveToFind) {
         List<Move> moveSet = unit.getMoveSet();
         List<String> moveSetStrings = new ArrayList<>();
         Move moveFound = null;
@@ -231,11 +232,11 @@ public class MoveUtil {
      * @param unit: The entity object of the unit attacking
      * @return A boolean true if the move hits and false if it does not.
      */
-    public static boolean doesHit(Entity unit, Move move) {
+    public static boolean doesHit(BattleStats unit, Move move) {
         Random gen = new Random();
 
         // find the combined accuracy of the weapon and the hero's
-        double combinedAccuracy = unit.getAccuracy() * move.getAccuracy();
+        double combinedAccuracy = unit.getCurrAccuracy() * move.getAccuracy();
 
         if (combinedAccuracy > 0) {
             // find a range to pick a random number out of
