@@ -156,10 +156,10 @@ public class BattleView {
     /**
      * Sets the current name of the current unit
      *
-     * @param unit: The current Entity object used for the unit
+     * @param name: The String value of the name of the current hero fighter
      */
-    public void setCurrentHeroName(Entity unit) {
-        heroName.setText(unit.getName());
+    public void setCurrentHeroName(String name) {
+        heroName.setText(name);
     }
 
     public JList<String> getMoveSet() {
