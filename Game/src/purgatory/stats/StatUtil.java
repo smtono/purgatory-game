@@ -1,7 +1,9 @@
 package purgatory.stats;
 
+import purgatory.entity.CharacterType;
 import purgatory.entity.Entity;
 import purgatory.entity.EntityType;
+import purgatory.entity.EntityUtil;
 import purgatory.terraces.Terrace;
 
 import java.util.*;
@@ -13,7 +15,6 @@ import java.util.*;
  * for special moves in battle.
  */
 public class StatUtil {
-    // TODO: write different methods that calculate different random stats.
     static Random gen = new Random();
     public final static String[] ENEMY_NAMES = {"Alastor", "Asura", "Azazel", "Astaroth", "Barbatos",
                                                 "Beleth", "Belial", "Eblis", "Dev", "Focalor", "Forneus",
@@ -39,10 +40,6 @@ public class StatUtil {
      * type: random
      * health: x2
      * mana: 0
-     *
-     * TODO: add this attribute
-     * critical: 0.0 double
-     *
      * speed: random from 1 to 30
      * accuracy: random from .60 to 1.00
      * strength:
@@ -145,5 +142,138 @@ public class StatUtil {
         }
 
         return enemies;
+    }
+
+    /**
+     * Returns a list of entities gathered from the list passed that match the character type passed.
+     *
+     * @param fighters:      A list with various character types (hero, party, enemy, boss)
+     * @param type: The certain character type (hero, party, enemy, boss) being looked for from the list.
+     * @return A list with only the entities with the specified character type.
+     */
+    public static List<BattleStats> getStatsOfTypeFromList(List<BattleStats> fighters, CharacterType type) {
+        List<BattleStats> result = new ArrayList<>();
+        fighters.iterator().forEachRemaining(fighter -> {
+            if (fighter.getEntityType().getCharacterType().equals(type))
+                result.add(fighter);
+        });
+        return result;
+    }
+
+    /**
+     * Returns the hero entity from the list passed
+     *
+     * @param fighters: A list of entities with different types
+     * @return The hero entity from the list
+     */
+    public static BattleStats getHeroFromList(List<BattleStats> fighters) {
+        return getStatsOfTypeFromList(fighters, CharacterType.HERO).get(0);
+    }
+
+    /**
+     * Returns the BattleStats object of the name of the fighter from the list provided
+     *
+     * @param fighter: The specific fighter wanted
+     * @param fighterStats: A list of all fighters in battle
+     * @return A BattleStats object for the given fighter
+     */
+    public static BattleStats getFighterStatsFor(String fighter, List<BattleStats> fighterStats) {
+        BattleStats statsNeeded = new BattleStats();
+
+        for (BattleStats stat : fighterStats) {
+            if(stat.getFighter().equals(fighter)) {
+                statsNeeded = stat;
+            }
+        }
+
+        return statsNeeded;
+    }
+
+    /**
+     *
+     * @param fighters
+     * @return
+     */
+    public static List<Integer> getHealthForAll(List<BattleStats> fighters) {
+        List<Integer> values = new ArrayList<>();
+
+        fighters.forEach(fighter -> {
+            values.add(fighter.getCurrHealth());
+        });
+
+        return values;
+    }
+
+    /**
+     *
+     * @param fighters
+     * @return
+     */
+    public static List<Integer> getSpeedForAll(List<BattleStats> fighters) {
+        List<Integer> values = new ArrayList<>();
+
+        fighters.forEach(fighter -> {
+            values.add(fighter.getCurrSpeed());
+        });
+
+        return values;
+    }
+
+    /**
+     *
+     * @param fighters
+     * @return
+     */
+    public static List<Double> getAccuracyForAll(List<BattleStats> fighters) {
+        List<Double> values = new ArrayList<>();
+
+        fighters.forEach(fighter -> {
+            values.add(fighter.getCurrAccuracy());
+        });
+
+        return values;
+    }
+
+    /**
+     *
+     * @param fighters
+     * @return
+     */
+    public static List<Double> getDefenseForAll(List<BattleStats> fighters) {
+        List<Double> values = new ArrayList<>();
+
+        fighters.forEach(fighter -> {
+            values.add(fighter.getCurrDefense());
+        });
+
+        return values;
+    }
+
+    /**
+     * Pushes the initial base stats for all the Entity objects in the given list into a BattleStats list
+     * to be manipulated in battle.
+     *
+     * @param fighters: A list of fighters for the battle
+     * @return A list of BattleStats the correspond to each fighter
+     */
+    public static List<BattleStats> pushInitialFighterStats(List<Entity> fighters) {
+        List<BattleStats> fighterStats = new ArrayList<>();
+
+        fighters.forEach(fighter -> {
+            fighterStats.add(new BattleStats(
+                    fighter.getName(),
+                    fighter.getEntityType(),
+                    fighter.getMoveSet(),
+                    fighter.getMaxHealth(),
+                    fighter.getMana(),
+                    fighter.getSpeed(),
+                    fighter.getAccuracy(),
+                    fighter.getStrength(),
+                    fighter.getMagic(),
+                    fighter.getDefense(),
+                    fighter.getLevel()));
+        });
+
+        return fighterStats;
     }
 }

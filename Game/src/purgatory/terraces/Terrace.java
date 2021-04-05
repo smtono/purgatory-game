@@ -1,5 +1,6 @@
 package purgatory.terraces;
 
+import purgatory.entity.BossType;
 import purgatory.entity.EnemyType;
 
 import java.util.Arrays;
@@ -14,33 +15,32 @@ import java.util.List;
  * Each terrace will have it's own enemy types and final boss.
  */
 public enum Terrace {
-    // TODO: Fix variables for each
-    GLUTTONY("Gluttony", "", 1, 0, Arrays.asList(EnemyType.GUARDIAN, EnemyType.MOON)),
-    SLOTH("Sloth", "", 2, 0, Arrays.asList()),
-    AVARICE("Avarice", "", 3, 0, Arrays.asList()),
-    PRIDE("Pride", "", 4, 0, Arrays.asList()),
-    ENVY("Envy", "", 5, 0, Arrays.asList()),
-    LUST("Lust", "", 6, 0, Arrays.asList()),
-    WRATH("Wrath", "", 7, 0, Arrays.asList());
+    GLUTTONY("Gluttony", "", 1, 0, BossType.GLUTTONY),
+    SLOTH("Sloth", "", 2, 0, BossType.SLOTH),
+    AVARICE("Avarice", "", 3, 0, BossType.AVARICE),
+    PRIDE("Pride", "", 4, 0, BossType.PRIDE),
+    ENVY("Envy", "", 5, 0, BossType.ENVY),
+    LUST("Lust", "", 6, 0, BossType.LUST),
+    WRATH("Wrath", "", 7, 0, BossType.WRATH);
 
     // variables for construction
     private final String name;
     private final String description;
     private final int level;
     private final int numRooms;
-    private final List<EnemyType> enemyTypes;
+    private final BossType boss;
 
     // CONSTRUCTOR
     Terrace(String name,
             String description,
             int level,
             int numRooms,
-            List<EnemyType> enemyTypes) {
+            BossType boss) {
         this.name = name;
         this.description = description;
         this.level = level;
         this.numRooms = numRooms;
-        this.enemyTypes = enemyTypes;
+        this.boss = boss;
     }
 
     // ACCESSORS
@@ -60,18 +60,10 @@ public enum Terrace {
         return numRooms;
     }
 
-    public List<EnemyType> getEnemyTypes() {
-        return enemyTypes;
-    }
+    public BossType getBoss() { return boss; }
 
     @Override
     public String toString() {
-        return "Terrace{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", level=" + level +
-                ", numRooms=" + numRooms +
-                ", enemyTypes=" + enemyTypes +
-                '}';
+        return name;
     }
 }
