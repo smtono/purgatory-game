@@ -192,6 +192,7 @@ public class BattleController {
      */
     private List<BattleStats> enemyAttack() {
 
+        return new ArrayList<>();
     }
 
     /**
