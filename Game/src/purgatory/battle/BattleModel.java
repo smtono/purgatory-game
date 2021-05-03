@@ -6,7 +6,6 @@ import purgatory.move.Move;
 import purgatory.move.MoveType;
 import purgatory.move.MoveUtil;
 import purgatory.stats.BattleStats;
-import purgatory.stats.StatUtil;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
