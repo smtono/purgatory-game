@@ -20,6 +20,7 @@ import java.util.List;
  * This will be done through an update() function which will print to the view relevant information.
  */
 public class BattleController {
+    // TODO: split methods that are more of a support type from the actual action based ones
     private final BattleView view;
     private final BattleModel model;
 
@@ -74,8 +75,10 @@ public class BattleController {
                     if (index >= 0) {
                         // battle logic from here out
                         String moveSelected = source.getModel().getElementAt(index); // gets string value at index
-
-                        model.setFighters(doAction(currHero, moveSelected));
+                        model.setFighters(doAction(currHero, moveSelected)); // damages enemy
+                        // update gui
+                        view.clearStatsText();
+                        appendEnemyStats();
                     }
                 }
             }
@@ -155,11 +158,14 @@ public class BattleController {
     }
 
     /**
+     * Asks hero which enemy to attack, then does proper calculations to attack the enemies chosen
+     * with the given move
+     * Returns the stats of everyone
      *
      * @param currHero
      * @param enemies
      * @param heroMove
-     * @return
+     * @return The stats of everyone in battle after being damaged
      */
     private List<BattleStats> heroAttack(BattleStats currHero, List<BattleStats> enemies, Attack heroMove) {
         if (heroMove.isAffectAll()) {
@@ -229,23 +235,24 @@ public class BattleController {
         return playerDeaths + 1;
     }
 
+    // TODO: decide if this method is used for both heroes and enemies, if not, split it
     /**
      * Either damages a chosen enemy or heals or does a support skill on a party member or self.
      * Returns the stats of all fighters to update the GUI.
      *
-     * @param currHero: The current hero fighting
+     * @param currUnit: The current unit fighting
      * @param moveSelected: The String value of the move selected by the user
-     * @return
+     * @return A new list with the update stats of everyone in battle
      */
-    private List<BattleStats> doAction(BattleStats currHero, String moveSelected) {
+    private List<BattleStats> doAction(BattleStats currUnit, String moveSelected) {
         List<BattleStats> newStats = new ArrayList<>();
-        Move heroMove = MoveUtil.getUnitMoveFromList(currHero, moveSelected);
+        Move heroMove = MoveUtil.getUnitMoveFromList(currUnit, moveSelected);
         List<BattleStats> enemies = StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY);
         List<BattleStats> party = StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.PARTY);
 
             switch (heroMove.getMoveType()) {
                 case ATTACK:
-                   return heroAttack(currHero, enemies, (Attack) heroMove);
+                   return heroAttack(currUnit, enemies, (Attack) heroMove);
                 case HEAL:
                     BattleStats partyChosen = party.get(chooseTarget(party));
                     break;
@@ -301,6 +308,9 @@ public class BattleController {
 
                     break;
             }
+
+            // clear battle text field for the new turn
+            view.clearBattleText();
         }
 
         currTurn++;
