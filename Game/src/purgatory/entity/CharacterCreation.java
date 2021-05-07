@@ -1,5 +1,7 @@
 package purgatory.entity;
 
+import purgatory.main.Dialog;
+
 import javax.swing.*;
 
 /**
@@ -10,35 +12,38 @@ import javax.swing.*;
  * @see Entity
  */
 public class CharacterCreation {
+
     /**
-     * Prompts the user for the name they will give their hero. The name is "Robin" by default.
+     * Prompts the user for the name they will give their hero.
+     * The name is "Robin" by default.
      *
      * @return A string of the chosen hero name.
      */
     private static String askName() {
-        // TODO: setup for when the user selects "cancel"
-
         String name = "";
-        int restart = 1;
-        while (restart == 1) {
-            name = JOptionPane.showInputDialog("What is your name?", "Robin");
-            restart = JOptionPane.showConfirmDialog(null, "Ah, so your name is ".concat(name).concat("?"));
-            if (restart == 1) {
-                JOptionPane.showMessageDialog(null, "Oh, sorry, can you tell me again?");
+        int button = JOptionPane.NO_OPTION;
+
+        while (button == JOptionPane.NO_OPTION) {
+            name = JOptionPane.showInputDialog("What is your name?", "Augustus");
+            if (name != null && !name.equals("")) { // checking if string is null
+                // Confirm the name
+                button = JOptionPane.showConfirmDialog(null, "Ah, so your name is ".concat(name).concat("?"));
+                Dialog.checkButtons(button);
+            }
+            else { // User must have cancelled
+                Dialog.leave();
             }
         }
         return name;
     }
 
-    /**
-     * Prompts user for the hero type they want to be
-     */
+    /** Prompts user for the hero type they want to be */
     private static HeroType chooseType() {
-        HeroType[] heroTypes = HeroType.values().clone();
-        HeroType heroType = null;
-        int restart = 1;
+        HeroType[] heroTypes = HeroType.values().clone(); // Clone hero types for option list
+        HeroType heroType = null; // Initialize heroType to none
+        int button = JOptionPane.NO_OPTION;
 
-        while (restart == 1) {
+        while (button == JOptionPane.NO_OPTION) {
             int type = JOptionPane.showOptionDialog(null,
                     "Choose hero type!",
                     "",
@@ -47,25 +52,13 @@ public class CharacterCreation {
                     null,
                     heroTypes,
                     heroTypes[0]);
+
+            // Confirm user choice
             heroType = heroTypes[type];
-            restart = JOptionPane.showConfirmDialog(null, "Oh, so you're a ".concat(heroType.getTypeName().toLowerCase()).concat("?"));
-            if (restart == 1) {
-                JOptionPane.showMessageDialog(null, "Oh, sorry, can you tell me again?");
-            }
+            button = JOptionPane.showConfirmDialog(null, "Oh, so you're a ".concat(heroType.getTypeName().toLowerCase()).concat("?"));
+            Dialog.checkButtons(button);
         }
         return heroType;
-    }
-
-    /**
-     * Returns the information of the given entity type.
-     *
-     * @param type: The EntityType associated with the unit.
-     * @return the information of the given entity type.
-     */
-    public static String typeInfo(EntityType type) {
-        return type.getTypeName() +
-                "\n\n" +
-                type.getDescription();
     }
 
     /**
