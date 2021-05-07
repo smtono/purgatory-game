@@ -10,7 +10,7 @@ public class Morality {
                 return morality += 1;
             case EVIL:
                 return  morality -= 1;
-            default:
+            default: // "neutral" option
                 return morality;
         }
     }
