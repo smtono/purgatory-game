@@ -19,16 +19,16 @@ public class BattleModel {
     private final List<Entity> initialFighters;
     private List<BattleStats> fighters;
 
+    // CONSTRUCTOR
     public BattleModel(List<Entity> fighters) {
         this.initialFighters = fighters;
     }
 
+    // ACCESSORS / MUTATORS
     public List<Entity> getInitialFighters() {
         return initialFighters;
     }
-
     public List<BattleStats> getFighters() { return fighters; }
-
     public void setFighters(List<BattleStats> fighters) { this.fighters = fighters; }
 
     /**
@@ -176,5 +176,15 @@ public class BattleModel {
             damage = damage(enemy, heroDefense, move);
         }
         return new DamageOutput(critical, damage);
+    }
+    
+    public List<DamageOutput> damageAllHeroes(BattleStats enemy, List<BattleStats> heroes, Attack move) {
+        List<DamageOutput> values = new ArrayList<>();
+
+        heroes.forEach(hero -> {
+            values.add(determineCriticalDamage(enemy, hero.getCurrDefense(), move));
+        });
+
+        return values;
     }
 }
