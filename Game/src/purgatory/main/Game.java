@@ -23,10 +23,6 @@ import java.util.Random;
  * Almost like a Fire Emblem or Persona-esque game.
  * I will slowly be adding more features after this main feature has been added.
  * I want the story to be based off my comic series, and is what has inspired this whole project.
- * 
- * Goal (Updated):
- * Continue to work until January, if still not done, that's okay.
- * Just keep adding on, and hopefully be able to showcase this AT LATEST next year's fall career fair.
  *
  * @author Shannon Thornton
  * @version 1.0
@@ -34,14 +30,21 @@ import java.util.Random;
  */
 public class Game {
 	public static void main(String[] args) {
+		// CHARACTER CREATION
 		Entity hero = CharacterCreation.getHero();
-		List<Entity> fighters = StatUtil.generateEnemies(5, hero, Terrace.GLUTTONY);
-		Random gen = new Random();
-		fighters.add(hero);
+		int deaths = 0;
 
+		// STORY
+
+		// FIRST TERRACE
+		List<Entity> fighters = StatUtil.generateEnemies(5, hero, Terrace.GLUTTONY); // generate enemies for the floor
+		fighters.add(hero); // add the hero to the fighter list
+		// instantiate mvc
 		BattleModel model = new BattleModel(fighters);
 		BattleView view = new BattleView();
 		BattleController control = new BattleController(view, model);
+
+		// TODO: figure if this needs to be put in a loop
 		control.updateView(0);
 
 	}

@@ -50,69 +50,36 @@ public class BattleStats {
         this.level = level;
     }
 
+    // ACCESSORS
     public String getFighter() {
         return fighter;
     }
-
     public EntityType getEntityType() { return entityType; }
-
     public List<Move> getMoveSet() { return moveSet; }
-
     public int getCurrHealth() {
         return currHealth;
     }
-
-    public void setCurrHealth(int currHealth) {
-        this.currHealth = currHealth;
-    }
-
     public int getCurrMana() {
         return currMana;
     }
-
-    public void setCurrMana(int currMana) {
-        this.currMana = currMana;
-    }
-
     public int getCurrSpeed() {
         return currSpeed;
     }
+    public double getCurrAccuracy() { return currAccuracy; }
+    public double getCurrStrength() { return currStrength; }
+    public double getCurrMagic() { return currMagic; }
+    public double getCurrDefense() { return currDefense; }
 
-    public void setCurrSpeed(int currSpeed) {
-        this.currSpeed = currSpeed;
+    // MUTATORS
+    public void setCurrHealth(int currHealth) {
+        this.currHealth = currHealth;
     }
-
-    public double getCurrAccuracy() {
-        return currAccuracy;
-    }
-
-    public void setCurrAccuracy(double currAccuracy) {
-        this.currAccuracy = currAccuracy;
-    }
-
-    public double getCurrStrength() {
-        return currStrength;
-    }
-
-    public void setCurrStrength(double currStrength) {
-        this.currStrength = currStrength;
-    }
-
-    public double getCurrMagic() {
-        return currMagic;
-    }
-
-    public void setCurrMagic(double currMagic) {
-        this.currMagic = currMagic;
-    }
-
-    public double getCurrDefense() {
-        return currDefense;
-    }
-
-    public void setCurrDefense(double currDefense) {
-        this.currDefense = currDefense;
-    }
+    public void setCurrMana(int currMana) { this.currMana = currMana; }
+    public void setCurrSpeed(int currSpeed) { this.currSpeed = currSpeed; }
+    public void setCurrAccuracy(double currAccuracy) { this.currAccuracy = currAccuracy; }
+    public void setCurrStrength(double currStrength) { this.currStrength = currStrength; }
+    public void setCurrMagic(double currMagic) { this.currMagic = currMagic; }
+    public void setCurrDefense(double currDefense) { this.currDefense = currDefense; }
 
     public int getLevel() { return level; }
 

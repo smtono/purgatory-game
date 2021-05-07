@@ -57,6 +57,12 @@ public class MoveUtil {
         }
     }
 
+    /**
+     * 
+     * @param moveType
+     * @param moveSet
+     * @return
+     */
     public static List<Move> getMovesByMoveType(MoveType moveType, List<Move> moveSet) {
         List<Move> moves = new ArrayList<>();
         moveSet.forEach(move -> {

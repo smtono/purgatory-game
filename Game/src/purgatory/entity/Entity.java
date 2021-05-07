@@ -70,79 +70,58 @@ public class Entity {
         this.level = level;
     }
 
-    //  ACCESSORS / MUTATORS
+    //  ACCESSORS
     public String getName() {
         return name;
     }
-
-    public EntityType getEntityType() {
-        return entityType;
-    }
-
-    public void setEntityType(EntityType entityType) {
-        this.entityType = entityType;
-    }
-
+    public EntityType getEntityType() { return entityType; }
     public int getMaxHealth() {
         return MAX_HEALTH;
     }
-
     public int getMana() {
         return mana;
     }
-
-    public void setMana(int mana) {
-        this.mana = mana;
-    }
-
     public int getSpeed() {
         return speed;
     }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
     public double getAccuracy() {
         return accuracy;
     }
-
-    public void setAccuracy(int accuracy) {
-        this.accuracy = accuracy;
-    }
-
     public double getStrength() {
         return strength;
     }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
-
     public double getMagic() {
         return magic;
     }
-
-    public void setMagic(int magic) {
-        this.magic = magic;
-    }
-
     public double getDefense() { return defense; }
-
-    public void setDefense(double defense) { this.defense = defense; }
-
-    public List<Move> getMoveSet() {
-        return moveSet;
-    }
-
-    public void setMoveSet(List<Move> moveSet) {
-        this.moveSet = moveSet;
-    }
-
+    public List<Move> getMoveSet() { return moveSet; }
     public int getLevel() {
         return level;
     }
 
+    // MUTATORS
+    public void setEntityType(EntityType entityType) {
+        this.entityType = entityType;
+    }
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+    public void setAccuracy(int accuracy) {
+        this.accuracy = accuracy;
+    }
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+    public void setMagic(int magic) {
+        this.magic = magic;
+    }
+    public void setDefense(double defense) { this.defense = defense; }
+    public void setMoveSet(List<Move> moveSet) {
+        this.moveSet = moveSet;
+    }
     public void setLevel(int level) {
         this.level = level;
     }
