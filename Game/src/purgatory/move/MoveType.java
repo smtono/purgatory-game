@@ -9,5 +9,5 @@ package purgatory.move;
  * or enemy debuffs
  */
 public enum MoveType {
-    ATTACK, HEAL, SUPPORT
+    ATTACK, HEAL, SUPPORT, NONE
 }

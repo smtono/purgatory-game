@@ -51,6 +51,8 @@ public class BattleController {
         BattleStats hero = StatUtil.getHeroFromList(model.getFighters()); // get the hero from the fighter list for easier access
         prepareViewForUnit(hero);
         prepareBattleText(currTurn);
+        //appendHeroStats();
+
         if (currTurn == 0) {
             prepareBattle();
         } else {
@@ -66,18 +68,34 @@ public class BattleController {
                 case HERO:
                 case PARTY:
                     view.enableMoveSet(true);
+                    JOptionPane.showMessageDialog(null, "It's " + currUnit.getFighter() + "'s turn!");
                     mouseAdapter = createListener(currUnit);
                     view.getMoveSet().addMouseListener(mouseAdapter);
+
+                    // TODO: figure out how to get it to wait for the user's input
+                    try {
+                        view.getMoveSet().wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     break;
+                    
                 case ENEMY:
                 case BOSS:
                     view.enableMoveSet(false);
+                    // wait
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    model.setFighters(doEnemyAction(currUnit));
                     break;
             }
-
-            // clear battle text field for the new turn
-            view.clearBattleText();
         }
+
+        // clear battle text field for the new turn
+        view.clearBattleText();
 
         currTurn++;
         return currTurn;
@@ -112,10 +130,12 @@ public class BattleController {
     // TODO: finish this method
     private List<BattleStats> doEnemyAction(BattleStats currUnit) {
         List<BattleStats> newStats = new ArrayList<>();
-        Random gen = new Random();
 
         // Determine if it will be an attack or support move
-
+        // TODO: find a better way to do this ->
+        // the enemy should primarily attack
+        // the enemy should use a support move only if it has it
+        // the enemy should try to heal if it has a heal move, and if another enemy is hurt
         return newStats;
     }
 
@@ -225,6 +245,21 @@ public class BattleController {
             builder.append("\n\n");
         });
         view.appendStatsText(builder.toString());
+    }
+
+    private void appendHeroStats() {
+        StringBuilder builder = new StringBuilder();
+        // Get all heroes
+        List<BattleStats> heroes = new ArrayList<>();
+        heroes.addAll(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.HERO));
+        heroes.addAll(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.PARTY));
+
+        heroes.forEach(hero -> {
+            builder.append(hero.getInfo());
+            builder.append("\n\n");
+        });
+
+        view.appendBattleText(builder.toString());
     }
 
     /**

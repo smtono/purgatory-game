@@ -153,20 +153,16 @@ public class BattleView {
         }
     }
 
-    /**
-     * Sets the current name of the current unit
-     *
-     * @param name: The String value of the name of the current hero fighter
-     */
-    public void setCurrentHeroName(String name) {
-        heroName.setText(name);
-    }
-
+    // ACCESSOR
     public JList<String> getMoveSet() {
         return moveSet;
     }
-
     public JList<String> getMenuSet() {
         return menuSet;
+    }
+    
+    // MUTATOR
+    public void setCurrentHeroName(String name) {
+        heroName.setText(name);
     }
 }
