@@ -3,6 +3,7 @@ package purgatory.battle;
 import purgatory.entity.CharacterType;
 import purgatory.move.Attack;
 import purgatory.move.Move;
+import purgatory.move.MoveType;
 import purgatory.move.MoveUtil;
 import purgatory.stats.BattleStats;
 import purgatory.stats.StatUtil;
@@ -12,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * BattleController serves as the interface between BattleModel and BattleView.
@@ -20,7 +22,6 @@ import java.util.List;
  * This will be done through an update() function which will print to the view relevant information.
  */
 public class BattleController {
-    // TODO: split methods that are more of a support type from the actual action based ones
     private final BattleView view;
     private final BattleModel model;
 
@@ -31,174 +32,91 @@ public class BattleController {
         model.setFighters(StatUtil.pushInitialFighterStats(model.getInitialFighters())); // pushing initial stats upon construction
     }
 
+    // UPDATE METHOD
+
     /**
-     * Prepares each text area in the BattleView GUI for each turn of battle
+     * Refreshes text appearing on the view of the UI
+     * <p>
+     * Call this method recursively until one of the following exit conditions are reached:
+     * The hero HP reaches 0 (die sequence)
+     * the enemy HP reaches 0 (level up/ gain loot, etc.)
+     * the hero runs away (return to main screen, implement this one last.)
+     * returns an int which will be used to keep tack of iterations, since this method will be called recursively.
      *
-     * @param i: The current turn of battle
+     * @param currTurn: The current turn iteration
+     * @return An int which will be used to keep tack of iterations
      */
-    private void prepareBattleText(int i) {
-        view.clearBattleText();
-        view.clearStatsText();
-        view.appendBattleText("Turn: " + i + "\n\n");
-        view.enableMoveSet(false);
-    }
-
-    /**
-     * Prepares the move set and name card for the current hero or
-     * party member attacking.
-     *
-     * @param currUnit: The current entity attacking.
-     */
-    private void prepareViewForUnit(BattleStats currUnit) {
-        setMoves(currUnit);
-        setCurrHeroName(currUnit);
-    }
-
-    /**
-     * Sets up a MouseAdapter object to listen to the user input for a JList and respond
-     * based on the move chosen
-     *
-     * @param currHero: The entity object currently in control of the move set
-     * @return A MouseAdapter to pass into a JList listener
-     */
-    private MouseAdapter createListener(BattleStats currHero) {
-        return new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                @SuppressWarnings("unchecked")
-                JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
-
-                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { // detects double-click
-
-                    int index = source.locationToIndex(e.getPoint()); // gets index in JList
-
-                    if (index >= 0) {
-                        // battle logic from here out
-                        String moveSelected = source.getModel().getElementAt(index); // gets string value at index
-                        model.setFighters(doAction(currHero, moveSelected)); // damages enemy
-                        // update gui
-                        view.clearStatsText();
-                        appendEnemyStats();
-                    }
-                }
-            }
-        };
-    }
-
-    /**
-     * Adds the JList listener needed for the BattleView
-     *
-     * @param mouseAdapter: A mouse adapter object to add a listener to
-     */
-    private void prepareJListListener(MouseAdapter mouseAdapter) {
-        view.getMoveSet().addMouseListener(mouseAdapter);
-    }
-
-    /**
-     * Prepares the view for the first turn by telling the user they encountered
-     * an enemy and displaying starting enemy stats
-     */
-    public void prepareBattle() {
-        view.appendBattleText("A team of wild demons appeared!\n\n");
-
-        appendEnemyStats();
-
-        // prompts hero that they have encountered and enemy, and gives a brief tutorial on how to play.
-        JOptionPane.showMessageDialog(null, "You have just entered a battle!\n"
-                + "Read your enemy's stats, and choose the move that would best counter it!\n"
-                + "Different enemies have different weaknesses!", "Enemy Appeared!", JOptionPane.INFORMATION_MESSAGE);
-
-        appendOrder();
-    }
-
-    /**
-     * Sets the move set JList in the BattleView GUI based on the move set of the current hero
-     *
-     * @param currHero: The current Entity object used for the hero (player)
-     */
-    private void setMoves(BattleStats currHero) {
-        List<String> moves = MoveUtil.getHeroMoveSetByName(currHero.getMoveSet());
-        view.setMoves(moves.toArray(String[]::new));
-    }
-
-    /**
-     * Sets the current hero or party member's name to the JLabel in the BattleView
-     */
-    private void setCurrHeroName(BattleStats currHero) {
-        view.setCurrentHeroName(currHero.getFighter());
-    }
-
-    /**
-     * Determines the current order of fighters and appends it to the battleText JTextArea
-     * in the BattleView GUI
-     */
-    private void appendOrder() {
-        model.determineOrder();
-        view.appendBattleText(model.getFighterOrder());
-    }
-
-    private void appendEnemyStats() {
-        StringBuilder builder = new StringBuilder();
-
-        StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY).iterator().forEachRemaining(enemy -> {
-            builder.append(enemy.getInfo());
-            builder.append("\n\n");
-        });
-
-        view.appendStatsText(builder.toString());
-    }
-
-    private void appendAttack(String attacker,String target, int damage) {
-        if(damage == 0) {
-            view.appendBattleText("\nAttack missed for " + target);
-        }
-        else {
-            view.appendBattleText("\n" + attacker + " just hit " + target + " dealing " + damage + " damage!");
-        }
-    }
-
-    /**
-     * Asks hero which enemy to attack, then does proper calculations to attack the enemies chosen
-     * with the given move
-     * Returns the stats of everyone
-     *
-     * @param currHero
-     * @param enemies
-     * @param heroMove
-     * @return The stats of everyone in battle after being damaged
-     */
-    private List<BattleStats> heroAttack(BattleStats currHero, List<BattleStats> enemies, Attack heroMove) {
-        if (heroMove.isAffectAll()) {
-            List<DamageOutput> damageOutputs = model.damageAllEnemies(currHero, enemies, heroMove);
-
-            for(int i = 0; i <= enemies.size(); i++) {
-                if (damageOutputs.get(i).getCritical()) {
-                    view.appendBattleText("\nCritical hit!");
-                }
-                appendAttack(currHero.getFighter(), enemies.get(i).getFighter(), damageOutputs.get(i).getDamage()); // say who was attacked and for how much
-                enemies.get(i).setCurrHealth(enemies.get(i).getCurrHealth() - damageOutputs.get(i).getDamage()); // set new health
-            }
-
+    public int updateView(int currTurn) {
+        // PREPARING GUI
+        BattleStats hero = StatUtil.getHeroFromList(model.getFighters()); // get the hero from the fighter list for easier access
+        prepareViewForUnit(hero);
+        prepareBattleText(currTurn);
+        if (currTurn == 0) {
+            prepareBattle();
         } else {
-            BattleStats enemyChosen = enemies.get(chooseTarget(enemies));
-            DamageOutput values = model.damageEnemy(currHero, enemyChosen, heroMove);
-
-            if (values.getCritical()) {
-                view.appendBattleText("\nCritical hit!");
-            }
-            appendAttack(currHero.getFighter(), enemyChosen.getFighter(), values.getDamage());
-            enemyChosen.setCurrHealth(enemyChosen.getCurrHealth() - values.getDamage());
+            appendOrder();
         }
 
-        return enemies;
+        // DOING ACTION
+        for (BattleStats currUnit : model.getFighters()) {
+            MouseAdapter mouseAdapter = null;
+            view.enableMoveSet(false);
+
+            switch (currUnit.getEntityType().getCharacterType()) { // find who is the current fighter
+                case HERO:
+                case PARTY:
+                    view.enableMoveSet(true);
+                    mouseAdapter = createListener(currUnit);
+                    view.getMoveSet().addMouseListener(mouseAdapter);
+                    break;
+                case ENEMY:
+                case BOSS:
+                    view.enableMoveSet(false);
+                    break;
+            }
+
+            // clear battle text field for the new turn
+            view.clearBattleText();
+        }
+
+        currTurn++;
+        return currTurn;
     }
 
     /**
+     * Either damages a chosen enemy or heals or does a support skill on a party member or self.
+     * Returns the stats of all fighters to update the GUI.
      *
+     * @param currUnit: The current unit fighting
+     * @param moveSelected: The String value of the move selected by the user
+     * @return A new list with the update stats of everyone in battle
      */
-    private List<BattleStats> enemyAttack() {
+    private List<BattleStats> doHeroAction(BattleStats currUnit, String moveSelected) {
+        List<BattleStats> newStats = new ArrayList<>();
+        Move heroMove = MoveUtil.getUnitMoveFromList(currUnit, moveSelected);
+        List<BattleStats> enemies = StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY);
+        List<BattleStats> party = StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.PARTY);
 
-        return new ArrayList<>();
+        switch (heroMove.getMoveType()) {
+            case ATTACK:
+                return heroAttack(currUnit, enemies, (Attack) heroMove);
+            case HEAL:
+                BattleStats partyChosen = party.get(chooseTarget(party));
+                break;
+            case SUPPORT:
+                break;
+        }
+        return newStats;
+    }
+
+    // TODO: finish this method
+    private List<BattleStats> doEnemyAction(BattleStats currUnit) {
+        List<BattleStats> newStats = new ArrayList<>();
+        Random gen = new Random();
+
+        // Determine if it will be an attack or support move
+
+        return newStats;
     }
 
     /**
@@ -219,6 +137,160 @@ public class BattleController {
     }
 
     /**
+     * Prepares the view for the first turn by telling the user they encountered
+     * an enemy and displaying starting enemy stats
+     */
+    public void prepareBattle() {
+        view.appendBattleText("A team of wild demons appeared!\n\n");
+        appendEnemyStats();
+        // prompts hero that they have encountered and enemy, and gives a brief tutorial on how to play.
+        JOptionPane.showMessageDialog(null, "You have just entered a battle!\n"
+                + "Read your enemy's stats, and choose the move that would best counter it!\n"
+                + "Different enemies have different weaknesses!", "Enemy Appeared!", JOptionPane.INFORMATION_MESSAGE);
+
+        appendOrder();
+    }
+
+    /**
+     * Prepares each text area in the BattleView GUI for each turn of battle
+     * Clears the main text field that lists battle commands
+     * Clears the stats field where enemies are listed
+     * Appends the current turn to the main text field
+     * Disables the user from choosing a move
+     *
+     * @param i: The current turn of battle
+     */
+    private void prepareBattleText(int i) {
+        view.clearBattleText();
+        view.clearStatsText();
+        view.appendBattleText("Turn: " + i + "\n\n");
+        view.enableMoveSet(false);
+    }
+
+    /**
+     * Prepares the move set and name card for the current hero or
+     * party member attacking.
+     *
+     * @param currUnit The current entity attacking.
+     */
+    private void prepareViewForUnit(BattleStats currUnit) {
+        List<String> moves = MoveUtil.getHeroMoveSetByName(currUnit.getMoveSet());
+        view.setMoves(moves.toArray(String[]::new));
+        view.setCurrentHeroName(currUnit.getFighter());
+    }
+
+    /**
+     * Sets up a MouseAdapter object to listen to the user input for a JList and respond
+     * based on the move chosen
+     *
+     * @param currHero: The entity object currently in control of the move set
+     * @return A MouseAdapter to pass into a JList listener
+     */
+    private MouseAdapter createListener(BattleStats currHero) {
+        return new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                @SuppressWarnings("unchecked")
+                JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
+
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { // detects double-click
+                    int index = source.locationToIndex(e.getPoint()); // gets index in JList
+                    if (index >= 0) {
+                        // battle logic from here out
+                        String moveSelected = source.getModel().getElementAt(index); // gets string value at index
+                        model.setFighters(doHeroAction(currHero, moveSelected)); // damages enemy
+                        // update enemy stats for changes
+                        view.clearStatsText();
+                        appendEnemyStats();
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+     * Determines the current order of fighters and appends it to the battleText JTextArea
+     * in the BattleView GUI
+     */
+    private void appendOrder() {
+        model.determineOrder();
+        view.appendBattleText(model.getFighterOrder());
+    }
+
+    /** Gets the stats of all enemies in the fighter list and outputs it to the stats text field */
+    private void appendEnemyStats() {
+        StringBuilder builder = new StringBuilder();
+        StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY).iterator().forEachRemaining(enemy -> {
+            builder.append(enemy.getInfo());
+            builder.append("\n\n");
+        });
+        view.appendStatsText(builder.toString());
+    }
+
+    /**
+     * Outputs which target was hit and for how much damage
+     *
+     * @param attacker The unit that is dealing damage
+     * @param target The unit that is being hit
+     * @param damage The amount of damage the attacker dealt
+     */
+    private void appendAttack(String attacker, String target, int damage) {
+        if(damage == 0) {
+            view.appendBattleText("\nAttack missed for " + target);
+        }
+        else {
+            view.appendBattleText("\n" + attacker + " just hit " + target + " dealing " + damage + " damage!");
+        }
+    }
+
+    /**
+     * Asks hero which enemy to attack, then does proper calculations
+     * to attack the enemies chosen with the given move
+     * Returns the stats of everyone
+     *
+     * @param currHero The current hero or party member attacking
+     * @param enemies The list of all enemy fighters
+     * @param heroMove The Attack move that the currHero chose
+     * @return The stats of all enemies in battle after being damaged
+     */
+    private List<BattleStats> heroAttack(BattleStats currHero, List<BattleStats> enemies, Attack heroMove) {
+        if (heroMove.isAffectAll()) {
+            List<DamageOutput> damageOutputs = model.damageAllEnemies(currHero, enemies, heroMove);
+
+            for(int i = 0; i <= enemies.size(); i++) {
+                if (damageOutputs.get(i).getCritical()) {
+                    view.appendBattleText("\nCritical hit!");
+                }
+                appendAttack(currHero.getFighter(), enemies.get(i).getFighter(), damageOutputs.get(i).getDamage()); // say who was attacked and for how much
+                enemies.get(i).setCurrHealth(enemies.get(i).getCurrHealth() - damageOutputs.get(i).getDamage()); // set new health
+            }
+
+        } else {
+            BattleStats enemyChosen = enemies.get(chooseTarget(enemies));
+            DamageOutput values = model.damageEnemy(currHero, enemyChosen, heroMove);
+
+            if (values.getCritical()) {
+                view.appendBattleText("\nCritical hit!");
+            }
+            // output damage
+            appendAttack(currHero.getFighter(), enemyChosen.getFighter(), values.getDamage());
+            enemyChosen.setCurrHealth(enemyChosen.getCurrHealth() - values.getDamage());
+        }
+
+        return enemies;
+    }
+
+    /**
+     *
+     */
+    private List<BattleStats> enemyAttack() {
+
+        return new ArrayList<>();
+    }
+
+    }
+
+    /**
      * Prints out a death script, takes current death count and adds it need to keep up with that variable.
      * returns amount of time hero has died
      *
@@ -231,89 +303,6 @@ public class BattleController {
                         "\nHero! You have died.",
                         "You have died!",
                         JOptionPane.INFORMATION_MESSAGE);
-
         return playerDeaths + 1;
-    }
-
-    // TODO: decide if this method is used for both heroes and enemies, if not, split it
-    /**
-     * Either damages a chosen enemy or heals or does a support skill on a party member or self.
-     * Returns the stats of all fighters to update the GUI.
-     *
-     * @param currUnit: The current unit fighting
-     * @param moveSelected: The String value of the move selected by the user
-     * @return A new list with the update stats of everyone in battle
-     */
-    private List<BattleStats> doAction(BattleStats currUnit, String moveSelected) {
-        List<BattleStats> newStats = new ArrayList<>();
-        Move heroMove = MoveUtil.getUnitMoveFromList(currUnit, moveSelected);
-        List<BattleStats> enemies = StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY);
-        List<BattleStats> party = StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.PARTY);
-
-            switch (heroMove.getMoveType()) {
-                case ATTACK:
-                   return heroAttack(currUnit, enemies, (Attack) heroMove);
-                case HEAL:
-                    BattleStats partyChosen = party.get(chooseTarget(party));
-                    break;
-                case SUPPORT:
-                    break;
-            }
-
-        return newStats;
-    }
-
-    // UPDATE METHOD
-
-    /**
-     * Refreshes text appearing on the view of the UI
-     * <p>
-     * Call this method recursively until one of the following exit conditions are reached:
-     * The hero HP reaches 0 (die sequence)
-     * the enemy HP reaches 0 (level up/ gain loot, etc.)
-     * the hero runs away (return to main screen, implement this one last.)
-     * returns an int which will be used to keep tack of iterations, since this method will be called recursively.
-     *
-     * @param currTurn: The current turn iteration
-     * @return An int which will be used to keep tack of iterations
-     */
-    public int updateView(int currTurn) {
-        BattleStats hero = StatUtil.getHeroFromList(model.getFighters());
-
-        prepareViewForUnit(hero);
-        prepareBattleText(currTurn);
-
-        if (currTurn == 0) {
-
-            prepareBattle();
-        } else {
-            appendOrder();
-        }
-
-        for (BattleStats currUnit : model.getFighters()) {
-            MouseAdapter mouseAdapter = null;
-            view.enableMoveSet(false);
-
-            switch (currUnit.getEntityType().getCharacterType()) { // find who is the current fighter
-                case HERO: // if HERO or
-                case PARTY: // if PARTY do this ->
-                    view.enableMoveSet(true);
-                    mouseAdapter = createListener(currUnit);
-                    prepareJListListener(mouseAdapter);
-                    break;
-                // make new MouseAdapter object to pass into the JList listener
-                case ENEMY:
-                case BOSS:
-                    view.enableMoveSet(false);
-
-                    break;
-            }
-
-            // clear battle text field for the new turn
-            view.clearBattleText();
-        }
-
-        currTurn++;
-        return currTurn;
     }
 }
