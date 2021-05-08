@@ -8,7 +8,10 @@ import java.util.List;
 
 public enum EnemyType implements VirtualEntityType {
     // angels
-    GUARDIAN("Guardian", "A hearty foe, the lowest order of angels.", CharacterType.ENEMY, Arrays.asList(WeaponType.SWORD, WeaponType.CLUB), Terrace.GLUTTONY),
+    GUARDIAN("Guardian",
+            "A hearty foe, the lowest order of angels.",
+            CharacterType.ENEMY,
+            Arrays.asList(WeaponType.SWORD, WeaponType.CLUB), Terrace.GLUTTONY),
     ARCHANGEL("Archangel",
             "",
             CharacterType.ENEMY,
@@ -37,7 +40,7 @@ public enum EnemyType implements VirtualEntityType {
     THRONE("Throne",
             "",
             CharacterType.ENEMY,
-            Arrays.asList(WeaponType.WAND),
+            Arrays.asList(WeaponType.WAND, WeaponType.TOME),
             Terrace.WRATH),
     SERAPHIM("Seraphim",
             "",
