@@ -79,7 +79,7 @@ public class BattleController {
                         e.printStackTrace();
                     }
                     break;
-                    
+
                 case ENEMY:
                 case BOSS:
                     view.enableMoveSet(false);

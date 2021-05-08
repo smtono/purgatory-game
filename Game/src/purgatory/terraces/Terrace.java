@@ -15,13 +15,13 @@ import java.util.List;
  * Each terrace will have it's own enemy types and final boss.
  */
 public enum Terrace {
-    GLUTTONY("Gluttony", "", 1, 0, BossType.GLUTTONY),
-    SLOTH("Sloth", "", 2, 0, BossType.SLOTH),
-    AVARICE("Avarice", "", 3, 0, BossType.AVARICE),
-    PRIDE("Pride", "", 4, 0, BossType.PRIDE),
-    ENVY("Envy", "", 5, 0, BossType.ENVY),
-    LUST("Lust", "", 6, 0, BossType.LUST),
-    WRATH("Wrath", "", 7, 0, BossType.WRATH);
+    GLUTTONY("Gluttony", "", 1, 2, BossType.GLUTTONY),
+    SLOTH("Sloth", "", 2, 4, BossType.SLOTH),
+    AVARICE("Avarice", "", 3, 6, BossType.AVARICE),
+    PRIDE("Pride", "", 4, 8, BossType.PRIDE),
+    ENVY("Envy", "", 5, 10, BossType.ENVY),
+    LUST("Lust", "", 6, 15, BossType.LUST),
+    WRATH("Wrath", "", 7, 20, BossType.WRATH);
 
     // variables for construction
     private final String name;
@@ -47,19 +47,15 @@ public enum Terrace {
     public String getName() {
         return name;
     }
-
     public String getDescription() {
         return description;
     }
-
     public int getLevel() {
         return level;
     }
-
     public int getNumRooms() {
         return numRooms;
     }
-
     public BossType getBoss() { return boss; }
 
     @Override
