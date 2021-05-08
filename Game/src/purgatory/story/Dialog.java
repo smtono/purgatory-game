@@ -1,9 +1,10 @@
-package purgatory.main;
+package purgatory.story;
 
 import javax.swing.*;
 
 /**
- * A series of JOptionPane Dialogs to be utilized throughout the program
+ * Dialog is a series of JOptionPane Dialogs
+ * to be utilized throughout the program
  */
 public class Dialog {
 
@@ -18,6 +19,7 @@ public class Dialog {
         JOptionPane.showMessageDialog(null, "Oh, sorry, can you tell me again?");
     }
 
+    /** Checks the buttons pressed and acts accordingly */
     public static void checkButtons(int button) {
         if (button == JOptionPane.NO_OPTION) {
             Dialog.promptAgain();
