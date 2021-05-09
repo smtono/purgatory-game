@@ -1,6 +1,6 @@
 package purgatory.entity;
 
-import purgatory.story.Dialog;
+import purgatory.dialogue.Dialog;
 
 import javax.swing.*;
 

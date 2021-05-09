@@ -151,6 +151,7 @@ public class BattleModel {
         return values;
     }
 
+    // TODO: cut enemy damage in half?
     /**
      * Returns an int based on the move chosen (randomly) by enemy entity
      *
@@ -165,16 +166,13 @@ public class BattleModel {
         Attack move = (Attack) MoveUtil.getRandomMove(enemyAttacks);
         double heroDefense = hero.getCurrDefense();
         boolean critical = false;
-        int damage = 0;
-
+        int damage = damage(enemy, heroDefense, move);
 
         if (isCritical(enemy)) {
-            damage = damage(enemy, heroDefense, move) * 2;
+            damage *= 2;
             critical = true;
         }
-        else {
-            damage = damage(enemy, heroDefense, move);
-        }
+
         return new DamageOutput(critical, damage);
     }
     
