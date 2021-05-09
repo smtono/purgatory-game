@@ -9,7 +9,7 @@ public enum Bow implements Attack {
     // NORMAL BOW
     AIM("Aim", 10, 0, 0.4, false, 1),
     FIRE("Fire", 15, 0, 0.3, false, 1),
-    ARROWSTORM("Arrowstorm", 25, 0, 0.4, false, 1);
+    ARROWSTORM("Arrow storm", 25, 0, 0.4, false, 1);
 
     // LONGBOW
 

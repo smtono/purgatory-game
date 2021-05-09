@@ -8,7 +8,6 @@ import purgatory.move.MoveType;
 
 public enum Staff implements Attack, Heal {
     // NORMAL STAFF
-
     // ATTACKS
     LUX("Lux", 10, 5, 0.7, true, 1, MoveType.ATTACK, AttackType.HOLY),
     LUMINESCENCE("Luminescence", 15, 8, 0.7, true, 1, MoveType.ATTACK, AttackType.HOLY),
@@ -16,7 +15,10 @@ public enum Staff implements Attack, Heal {
     // HEALS
     MEND("Mend", 10, 2, 0.7, false, 1, MoveType.HEAL, AttackType.HOLY),
     REMEDIAL("Remedial", 25, 5, 0.75, false, 2, MoveType.HEAL, AttackType.HOLY),
-    RECOVERY("Recovery", 45, 10, 0.8, true, 5, MoveType.HEAL, AttackType.HOLY);
+    RECOVERY("Recovery", 45, 10, 0.8, true, 5, MoveType.HEAL, AttackType.HOLY),
+    
+    // SUPPORT
+    ENERGIZE("Energize", 10, 5, 0.5, false, 5, MoveType.SUPPORT, AttackType.HOLY);
 
     // SCEPTER
 

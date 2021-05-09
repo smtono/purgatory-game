@@ -6,8 +6,11 @@ import purgatory.move.Move;
 import purgatory.move.MoveType;
 
 public enum Axe implements Attack {
-    ;
     // NORMAL AXE
+    CHOP("Chop", 15, 0, 0.5, false, 1),
+    CLEAVE("Cleave", 25, 0, 0.3, false, 1),
+    AMPUTATE("Amputate", 20, 0, 0.3, true, 1),
+    HEW("Hew", 35, 0,0.4, false, 5);
 
     // GREAT AXE
 
