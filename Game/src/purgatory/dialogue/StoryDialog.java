@@ -1,4 +1,4 @@
-package purgatory.story;
+package purgatory.dialogue;
 
 /**
  * StoryDialog is a series of JOptionPane Dialogs
