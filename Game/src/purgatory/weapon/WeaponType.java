@@ -56,14 +56,11 @@ public enum WeaponType {
     public String getName() {
         return name;
     }
-
     public String getDescription() {
         return description;
     }
-
     public List<AttackType> getAttackTypes() {
         return attackTypes;
     }
-
     public ManaType getManaType() { return manaType; }
 }

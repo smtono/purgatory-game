@@ -24,6 +24,7 @@ public class Morality {
             case EVIL:
                 morality -= 1;
                 break;
+            case NEUTRAL:
             default: // nothing happens
                 break;
         }
