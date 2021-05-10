@@ -31,7 +31,7 @@ public enum WeaponType {
     SPEAR("Spear", "A weapon with a long shaft and a pointed tip", Arrays.asList(AttackType.PIERCE), ManaType.STRENGTH),
 
     // BOSS WEAPONS
-    TRIDENT("Trident", "Looks like a big fork!", Arrays.asList(AttackType.HOLY, AttackType.PIERCE), ManaType.STRENGTH),
+    TRIDENT("Trident", "Looks like a big fork!", Arrays.asList(AttackType.PIERCE), ManaType.STRENGTH),
     FLUTE("Flute", "Careful around that! Looks like you'll fall asleep!", Arrays.asList(AttackType.DARK), ManaType.MAGIC),
     BAG("Bag of Money", "It's heavy!", Arrays.asList(AttackType.BLUNT), ManaType.STRENGTH),
     MIRROR("Mirror", "It emits a powerful light magic from the reflection of those who look into it", Arrays.asList(AttackType.HOLY), ManaType.MAGIC),
