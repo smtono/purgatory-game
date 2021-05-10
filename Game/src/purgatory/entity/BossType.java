@@ -15,27 +15,27 @@ public enum BossType implements VirtualEntityType {
     SLOTH("Sloth",
             "Failure to act in pursuit of love",
             CharacterType.BOSS,
-            Arrays.asList()),
+            Arrays.asList(WeaponType.FLUTE)),
     AVARICE("Avarice",
             "Love of good things in excess",
             CharacterType.BOSS,
-            Arrays.asList()),
+            Arrays.asList(WeaponType.BAG)),
     PRIDE("Pride",
             "Directed perverted love",
             CharacterType.BOSS,
-            Arrays.asList()),
+            Arrays.asList(WeaponType.MIRROR)),
     ENVY("Envy",
             "Excessive desire to have material things",
             CharacterType.BOSS,
-            Arrays.asList()),
+            Arrays.asList(WeaponType.SNEER)),
     LUST("Lust",
             "Misdirected sexual desire",
             CharacterType.BOSS,
-            Arrays.asList()),
+            Arrays.asList(WeaponType.WHIP)),
     WRATH("Wrath",
             "Untreated prolific hatred",
             CharacterType.BOSS,
-            Arrays.asList());
+            Arrays.asList(WeaponType.HAND));
 
     //ATTRIBUTES
     private final EntityType entityType;

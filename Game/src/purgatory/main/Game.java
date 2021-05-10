@@ -55,8 +55,8 @@ public class Game {
 				0.05,
 				MoveUtil.getBaseHeroMoveSet(HeroType.CLERIC),
 				3);
-		Entity v = new Entity(
-				"V",
+		Entity victory = new Entity(
+				"Victory",
 				HeroType.ARCHER,
 				500,
 				125,
