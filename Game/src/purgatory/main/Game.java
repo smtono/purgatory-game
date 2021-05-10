@@ -4,8 +4,12 @@ import purgatory.battle.BattleModel;
 import purgatory.battle.BattleView;
 import purgatory.entity.Entity;
 import purgatory.entity.CharacterCreation;
+import purgatory.entity.EntityType;
+import purgatory.entity.HeroType;
 import purgatory.move.Move;
+import purgatory.move.MoveUtil;
 import purgatory.stats.StatUtil;
+import purgatory.story.Morality;
 import purgatory.terraces.Terrace;
 import purgatory.weapon.Axe;
 import purgatory.weapon.Tome;
@@ -30,22 +34,69 @@ import java.util.Random;
  */
 public class Game {
 	public static void main(String[] args) {
+		int deaths = 0;
+		Morality morality = new Morality(0);
+
+		// STORY
+
 		// CHARACTER CREATION
 		Entity hero = CharacterCreation.getHero();
-		int deaths = 0;
+
+		// PARTY MEMBERS
+		Entity rosalind = new Entity(
+				"Rosalind",
+				HeroType.CLERIC,
+				300,
+				50,
+				10,
+				0.6,
+				0,
+				0.1,
+				0.05,
+				MoveUtil.getBaseHeroMoveSet(HeroType.CLERIC),
+				3);
+		Entity v = new Entity(
+				"V",
+				HeroType.ARCHER,
+				500,
+				125,
+				15,
+				0.6,
+				0.2,
+				0,
+				0.1,
+				MoveUtil.getBaseHeroMoveSet(HeroType.ARCHER),
+				5);
+		Entity dawn = new Entity(
+				"Dawn",
+				HeroType.MAGE,
+				800,
+				250,
+				25,
+				0.4,
+				0,
+				0.45,
+				0.2,
+				MoveUtil.getBaseHeroMoveSet(HeroType.MAGE),
+				8);
 
 		// STORY
 
 		// FIRST TERRACE
-		List<Entity> fighters = StatUtil.generateEnemies(5, hero, Terrace.GLUTTONY); // generate enemies for the floor
-		fighters.add(hero); // add the hero to the fighter list
-		// instantiate mvc
-		BattleModel model = new BattleModel(fighters);
-		BattleView view = new BattleView();
-		BattleController control = new BattleController(view, model);
+		for(int i = 0; i < Terrace.GLUTTONY.getNumRooms(); i++) { // Go for as many levels
+			List<Entity> fighters = StatUtil.generateEnemies(5, hero, Terrace.GLUTTONY); // generate enemies for the floor
+			fighters.add(hero); // add the hero to the fighter list
+			fighters.add(rosalind);
 
-		// TODO: figure if this needs to be put in a loop
-		control.updateView(1);
+			// instantiate mvc
+			BattleModel model = new BattleModel(fighters);
+			BattleView view = new BattleView();
+			BattleController control = new BattleController(view, model);
+
+			control.updateView(1);
+		}
+
+		// final terrace: kill everyone except rosalind and chase
 
 	}
 }
