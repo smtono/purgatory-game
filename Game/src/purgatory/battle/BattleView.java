@@ -3,7 +3,6 @@ package purgatory.battle;
 import purgatory.entity.Entity;
 
 import java.awt.BorderLayout;
-import java.awt.event.*;
 import javax.swing.*;
 
 /**
@@ -61,40 +60,7 @@ public class BattleView {
         panel.add(battleText, BorderLayout.CENTER);
         panel.add(eastSide, BorderLayout.EAST);
         panel.add(southSide, BorderLayout.SOUTH);
-
-        //	ACTION LISTENERS
-      /*  moveSet.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                @SuppressWarnings("unchecked")
-                JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
-
-                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
-
-                    int index = source.locationToIndex(e.getPoint());
-                    if (index >= 0) {
-                        Object o = source.getModel().getElementAt(index);
-                        // System.out.println("Double-clicked on: " + o.toString());
-                        //moveSelected = o.toString();
-                    }
-                }
-            }
-        }); */
-
-        // Menu item selected
-        menuSet.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
-                    @SuppressWarnings("unchecked")
-                    JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
-                   // menuSelected = source.getSelectedValue(); // stores the value into a string variable
-
-                    //System.out.println(menuSelected);
-                }
-            }
-        });
-
+        
         //  FRAME CONSTRUCTION
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);

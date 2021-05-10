@@ -1,5 +1,7 @@
 package purgatory.battle;
 
+import purgatory.dialogue.BattleDialog;
+import purgatory.dialogue.ProfileDialog;
 import purgatory.entity.CharacterType;
 import purgatory.move.Attack;
 import purgatory.move.Move;
@@ -53,7 +55,7 @@ public class BattleController {
         prepareBattleText(currTurn);
         //appendHeroStats();
 
-        if (currTurn == 0) {
+        if (currTurn == 1) {
             prepareBattle();
         } else {
             appendOrder();
@@ -61,7 +63,8 @@ public class BattleController {
 
         // DOING ACTION
         for (BattleStats currUnit : model.getFighters()) {
-            MouseAdapter mouseAdapter = null;
+            MouseAdapter mouseAdapter1 = null; // listening to move set
+            MouseAdapter mouseAdapter2 = null; // listening to menu set
             view.enableMoveSet(false);
 
             switch (currUnit.getEntityType().getCharacterType()) { // find who is the current fighter
@@ -69,8 +72,12 @@ public class BattleController {
                 case PARTY:
                     view.enableMoveSet(true);
                     JOptionPane.showMessageDialog(null, "It's " + currUnit.getFighter() + "'s turn!");
-                    mouseAdapter = createListener(currUnit);
-                    view.getMoveSet().addMouseListener(mouseAdapter);
+
+                    // Setting up mouse adapters to listen to user
+                    mouseAdapter1 = createMoveListener(currUnit);
+                    mouseAdapter2 = createMenuListener(currUnit);
+                    view.getMoveSet().addMouseListener(mouseAdapter1);
+                    view.getMenuSet().addMouseListener(mouseAdapter2);
 
                     // TODO: figure out how to get it to wait for the user's input
                     try {
@@ -139,6 +146,24 @@ public class BattleController {
         return newStats;
     }
 
+    private void doMenuAction(BattleStats currUnit, String menuSelected) {
+        String item = menuSelected.toLowerCase();
+        // {"Run", "Profile", "Items", "Help"}
+        // TODO: make this enum?
+        switch (item) {
+            case "run":
+                break;
+            case "profile":
+                new ProfileDialog(currUnit);
+                break;
+            case "items":
+                break;
+            case "help":
+                BattleDialog.help();
+                break;
+        }
+    }
+
     /**
      * Prompts user to choose from the list of potential targets for the move in battle
      *
@@ -163,11 +188,7 @@ public class BattleController {
     public void prepareBattle() {
         view.appendBattleText("A team of wild demons appeared!\n\n");
         appendEnemyStats();
-        // prompts hero that they have encountered and enemy, and gives a brief tutorial on how to play.
-        JOptionPane.showMessageDialog(null, "You have just entered a battle!\n"
-                + "Read your enemy's stats, and choose the move that would best counter it!\n"
-                + "Different enemies have different weaknesses!", "Enemy Appeared!", JOptionPane.INFORMATION_MESSAGE);
-
+        BattleDialog.help();
         appendOrder();
     }
 
@@ -200,13 +221,13 @@ public class BattleController {
     }
 
     /**
-     * Sets up a MouseAdapter object to listen to the user input for a JList and respond
-     * based on the move chosen
+     * Sets up a MouseAdapter object to listen to the user input for the move set JList
+     * and respond based on the move chosen
      *
      * @param currHero: The entity object currently in control of the move set
      * @return A MouseAdapter to pass into a JList listener
      */
-    private MouseAdapter createListener(BattleStats currHero) {
+    private MouseAdapter createMoveListener(BattleStats currHero) {
         return new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -229,6 +250,30 @@ public class BattleController {
     }
 
     /**
+     * Sets up a MouseAdapter object to listen to the user input for the menu set JList
+     * and respond based on the menu item chosen
+     *
+     * @return A MouseAdapter to pass into a JList listener
+     */
+    private MouseAdapter createMenuListener(BattleStats currHero) {
+        return new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                @SuppressWarnings("unchecked")
+                JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
+
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { // detects double-click
+                    int index = source.locationToIndex(e.getPoint()); // gets index in JList
+                    if (index >= 0) {
+                        String menuSelected = source.getModel().getElementAt(index); // gets string value at index
+                        doMenuAction(currHero, menuSelected);
+                    }
+                }
+            }
+        };
+    }
+
+    /**
      * Determines the current order of fighters and appends it to the battleText JTextArea
      * in the BattleView GUI
      */
@@ -241,7 +286,7 @@ public class BattleController {
     private void appendEnemyStats() {
         StringBuilder builder = new StringBuilder();
         StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY).iterator().forEachRemaining(enemy -> {
-            builder.append(enemy.getInfo());
+            builder.append(enemy.getEnemyInfo());
             builder.append("\n\n");
         });
         view.appendStatsText(builder.toString());

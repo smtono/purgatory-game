@@ -26,17 +26,17 @@ public class BattleStats {
     public BattleStats() {}
 
     public BattleStats(
-                String fighter,
-                EntityType entityType,
-                List<Move> moveSet,
-                int currHealth,
-                int currMana,
-                int currSpeed,
-                double currAccuracy,
-                double currStrength,
-                double currMagic,
-                double currDefense,
-                int level) {
+            String fighter,
+            EntityType entityType,
+            List<Move> moveSet,
+            int currHealth,
+            int currMana,
+            int currSpeed,
+            double currAccuracy,
+            double currStrength,
+            double currMagic,
+            double currDefense,
+            int level) {
         this.fighter = fighter;
         this.entityType = entityType;
         this.moveSet = moveSet;
@@ -89,6 +89,24 @@ public class BattleStats {
      * @return A list of stat values for the given entity
      */
     public String getInfo() {
+        return fighter + "\n" +
+                entityType.toString() +
+                "\nHealth: " + currHealth +
+                "\nMana: " + currMana +
+                "\nDefense: " + currDefense +
+                "\nSpeed: " + currSpeed +
+                "\nAccuracy: " + currAccuracy +
+                "\nStrength: " + currStrength +
+                "\nMagic: " + currMagic +
+                "\nLevel: " + level;
+    }
+
+    /**
+     * Gets a simplified version of stats for enemies
+     *  
+     * @return String of simplified stat values
+     */
+    public String getEnemyInfo() {
         return fighter + "\n" +
                 entityType.toString() +
                 "\nHealth: " + currHealth +

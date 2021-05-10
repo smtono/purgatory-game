@@ -45,7 +45,7 @@ public class Game {
 		BattleController control = new BattleController(view, model);
 
 		// TODO: figure if this needs to be put in a loop
-		control.updateView(0);
+		control.updateView(1);
 
 	}
 }
