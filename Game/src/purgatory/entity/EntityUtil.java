@@ -43,9 +43,8 @@ public class EntityUtil {
     public static List<EntityType> getEntitiesOfType(CharacterType characterType) {
       switch (characterType) {
           case HERO:
-              return Arrays.asList(HeroType.values().clone());
           case PARTY:
-              return Arrays.asList(PartyType.values().clone());
+              return Arrays.asList(HeroType.values().clone());
           case ENEMY:
               return Arrays.asList(EnemyType.values().clone());
           case BOSS:
