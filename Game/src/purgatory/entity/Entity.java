@@ -2,6 +2,8 @@ package purgatory.entity;
 
 import java.util.List;
 
+import purgatory.entity.type.EntityType;
+import purgatory.entity.type.HeroType;
 import purgatory.move.Move;
 import purgatory.move.MoveUtil;
 

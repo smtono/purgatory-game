@@ -1,5 +1,8 @@
 package purgatory.inventory;
 
+/**
+ *
+ */
 public enum Item {
     // HEALING
     BANDAGE("Bandage", "Provides 10 HP", ItemType.HEAL, 10),

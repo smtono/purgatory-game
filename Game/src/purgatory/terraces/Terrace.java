@@ -1,10 +1,6 @@
 package purgatory.terraces;
 
-import purgatory.entity.BossType;
-import purgatory.entity.EnemyType;
-
-import java.util.Arrays;
-import java.util.List;
+import purgatory.entity.type.BossType;
 
 /**
  * Terrace is a collection of levels in the game, each with different names, level of access, number of rooms,

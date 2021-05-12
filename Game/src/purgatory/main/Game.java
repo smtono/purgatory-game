@@ -1,22 +1,16 @@
 package purgatory.main;
-import purgatory.battle.BattleController;
-import purgatory.battle.BattleModel;
-import purgatory.battle.BattleView;
+import purgatory.battle.mvc.BattleController;
+import purgatory.battle.mvc.BattleModel;
+import purgatory.battle.mvc.BattleView;
 import purgatory.entity.Entity;
-import purgatory.entity.CharacterCreation;
-import purgatory.entity.EntityType;
-import purgatory.entity.HeroType;
-import purgatory.move.Move;
+import purgatory.dialogue.dialog.CharacterCreation;
+import purgatory.entity.type.HeroType;
 import purgatory.move.MoveUtil;
 import purgatory.stats.StatUtil;
 import purgatory.story.Morality;
 import purgatory.terraces.Terrace;
-import purgatory.weapon.Axe;
-import purgatory.weapon.Tome;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Premise:

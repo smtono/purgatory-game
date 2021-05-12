@@ -1,9 +1,9 @@
 package purgatory.stats;
 
-import purgatory.entity.CharacterType;
+import purgatory.battle.stats.BattleStats;
+import purgatory.entity.type.CharacterType;
 import purgatory.entity.Entity;
-import purgatory.entity.EntityType;
-import purgatory.entity.EntityUtil;
+import purgatory.entity.type.EntityType;
 import purgatory.terraces.Terrace;
 
 import java.util.*;
