@@ -1,8 +1,14 @@
-package purgatory.entity;
+package purgatory.dialogue.dialog;
 
-import purgatory.dialogue.Dialog;
+import purgatory.dialogue.dialog.Dialog;
+import purgatory.entity.Entity;
+import purgatory.entity.type.HeroType;
+import purgatory.move.Move;
+import purgatory.move.MoveUtil;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * CharacterCreation allows the user to create the protagonist of the story with name and class.
@@ -58,7 +64,47 @@ public class CharacterCreation {
             button = JOptionPane.showConfirmDialog(null, "Oh, so you're a ".concat(heroType.getTypeName().toLowerCase()).concat("?"));
             Dialog.checkButtons(button);
         }
+
         return heroType;
+    }
+
+    /**
+     *
+     * @param accessibleMoves
+     * @return
+     */
+    private static Move chooseMove(List<Move> accessibleMoves, List<Move> movesChosen) {
+        Move move = null;
+        List<String> availableMoves = new ArrayList<>();
+        int button = JOptionPane.NO_OPTION;
+
+
+        // TODO: fix this ._.
+        accessibleMoves.forEach(accessibleMove -> {
+            movesChosen.forEach(moveChosen -> {
+                if (!moveChosen.getName().equals(accessibleMove.getName())) {
+                    availableMoves.add(accessibleMove.getName());
+                }
+            });
+        });
+
+        while (button == JOptionPane.NO_OPTION) {
+            int choice = JOptionPane.showOptionDialog(null,
+                    "Choose your move set!",
+                    "",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    availableMoves.toArray(new String[0]),
+                    null);
+
+            // Confirm user choice
+            move = accessibleMoves.get(choice);
+            button = JOptionPane.showConfirmDialog(null, move + "\n\nIs this okay?");
+            Dialog.checkButtons(button);
+        }
+
+        return move;
     }
 
     /**
@@ -67,6 +113,14 @@ public class CharacterCreation {
      * @return A new Entity object that represents the hero (user)
      */
     public static Entity getHero() {
-        return new Entity(askName(), chooseType());
+        List<Move> chosenMoves = new ArrayList<>();
+
+        String name = askName();
+        HeroType type = chooseType();
+
+        for (int i = 0; i < 3; i++) {
+            chosenMoves.add(chooseMove(MoveUtil.getAccessibleMoves(1, type.getWeaponTypes()), chosenMoves));
+        }
+        return new Entity(name, type, chosenMoves);
     }
 }
