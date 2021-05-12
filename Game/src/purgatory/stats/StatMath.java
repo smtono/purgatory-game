@@ -1,7 +1,9 @@
 package purgatory.stats;
 
-import purgatory.entity.EnemyType;
+import purgatory.battle.stats.BattleStats;
+import purgatory.entity.type.EnemyType;
 import purgatory.entity.Entity;
+import purgatory.move.Move;
 import purgatory.weapon.WeaponType;
 import purgatory.terraces.Terrace;
 
@@ -147,5 +149,28 @@ public class StatMath {
         }
         int upperBound = hero.getLevel() + 3;
         return rng.nextInt(upperBound - lowerBound) + lowerBound;
+    }
+
+    /**
+     * Uses the accuracy stat passed that both the hero or party member has as well as the move used
+     * to determine if the move hits or not, and returns true if it does hit, and false if it does not.
+     *
+     * @param unit: The entity object of the unit attacking
+     * @return A boolean true if the move hits and false if it does not.
+     */
+    public static boolean doesHit(BattleStats unit, Move move) {
+        Random gen = new Random();
+
+        // find the combined accuracy of the weapon and the hero's
+        double combinedAccuracy = unit.getCurrAccuracy() * move.getAccuracy();
+
+        if (combinedAccuracy > 0) {
+            // find a range to pick a random number out of
+            int upperBound = (int) (combinedAccuracy * 100);
+            // find out if this random number is larger than 1/2
+            return gen.nextInt(upperBound) > 0.5;
+        } else {
+            return false;
+        }
     }
 }

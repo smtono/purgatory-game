@@ -1,8 +1,21 @@
 package purgatory.move;
 
 import purgatory.entity.*;
-import purgatory.stats.BattleStats;
+import purgatory.battle.stats.BattleStats;
+import purgatory.entity.type.BossType;
+import purgatory.entity.type.EnemyType;
+import purgatory.entity.type.HeroType;
+import purgatory.move.type.MoveType;
+import purgatory.move.type.SupportMove;
 import purgatory.weapon.*;
+import purgatory.weapon.enemy.Dagger;
+import purgatory.weapon.enemy.Hammer;
+import purgatory.weapon.enemy.Rapier;
+import purgatory.weapon.enemy.Scythe;
+import purgatory.weapon.magic.Staff;
+import purgatory.weapon.magic.Tome;
+import purgatory.weapon.magic.Wand;
+import purgatory.weapon.strength.*;
 
 import java.util.*;
 
@@ -38,30 +51,48 @@ public class MoveUtil {
      */
     private static List<Move> getAllMovesByWeapon(WeaponType weaponType) {
         switch (weaponType) {
+            // STRENGTH
             case SWORD:
                 return Arrays.asList(Sword.values().clone());
-            case CLUB:
-                return Arrays.asList(Club.values().clone());
             case AXE:
                 return Arrays.asList(Axe.values().clone());
+            case LANCE:
+                return Arrays.asList(Lance.values().clone());
             case BOW:
                 return Arrays.asList(Bow.values().clone());
+            case CLUB:
+                return Arrays.asList(Club.values().clone());
+            case RAPIER:
+                return Arrays.asList(Rapier.values().clone());
+            case DAGGER:
+                return Arrays.asList(Dagger.values().clone());
+            case SCYTHE:
+                return Arrays.asList(Scythe.values().clone());
+            case HAMMER:
+                return Arrays.asList(Hammer.values().clone());
+            case SPEAR:
+                return Arrays.asList(Spear.values().clone());
+
+            // MAGIC
             case WAND:
                 return Arrays.asList(Wand.values().clone());
-            case STAFF:
-                return Arrays.asList(Staff.values().clone());
             case TOME:
                 return Arrays.asList(Tome.values().clone());
+            case STAFF:
+                return Arrays.asList(Staff.values().clone());
+
+
             default:
                 return null;
         }
     }
 
     /**
-     * 
-     * @param moveType
-     * @param moveSet
-     * @return
+     * Returns a list of moves of the given move type
+     *
+     * @param moveType The MoveType of the moves wanted
+     * @param moveSet The list to extract the move types from
+     * @return A list of moves of the given move type
      */
     public static List<Move> getMovesByMoveType(MoveType moveType, List<Move> moveSet) {
         List<Move> moves = new ArrayList<>();
@@ -75,24 +106,23 @@ public class MoveUtil {
 
 
     /**
-     * Returns a list of possible moves available to the hero based on their level
+     * Returns a list of possible moves available to the unit based on their level
      *
-     * @param hero: The entity object associated with the hero character
-     * @return a list of possible moves available to the hero based on level
+     * @param level The level of the unit
+     * @param weaponTypes A list of weapon types for the hero or enemy type
+     * @return a list of possible moves available to the unit based on level
      */
-    public static List<Move> getAccessibleMoves(Entity hero) {
-        int heroLevel = hero.getLevel();
-        List<WeaponType> heroWeaponTypes = hero.getEntityType().getWeaponTypes();
+    public static List<Move> getAccessibleMoves(int level, List<WeaponType> weaponTypes) {
         List<Move> moves = new ArrayList<>();
 
-        // loops through each weapon type hero can use
-        heroWeaponTypes.forEach(weaponType -> {
+        // loops through each weapon type unit can use
+        weaponTypes.forEach(weaponType -> {
             List<Move> availableMoves = Objects.requireNonNull(getAllMovesByWeapon(weaponType));
 
-            // loops through each move available for that weapon type and checks against the hero's level
+            // loops through each move available for that weapon type and checks against the unit's level
             // must be a move that is less than or equal to the player's level.
             availableMoves.forEach(move -> {
-                if (move.getLevelOfAccess() <= heroLevel) {
+                if (move.getLevelOfAccess() <= level) {
                     moves.add(move);
                 }
             });
@@ -128,22 +158,31 @@ public class MoveUtil {
     /**
      * Depending on the enemy entity type, a different move set will be set.
      * The moves will be based on the level of the enemy.
+     * 
+     * the enemy should primarily attack
+     * the enemy should use a support move only if it has it
+     * the enemy should try to heal if it has a heal move, and if another enemy is hurt
      *
-     * @param enemy:      The EntityType of the enemy Entity object.
-     * @param enemyLevel: The current level of the enemy
+     * @param enemy The EntityType of the enemy Entity object.
+     * @param enemyLevel The current level of the enemy
      * @return Returns a list of moves based on the enemy type.
      */
     public static List<Move> getNewEnemyMoveSet(EnemyType enemy, int enemyLevel) {
         List<Move> moveSet = new ArrayList<>();
-        switch (enemy) {
-            // normal enemies
-            case GUARDIAN:
-                moveSet = Arrays.asList();
-                break;
-            case MOON:
-                moveSet = Arrays.asList();
-                break;
+        List<WeaponType> weapons = enemy.getEntityType().getWeaponTypes();
+
+        // determine move based on weapon type?
+
+        if (enemyLevel <= 2) { // only add attacks
+
         }
+        else if (enemyLevel <= 5) { // only attacks and heals
+
+        }
+        else { // anything
+
+        }
+
         return moveSet;
     }
 
@@ -225,32 +264,5 @@ public class MoveUtil {
             }
         }
         return moveFound;
-    }
-
-
-
-    // PERTAINING TO SPECIFIC MOVES
-
-    /**
-     * Uses the accuracy stat passed that both the hero or party member has as well as the move used
-     * to determine if the move hits or not, and returns true if it does hit, and false if it does not.
-     *
-     * @param unit: The entity object of the unit attacking
-     * @return A boolean true if the move hits and false if it does not.
-     */
-    public static boolean doesHit(BattleStats unit, Move move) {
-        Random gen = new Random();
-
-        // find the combined accuracy of the weapon and the hero's
-        double combinedAccuracy = unit.getCurrAccuracy() * move.getAccuracy();
-
-        if (combinedAccuracy > 0) {
-            // find a range to pick a random number out of
-            int upperBound = (int) (combinedAccuracy * 100);
-            // find out if this random number is larger than 1/2
-            return gen.nextInt(upperBound) > 0.5;
-        } else {
-            return false;
-        }
     }
 }
