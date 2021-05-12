@@ -56,15 +56,19 @@ public enum Staff implements Attack, Heal {
 
     @Override
     public String toString() {
-        return "HeroMoves{" +
-                "name='" + getName() + '\'' +
-                ", damage=" + getResult() +
-                ", mana=" + getMana() +
-                ", accuracy=" + getAccuracy() +
-                ", attackAll=" + isAffectAll() +
-               // ", attackType=" + moveType +
-                ", attackType=" + attackType +
-                '}' +
-                "\n";
+        String affectAll;
+
+        if (isAffectAll()) {
+            affectAll = "Yes";
+        }
+        else {
+            affectAll = "No";
+        }
+
+        return "Name: " + getName() +
+                "\nDamage: " + getResult() +
+                "\nMana: " + getMana() +
+                "\nAccuracy: " + getAccuracy() +
+                "\nAffects all?: " + affectAll;
     }
 }
