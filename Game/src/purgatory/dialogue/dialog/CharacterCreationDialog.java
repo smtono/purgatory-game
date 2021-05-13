@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @see Entity
  */
-public class CharacterCreation {
+public class CharacterCreationDialog {
 
     /**
      * Prompts the user for the name they will give their hero.
@@ -37,7 +37,7 @@ public class CharacterCreation {
                 Dialog.checkButtons(button);
             }
             else { // User must have cancelled
-                Dialog.leave();
+                JOptionPane.showMessageDialog(null, "Please enter your name!");
             }
         }
         return name;
@@ -51,7 +51,7 @@ public class CharacterCreation {
 
         while (button == JOptionPane.NO_OPTION) {
             int type = JOptionPane.showOptionDialog(null,
-                    "Choose hero type!",
+                    "So, what do you do? What even are you?",
                     "",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
@@ -69,28 +69,26 @@ public class CharacterCreation {
     }
 
     /**
+     * Asks the user to choose a move for their starting move set
      *
-     * @param accessibleMoves
-     * @return
+     * @param accessibleMoves A list of the moves first accessible to the user
+     * @param movesChosen A list of moves the user has already chosen
+     * @return A move that the user chose
      */
     private static Move chooseMove(List<Move> accessibleMoves, List<Move> movesChosen) {
         Move move = null;
         List<String> availableMoves = new ArrayList<>();
+        boolean isPresent = false;
         int button = JOptionPane.NO_OPTION;
 
-
-        // TODO: fix this ._.
+        // getting just names for the JOptionPane buttons
         accessibleMoves.forEach(accessibleMove -> {
-            movesChosen.forEach(moveChosen -> {
-                if (!moveChosen.getName().equals(accessibleMove.getName())) {
-                    availableMoves.add(accessibleMove.getName());
-                }
-            });
+            availableMoves.add(accessibleMove.getName());
         });
 
         while (button == JOptionPane.NO_OPTION) {
             int choice = JOptionPane.showOptionDialog(null,
-                    "Choose your move set!",
+                    "What do you want to learn how to do?",
                     "",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
@@ -100,10 +98,19 @@ public class CharacterCreation {
 
             // Confirm user choice
             move = accessibleMoves.get(choice);
-            button = JOptionPane.showConfirmDialog(null, move + "\n\nIs this okay?");
+
+            for (Move moveChosen : movesChosen) {
+                if (moveChosen.getName().equals(move.getName())) {
+                    isPresent = true;
+                    JOptionPane.showMessageDialog(null, "You already chose that move! Try again.");
+                }
+            }
+
+            if (!isPresent) {
+                button = JOptionPane.showConfirmDialog(null, move + "\n\nIs this okay?");
+            }
             Dialog.checkButtons(button);
         }
-
         return move;
     }
 
