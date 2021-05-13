@@ -132,30 +132,6 @@ public class MoveUtil {
     }
 
     /**
-     * Returns a list of moves dependent on the hero type of the hero Entity Object passed.
-     * These moves are based off of a level 1 hero.
-     *
-     * @param hero : The EntityType of the hero Entity object.
-     * @return Returns a list of moves based on the hero type
-     */
-    public static List<Move> getBaseHeroMoveSet(HeroType hero) {
-        switch (hero) {
-            case WARRIOR:
-                return Arrays.asList(Sword.SLASH, Sword.LUNGE, Club.BLUDGEON);
-            case MAGE:
-                return Arrays.asList(Wand.FROSTBITE, Wand.GUST, Wand.FIRESTORM);
-            case ARCHER:
-                return Arrays.asList(Bow.AIM, Bow.FIRE, Bow.ARROWSTORM);
-            case CLERIC:
-                return Arrays.asList(Staff.LUX, Staff.LUMINESCENCE, Staff.MEND);
-            case SCHOLAR:
-                return Arrays.asList(Tome.ANGEL, Tome.LEVIATHAN, Tome.ABADDON);
-            default:
-                return null;
-        }
-    }
-
-    /**
      * Depending on the enemy entity type, a different move set will be set.
      * The moves will be based on the level of the enemy.
      * 
