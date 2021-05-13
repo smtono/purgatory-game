@@ -250,6 +250,24 @@ public class StatUtil {
     }
 
     /**
+     *
+     * @param enemiesHealth
+     * @return
+     */
+    public static boolean allEnemiesDead(List<Integer> enemiesHealth) {
+        boolean allDead = true;
+
+        for (Integer integer : enemiesHealth) {
+            if (integer > 0) {
+                allDead = false;
+                break;
+            }
+        }
+
+        return allDead;
+    }
+
+    /**
      * Pushes the initial base stats for all the Entity objects in the given list into a BattleStats list
      * to be manipulated in battle.
      *
