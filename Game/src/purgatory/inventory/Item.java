@@ -4,6 +4,7 @@ package purgatory.inventory;
  *
  */
 public enum Item {
+    NONE("null", "", null, 0),
     // HEALING
     BANDAGE("Bandage", "Provides 10 HP", ItemType.HEAL, 10),
     OINTMENT("Ointment", "Provides 50 HP", ItemType.HEAL, 50),

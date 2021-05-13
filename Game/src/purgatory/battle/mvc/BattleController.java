@@ -73,7 +73,6 @@ public class BattleController {
                 case PARTY:
                     prepareViewForUnit(currUnit);
                     view.enableMoveSet(true);
-                    JOptionPane.showMessageDialog(null, "It's " + currUnit.getFighter() + "'s turn!");
 
                     // Setting up mouse adapters to listen to user
                     mouseAdapter1 = createMoveListener(currUnit);
@@ -81,7 +80,16 @@ public class BattleController {
                     view.getMoveSet().addMouseListener(mouseAdapter1);
                     view.getMenuSet().addMouseListener(mouseAdapter2);
 
+                    // Prompting user
+                    JOptionPane.showMessageDialog(null, "It's " + currUnit.getFighter() + "'s turn!");
+
                     // TODO: fix this?! how to get it to wait for user input?????????
+
+                    try {
+                        view.getFrame().wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
                     break;
                 case ENEMY:
@@ -133,11 +141,7 @@ public class BattleController {
 
     // TODO: finish this method  ********
     private List<BattleStats> doEnemyAction(BattleStats currUnit) {
-        List<BattleStats> newStats = new ArrayList<>();
-        
-        enemyAttack(currUnit, currUnit.getMoveSet());
-        
-        return newStats;
+        return enemyAttack(currUnit, currUnit.getMoveSet());
     }
 
     private void doMenuAction(BattleStats currUnit, String menuSelected) {
@@ -376,7 +380,7 @@ public class BattleController {
         List<Move> enemyAttacks = MoveUtil.getMovesByMoveType(MoveType.ATTACK, enemyMoves); // get just attacks
         Attack enemyMove = (Attack) MoveUtil.getRandomMove(enemyAttacks);
 
-        if (enemyMove.isAffectAll()) { // if it is AOE we go to a different method
+        if (enemyMove.isAffectAll()) { // if it is AOE we must attack all heroes
             List<DamageOutput> damageOutputs = model.damageAllHeroes(currEnemy, possibleTargets, enemyMove);
             appendDamageOutputs(currEnemy, possibleTargets, damageOutputs);
         }
