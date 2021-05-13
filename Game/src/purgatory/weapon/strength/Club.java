@@ -10,6 +10,7 @@ public enum Club implements Attack {
     // NORMAL CLUB
     BLUDGEON("Bludgeon", 30, 0, 0.4, false, 1),
     CLOBBER("Clobber", 35, 0, 0.4, false, 1),
+    BEAT("Beat", 20, 0, 0.8, false, 1),
     BATTER("Batter", 45, 0, 0.3, false, 5),
     BEATDOWN("Beat down", 40, 0, 0.3, true, 5);
 

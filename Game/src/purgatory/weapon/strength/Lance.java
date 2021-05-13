@@ -3,10 +3,14 @@ package purgatory.weapon.strength;
 import purgatory.move.Move;
 import purgatory.move.type.Attack;
 import purgatory.move.type.MoveType;
+import purgatory.move.type.Support;
 import purgatory.weapon.AttackType;
 import purgatory.weapon.ManaType;
 
-public enum Lance implements Attack {
+public enum Lance implements Attack, Support {
+    IMPALE("Impale", 30, 0, 0.4, true, 1),
+    STRIKE("Strike", 45, 0, 0.2, true, 1),
+    BLOCK("Block", 10, 0, 0.5, false, 1), // blocks 10 damage
     ;
 
     private final Move move;
