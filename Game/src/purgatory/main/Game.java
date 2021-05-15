@@ -5,10 +5,8 @@ import purgatory.battle.mvc.BattleView;
 import purgatory.dialogue.dialog.BattleDialog;
 import purgatory.entity.Entity;
 import purgatory.dialogue.dialog.CharacterCreationDialog;
-import purgatory.entity.EntityUtil;
 import purgatory.entity.type.CharacterType;
 import purgatory.entity.type.HeroType;
-import purgatory.move.MoveUtil;
 import purgatory.stats.StatUtil;
 import purgatory.story.Morality;
 import purgatory.terraces.Terrace;
@@ -56,8 +54,8 @@ public class Game {
 				0.05,
 				Arrays.asList(Staff.LUX, Staff.LUMINESCENCE, Staff.MEND),
 				3);
-		Entity victory = new Entity( // TODO: change name?
-				"Victory",
+		Entity chase = new Entity(
+				"Chase",
 				HeroType.ARCHER,
 				500,
 				125,
