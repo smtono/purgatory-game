@@ -2,22 +2,62 @@ Introduction
 Rosalind (Unfamiliar Voice): Hey are you there?
 Augustus: I am/Who are you?/St-stay away!
 Rosalind: Oh good you're awake!/Woah, calm down, I'm not here to hurt you.
+Rosalind: My name is Rosalind, what's yours?
+(Character Creation)
 
 Augustus: Where am I?/.../How did I get here??
 Rosalind: Uh... I'm not really sure/Nothing to say? That's okay, I'm not really sure where to begin./I have no idea, I just found you here.
+
 Augustus: What?
 Rosalind: I just got here too, I'm not sure what's going on... That's kind of why I was waiting for you to wake up.
 Rosalind: Where ever this is, it's not very welcoming.
 Augustus: ...
+
 Rosalind: I think we should look around, what do you think?
 Augustus: I think we should./I'm okay here./No way!
 Rosalind: Great! Let's go./It'll be a lot better if we explored together, come on!/You're coming with me! I'm gonna die if I go by myself!\
 
-1st Terrace:
 
+1st Terrace
+Room 1:
+Rosalind: What is this place?
+Augustus: You don't know?/I was just about to ask you./Who cares.
+Rosalind: It's kind of familiar./I care, this place looks familiar.
 
 1st Terrace Boss
+Rosalind: What is that thing?!
+Augustus: Is it holding a fork?/Gluttony/Let's just kill it already!
+Rosalind: Oh it looks like it huh/Oh gosh, now I remember!/Right!
 
+
+2nd Terrace
+
+2nd Terrace Boss
+
+
+3rd Terrace
+
+3rd Terrace Boss
+
+
+4th Terrace
+
+4th Terrace Boss
+
+
+5th Terrace
+
+5th Terrace Boss
+
+
+6th Terrace
+
+6th Terrace Boss
+
+
+7th Terrace
+
+7th Terrace Boss
 
 
 Climax
