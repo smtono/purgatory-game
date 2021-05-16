@@ -3,7 +3,10 @@ package purgatory.stats;
 import purgatory.battle.stats.BattleStats;
 import purgatory.entity.type.CharacterType;
 import purgatory.entity.Entity;
+import purgatory.entity.type.EnemyType;
 import purgatory.entity.type.EntityType;
+import purgatory.move.Move;
+import purgatory.move.MoveUtil;
 import purgatory.terraces.Terrace;
 
 import java.util.*;
@@ -58,9 +61,10 @@ public class StatUtil {
         int enemyHealth = StatMath.generateEnemyMaxHealth(terrace);
         double enemyAccuracy = StatMath.generateEnemyAccuracy();
         int enemySpeed = StatMath.generateEnemySpeed();
-        EntityType enemyType = StatMath.generateEnemyEntityType(terrace);
+        EnemyType enemyType = StatMath.generateEnemyEntityType(terrace);
         double[] enemyManaStats = StatMath.generateEnemyStrengthOrMagic(enemyLevel, enemyType.getWeaponTypes());
         double enemyDefense = StatMath.generateEnemyDefense();
+        List<Move> moveSet = MoveUtil.getNewEnemyMoveSet(enemyType, enemyLevel);
 
         return new Entity(enemyName,
                 enemyType,

@@ -5,6 +5,7 @@ import purgatory.story.ChoiceSet;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,16 +15,19 @@ import java.util.List;
 public class StoryDialog {
     private int morality = 0;
 
-    public int getMorality() { return morality; }
-
-    // TODO: decide , Jlist or JDialogs?
     // FRAME CONSTRUCTION
     public StoryDialog(List<ChoiceSet> choiceSets) {
         final JFrame frame = new JFrame();
         final JPanel panel = new JPanel();
+
         final JTextArea dialog = new JTextArea();
+
+        DefaultListModel<String> choices = new DefaultListModel<>();
+        final JList<String> choiceSet = new JList<>(choices);
+
         final BorderLayout layout = new BorderLayout();
 
+        // EDITING COMPONENTS
         dialog.setEditable(false);
         panel.setLayout(layout);
 
@@ -32,8 +36,16 @@ public class StoryDialog {
         //  FRAME CONSTRUCTION
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.add(panel);
-        frame.setSize(200, 220);
+        frame.setSize(400, 420);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
+
+    public int getMorality() { return morality; }
+
+   /* public static void main(String[] args) {
+       List<ChoiceSet> choices = new ArrayList<>();
+
+        new StoryDialog(choices);
+    }*/
 }
