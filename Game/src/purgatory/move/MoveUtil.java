@@ -145,18 +145,20 @@ public class MoveUtil {
      */
     public static List<Move> getNewEnemyMoveSet(EnemyType enemy, int enemyLevel) {
         List<Move> moveSet = new ArrayList<>();
-        List<WeaponType> weapons = enemy.getEntityType().getWeaponTypes();
+        List<Move> accessibleMoves = getAccessibleMoves(enemyLevel, enemy.getWeaponTypes());
 
         // determine move based on weapon type?
 
         if (enemyLevel <= 2) { // only add attacks
-
+           moveSet = MoveUtil.getMovesByMoveType(MoveType.ATTACK, accessibleMoves);
+           // pick random 3
         }
         else if (enemyLevel <= 5) { // only attacks and heals
-
+            moveSet.addAll(MoveUtil.getMovesByMoveType(MoveType.ATTACK, accessibleMoves));
+            moveSet.addAll(MoveUtil.getMovesByMoveType(MoveType.HEAL, accessibleMoves));
         }
         else { // anything
-
+            moveSet.addAll(accessibleMoves);
         }
 
         return moveSet;

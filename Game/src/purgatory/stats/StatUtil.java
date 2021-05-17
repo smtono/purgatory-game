@@ -75,7 +75,7 @@ public class StatUtil {
                 enemyManaStats[1],
                 enemyManaStats[0],
                 enemyDefense,
-                null,
+                moveSet,
                 enemyLevel);
     }
 
