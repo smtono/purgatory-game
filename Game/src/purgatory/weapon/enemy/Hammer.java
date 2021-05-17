@@ -8,8 +8,8 @@ import purgatory.weapon.ManaType;
 
 public enum Hammer implements Attack {
     HAMMER("Hammer", 15, 0, 0.3, false, 1),
+    CRUSH("Crush", 20, 0, 0.2, false, 1),
     SMASH("Smash", 30, 0, 0.1, false, 1),
-
 
     ;
 

@@ -7,8 +7,8 @@ import purgatory.weapon.AttackType;
 import purgatory.weapon.ManaType;
 
 public enum Dagger implements Attack {
-    STAB("Stab", 5, 0, 0.3, false, 1),
-    STRIKE("Strike", 10, 0, 0.2, false, 1),
+    STAB("Stab", 5, 0, 0.5, false, 1),
+    STRIKE("Strike", 10, 0, 0.3, false, 1),
     CUT("Cut", 20, 0, 0.1, false, 1),
 
 

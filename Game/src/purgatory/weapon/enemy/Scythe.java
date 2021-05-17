@@ -7,6 +7,10 @@ import purgatory.weapon.AttackType;
 import purgatory.weapon.ManaType;
 
 public enum Scythe implements Attack {
+    SWING("Swing", 15, 0, 0.6, true, 1),
+    MOW("Mow", 5, 0, 0.9, true, 1),
+    SCYTHE("Scythe", 20, 0, 0.2, true, 1),
+
     ;
 
     private final Move move;

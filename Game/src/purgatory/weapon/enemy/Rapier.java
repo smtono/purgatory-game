@@ -9,6 +9,8 @@ import purgatory.weapon.ManaType;
 public enum Rapier implements Attack {
     LUNGE("Lunge", 8, 0, 0.3, false, 1),
     SLASH("Slash", 15, 0, 0.2, false, 1),
+    PIERCE("Pierce", 18, 0, 0.2, false, 1),
+
     SLICE("Slice", 22, 0, 0.2, false, 2),
     RIPOSTE("Riposte", 35, 10, 0.4, true, 5)
     ;
