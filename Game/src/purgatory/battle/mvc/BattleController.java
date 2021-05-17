@@ -12,6 +12,7 @@ import purgatory.move.MoveUtil;
 import purgatory.stats.StatUtil;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class BattleController {
      * @param currTurn: The current turn iteration
      * @return An int which will be used to keep tack of iterations
      */
-    public int updateView(int currTurn) {
+    public void battle(int currTurn) {
         // PREPARING GUI
         BattleStats hero = StatUtil.getHeroFromList(model.getFighters()); // get the hero from the fighter list for easier access
         prepareViewForUnit(hero);
@@ -74,23 +75,22 @@ public class BattleController {
                     prepareViewForUnit(currUnit);
                     view.enableMoveSet(true);
 
-                    // Setting up mouse adapters to listen to user
-                    mouseAdapter1 = createMoveListener(currUnit);
+                    doAction(currUnit);
+
+                    /*// Setting up mouse adapters to listen to user
+                    // mouseAdapter1 = createMoveListener(currUnit);
                     mouseAdapter2 = createMenuListener(currUnit);
-                    view.getMoveSet().addMouseListener(mouseAdapter1);
+                    // view.getMoveSet().addMouseListener(mouseAdapter1);
                     view.getMenuSet().addMouseListener(mouseAdapter2);
 
                     // Prompting user
                     JOptionPane.showMessageDialog(null, "It's " + currUnit.getFighter() + "'s turn!");
 
-                    // TODO: fix this?! how to get it to wait for user input?????????
+                    view.getMoveSet().addListSelectionListener(createMoveSelectionListener(currUnit));
 
-                    try {
-                        view.getFrame().wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
+                    if (!view.getMoveSet().isSelectionEmpty()) {
+                        break;
+                    }*/
                     break;
                 case ENEMY:
                 case BOSS:
@@ -108,9 +108,64 @@ public class BattleController {
 
         // clear battle text field for the new turn
         view.clearBattleText();
+    }
 
-        currTurn++;
-        return currTurn;
+    private void doAction(BattleStats currUnit) {
+        String[] menu = {"Fight!", "Items", "Analyze", "Run"};
+        String[] analyze = {"Myself", "Enemies"};
+
+        int choice = JOptionPane.showOptionDialog(
+                null,
+                "Hurry! What do you want to do?",
+                "",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                menu,
+                null);
+
+        String item = menu[choice].toLowerCase();
+
+        switch (item) {
+            case "fight!":
+                String[] moveSet = currUnit.getMoveNames().toArray(new String[0]);
+
+                int move = JOptionPane.showOptionDialog(
+                        null,
+                        "What move?",
+                        "",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        moveSet,
+                        null);
+
+                model.setFighters(doHeroAction(currUnit, moveSet[move]));
+                break;
+            case "items":
+                break;
+            case "analyze":
+                choice = JOptionPane.showOptionDialog(
+                        null,
+                        "Who do you want to analyze?",
+                        "",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        analyze,
+                        null);
+                item = analyze[choice].toLowerCase();
+
+                switch (item) {
+                    case "myself":
+                        new ProfileDialog(currUnit);
+                        break;
+                    case "enemies":
+                }
+                break;
+            case "run":
+                break;
+        }
     }
 
     /**
@@ -139,7 +194,6 @@ public class BattleController {
         return newStats;
     }
 
-    // TODO: finish this method  ********
     private List<BattleStats> doEnemyAction(BattleStats currUnit) {
         return enemyAttack(currUnit, currUnit.getMoveSet());
     }
@@ -174,7 +228,7 @@ public class BattleController {
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
-                targets.toArray(),
+                targets.toArray(new BattleStats[0]),
                 null);
     }
 
@@ -242,6 +296,32 @@ public class BattleController {
                         appendEnemyStats();
                     }
                 }
+            }
+        };
+    }
+
+    private ListSelectionListener createMoveSelectionListener(BattleStats currHero) {
+        return e -> {
+            if (!e.getValueIsAdjusting()) {
+                new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        @SuppressWarnings("unchecked")
+                        JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
+
+                        if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { // detects double-click
+                            int index = source.locationToIndex(e.getPoint()); // gets index in JList
+                            if (index >= 0) {
+                                // battle logic from here out
+                                String moveSelected = source.getModel().getElementAt(index); // gets string value at index
+                                model.setFighters(doHeroAction(currHero, moveSelected)); // damages enemy
+                                // update enemy stats for changes
+                                view.clearStatsText();
+                                appendEnemyStats();
+                            }
+                        }
+                    }
+                };
             }
         };
     }
@@ -322,7 +402,7 @@ public class BattleController {
 
     /** Outputs the damage outputs for an AOE attack */
     private void appendDamageOutputs(BattleStats currUnit, List<BattleStats> targets, List<DamageOutput> damageOutputs) {
-        for(int i = 0; i <= targets.size(); i++) { // check for critical hits/output damage amounts
+        for(int i = 0; i <= targets.size() - 1; i++) { // check for critical hits/output damage amounts
             if (damageOutputs.get(i).getCritical()) {
                 view.appendBattleText("\nCritical hit!");
             }
