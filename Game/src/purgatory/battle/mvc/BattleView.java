@@ -112,6 +112,8 @@ public class BattleView {
      * @param heroMoves: An array of strings of the moves the hero can use
      */
     public void setMoves(String[] heroMoves) {
+        moves.clear(); // clean out if it has items
+
         for (int i = 0; i < heroMoves.length; i++) {
             moves.add(i, heroMoves[i]);
         }

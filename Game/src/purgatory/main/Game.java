@@ -96,7 +96,7 @@ public class Game {
 			int currTurn = 1;
 
 			while (!done) {
-				control.updateView(currTurn);
+				control.battle(currTurn);
 
 				if (StatUtil.getHeroFromList(model.getFighters()).getCurrHealth() <= 0) { // dead hero
 					deaths += 1;

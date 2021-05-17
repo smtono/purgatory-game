@@ -3,6 +3,7 @@ package purgatory.battle.stats;
 import purgatory.entity.type.EntityType;
 import purgatory.move.Move;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -82,6 +83,7 @@ public class BattleStats {
 
     public int getLevel() { return level; }
 
+    // HELPER
     /**
      * Gets the stat values for the entity and returns the values back.
      *
@@ -110,6 +112,16 @@ public class BattleStats {
                 entityType.toString() +
                 "\nHealth: " + currHealth +
                 "\nLevel: " + level;
+    }
+    
+    public List<String> getMoveNames() {
+        List<String> moves = new ArrayList<>();
+
+        moveSet.forEach(move -> {
+            moves.add(move.getName());
+        });
+
+        return moves;
     }
 
     @Override

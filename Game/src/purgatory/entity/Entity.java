@@ -1,5 +1,6 @@
 package purgatory.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import purgatory.entity.type.EntityType;
