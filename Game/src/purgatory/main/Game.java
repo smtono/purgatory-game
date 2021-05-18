@@ -95,23 +95,7 @@ public class Game {
 			boolean done = false;
 			int currTurn = 1;
 
-			while (!done) {
-				control.battle(currTurn);
-
-				if (StatUtil.getHeroFromList(model.getFighters()).getCurrHealth() <= 0) { // dead hero
-					deaths += 1;
-					BattleDialog.die(deaths);
-
-					// return to title / retry battle?
-				}
-				// TODO: simplify this- lmao, maybe call these methods in a method in StatUtil
-				else if (StatUtil.allEnemiesDead(StatUtil.getHealthForAll(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY)))) { // check if enemies are dead
-					done = true;
-				}
-				else { // continue
-					currTurn++;
-				}
-			}
+			control.battle(currTurn);
 
 			// level up
 		}

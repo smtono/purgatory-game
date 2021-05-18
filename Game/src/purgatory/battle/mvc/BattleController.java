@@ -51,57 +51,76 @@ public class BattleController {
     public void battle(int currTurn) {
         // PREPARING GUI
         BattleStats hero = StatUtil.getHeroFromList(model.getFighters()); // get the hero from the fighter list for easier access
-        prepareViewForUnit(hero);
-        prepareBattleText(currTurn);
-        //appendHeroStats();
 
-        if (currTurn == 1) {
-            prepareBattle();
-        } else {
-            appendOrder();
-        }
+        boolean done = false;
 
-        // DOING ACTION
-        for (BattleStats currUnit : model.getFighters()) {
-            MouseAdapter mouseAdapter1 = null; // listening to move set
-            MouseAdapter mouseAdapter2 = null; // listening to menu set
-            view.enableMoveSet(false);
+        while (!done) {
+            prepareViewForUnit(hero);
+            prepareBattleText(currTurn);
+            //appendHeroStats();
 
-            switch (currUnit.getEntityType().getCharacterType()) { // find who is the current fighter
-                case HERO:
-                case PARTY:
-                    prepareViewForUnit(currUnit);
-                    view.enableMoveSet(true);
-
-                    doAction(currUnit);
-
-                    /*// Setting up mouse adapters to listen to user
-                    // mouseAdapter1 = createMoveListener(currUnit);
-                    mouseAdapter2 = createMenuListener(currUnit);
-                    // view.getMoveSet().addMouseListener(mouseAdapter1);
-                    view.getMenuSet().addMouseListener(mouseAdapter2);
-
-                    // Prompting user
-                    JOptionPane.showMessageDialog(null, "It's " + currUnit.getFighter() + "'s turn!");
-
-                    view.getMoveSet().addListSelectionListener(createMoveSelectionListener(currUnit));
-
-                    if (!view.getMoveSet().isSelectionEmpty()) {
-                        break;
-                    }*/
-                    break;
-                case ENEMY:
-                case BOSS:
-                    view.enableMoveSet(false);
-                    // wait
-                    try {
-                        Thread.sleep(400);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    model.setFighters(doEnemyAction(currUnit));
-                    break;
+            if (currTurn == 1) {
+                prepareBattle();
+            } else {
+                appendOrder();
             }
+
+            // DOING ACTION
+            for (BattleStats currUnit : model.getFighters()) {
+                view.enableMoveSet(false);
+
+                switch (currUnit.getEntityType().getCharacterType()) { // find who is the current fighter
+                    case HERO:
+                    case PARTY:
+                        // Prompting user
+                        JOptionPane.showMessageDialog(null, "It's " + currUnit.getFighter() + "'s turn!");
+                        prepareViewForUnit(currUnit);
+                        view.enableMoveSet(true);
+                        doAction(currUnit);
+                        // wait
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case ENEMY:
+                    case BOSS:
+                        view.enableMoveSet(false);
+                        // wait
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        doEnemyAction(currUnit);
+                        break;
+                }
+            }
+
+            if (StatUtil.getHeroFromList(model.getFighters()).getCurrHealth() <= 0) { // dead hero
+                // TODO: fix so it doesn't have to take amount of deaths
+                BattleDialog.die(0);
+
+                // return to title / retry battle?
+            }
+            // TODO: simplify this- lmao, maybe call these methods in a method in StatUtil
+            else if (StatUtil.allEnemiesDead(StatUtil.getHealthForAll(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY)))) { // check if enemies are dead
+                done = true;
+            }
+            else { // continue
+                currTurn++;
+            }
+
+            // wait
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // clear battle text field for the new turn
+            view.clearBattleText();
         }
 
     }
