@@ -12,9 +12,7 @@ import purgatory.move.MoveUtil;
 import purgatory.stats.StatUtil;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionListener;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -106,11 +104,14 @@ public class BattleController {
             }
         }
 
-        // clear battle text field for the new turn
-        view.clearBattleText();
     }
 
+    /**
+     *
+     * @param currUnit
+     */
     private void doAction(BattleStats currUnit) {
+        // TODO: separate different cases into different methods?
         String[] menu = {"Fight!", "Items", "Analyze", "Run"};
         String[] analyze = {"Myself", "Enemies"};
 
@@ -129,7 +130,6 @@ public class BattleController {
         switch (item) {
             case "fight!":
                 String[] moveSet = currUnit.getMoveNames().toArray(new String[0]);
-
                 int move = JOptionPane.showOptionDialog(
                         null,
                         "What move?",
@@ -139,8 +139,7 @@ public class BattleController {
                         null,
                         moveSet,
                         null);
-
-                model.setFighters(doHeroAction(currUnit, moveSet[move]));
+                doHeroAction(currUnit, moveSet[move]);
                 break;
             case "items":
                 break;
@@ -172,11 +171,10 @@ public class BattleController {
      * Either damages a chosen enemy or heals or does a support skill on a party member or self.
      * Returns the stats of all fighters to update the GUI.
      *
-     * @param currUnit: The current unit fighting
-     * @param moveSelected: The String value of the move selected by the user
-     * @return A new list with the update stats of everyone in battle
+     * @param currUnit : The current unit fighting
+     * @param moveSelected : The String value of the move selected by the user
      */
-    private List<BattleStats> doHeroAction(BattleStats currUnit, String moveSelected) {
+    private void doHeroAction(BattleStats currUnit, String moveSelected) {
         List<BattleStats> newStats = new ArrayList<>();
         Move heroMove = MoveUtil.getUnitMoveFromList(currUnit, moveSelected);
         List<BattleStats> enemies = StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY);
@@ -184,35 +182,18 @@ public class BattleController {
 
         switch (heroMove.getMoveType()) {
             case ATTACK:
-                return heroAttack(currUnit, enemies, (Attack) heroMove);
+                heroAttack(currUnit, enemies, (Attack) heroMove);
+                return;
             case HEAL:
                 BattleStats partyChosen = party.get(chooseTarget(party));
                 break;
             case SUPPORT:
                 break;
         }
-        return newStats;
     }
 
-    private List<BattleStats> doEnemyAction(BattleStats currUnit) {
-        return enemyAttack(currUnit, currUnit.getMoveSet());
-    }
-
-    private void doMenuAction(BattleStats currUnit, String menuSelected) {
-        String item = menuSelected.toLowerCase();
-
-        switch (item) {
-            case "run":
-                break;
-            case "profile":
-                new ProfileDialog(currUnit);
-                break;
-            case "items":
-                break;
-            case "help":
-                BattleDialog.help();
-                break;
-        }
+    private void doEnemyAction(BattleStats currUnit) {
+        enemyAttack(currUnit, currUnit.getMoveSet());
     }
 
     /**
@@ -272,85 +253,6 @@ public class BattleController {
     }
 
     /**
-     * Sets up a MouseAdapter object to listen to the user input for the move set JList
-     * and respond based on the move chosen
-     *
-     * @param currHero: The entity object currently in control of the move set
-     * @return A MouseAdapter to pass into a JList listener
-     */
-    private MouseAdapter createMoveListener(BattleStats currHero) {
-        return new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                @SuppressWarnings("unchecked")
-                JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
-
-                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { // detects double-click
-                    int index = source.locationToIndex(e.getPoint()); // gets index in JList
-                    if (index >= 0) {
-                        // battle logic from here out
-                        String moveSelected = source.getModel().getElementAt(index); // gets string value at index
-                        model.setFighters(doHeroAction(currHero, moveSelected)); // damages enemy
-                        // update enemy stats for changes
-                        view.clearStatsText();
-                        appendEnemyStats();
-                    }
-                }
-            }
-        };
-    }
-
-    private ListSelectionListener createMoveSelectionListener(BattleStats currHero) {
-        return e -> {
-            if (!e.getValueIsAdjusting()) {
-                new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        @SuppressWarnings("unchecked")
-                        JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
-
-                        if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { // detects double-click
-                            int index = source.locationToIndex(e.getPoint()); // gets index in JList
-                            if (index >= 0) {
-                                // battle logic from here out
-                                String moveSelected = source.getModel().getElementAt(index); // gets string value at index
-                                model.setFighters(doHeroAction(currHero, moveSelected)); // damages enemy
-                                // update enemy stats for changes
-                                view.clearStatsText();
-                                appendEnemyStats();
-                            }
-                        }
-                    }
-                };
-            }
-        };
-    }
-
-    /**
-     * Sets up a MouseAdapter object to listen to the user input for the menu set JList
-     * and respond based on the menu item chosen
-     *
-     * @return A MouseAdapter to pass into a JList listener
-     */
-    private MouseAdapter createMenuListener(BattleStats currHero) {
-        return new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                @SuppressWarnings("unchecked")
-                JList<String> source = (JList<String>) e.getSource(); // gets which move the user picked
-
-                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { // detects double-click
-                    int index = source.locationToIndex(e.getPoint()); // gets index in JList
-                    if (index >= 0) {
-                        String menuSelected = source.getModel().getElementAt(index); // gets string value at index
-                        doMenuAction(currHero, menuSelected);
-                    }
-                }
-            }
-        };
-    }
-
-    /**
      * Determines the current order of fighters and appends it to the battleText JTextArea
      * in the BattleView GUI
      */
@@ -367,21 +269,6 @@ public class BattleController {
             builder.append("\n\n");
         });
         view.appendStatsText(builder.toString());
-    }
-
-    private void appendHeroStats() {
-        StringBuilder builder = new StringBuilder();
-        // Get all heroes
-        List<BattleStats> heroes = new ArrayList<>();
-        heroes.addAll(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.HERO));
-        heroes.addAll(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.PARTY));
-
-        heroes.forEach(hero -> {
-            builder.append(hero.getInfo());
-            builder.append("\n\n");
-        });
-
-        view.appendBattleText(builder.toString());
     }
 
     /**
@@ -448,7 +335,7 @@ public class BattleController {
      * @param currEnemy The current enemy attacking
      * @return The stats of the hero after the damage is done
      */
-    private List<BattleStats> enemyAttack(BattleStats currEnemy, List<Move> enemyMoves) {
+    private void enemyAttack(BattleStats currEnemy, List<Move> enemyMoves) {
         Random gen = new Random();
 
         // Get all possible targets
@@ -474,6 +361,5 @@ public class BattleController {
             appendAttack(currEnemy.getFighter(), target.getFighter(), values.getDamage());
             target.setCurrHealth(target.getCurrHealth() - values.getDamage());
         }
-        return possibleTargets;
     }
 }
