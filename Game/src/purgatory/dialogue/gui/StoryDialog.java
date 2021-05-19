@@ -1,11 +1,9 @@
 package purgatory.dialogue.gui;
 
-import purgatory.battle.stats.BattleStats;
-import purgatory.story.ChoiceSet;
+import purgatory.dialogue.story.ChoiceSet;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

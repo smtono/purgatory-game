@@ -42,7 +42,7 @@ public class Entity {
     //	CONSTRUCTORS
     // The default constructor is tailored for a level 1 hero.
     public Entity(String name, EntityType entityType, List<Move> moveSet) {
-        this(name, entityType, 100, 20, 10, 0.6, 0, 0, 0, moveSet, 1);
+        this(name, entityType, 300, 50, 10, 0.6, 0, 0, 0, moveSet, 1);
     }
 
     // Overloaded constructor, mainly used for the creation of enemies

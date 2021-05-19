@@ -2,13 +2,11 @@ package purgatory.main;
 import purgatory.battle.mvc.BattleController;
 import purgatory.battle.mvc.BattleModel;
 import purgatory.battle.mvc.BattleView;
-import purgatory.dialogue.dialog.BattleDialog;
 import purgatory.entity.Entity;
 import purgatory.dialogue.dialog.CharacterCreationDialog;
-import purgatory.entity.type.CharacterType;
 import purgatory.entity.type.HeroType;
 import purgatory.stats.StatUtil;
-import purgatory.story.Morality;
+import purgatory.dialogue.story.Morality;
 import purgatory.terraces.Terrace;
 import purgatory.weapon.magic.Staff;
 import purgatory.weapon.magic.Wand;
@@ -33,7 +31,6 @@ import java.util.List;
  */
 public class Game {
 	public static void main(String[] args) {
-		int deaths = 0;
 		Morality morality = new Morality(0);
 
 		// STORY
@@ -83,7 +80,7 @@ public class Game {
 
 		// TODO: make this game loop generic (to loop through every terrace)
 		for(int i = 0; i < Terrace.GLUTTONY.getNumRooms(); i++) { // Go for as many levels
-			List<Entity> fighters = StatUtil.generateEnemies(5, hero, Terrace.GLUTTONY); // generate enemies for the floor
+			List<Entity> fighters = StatUtil.generateEnemies(3, hero, Terrace.GLUTTONY); // generate enemies for the floor
 			fighters.add(hero); // add the hero to the fighter list
 			fighters.add(rosalind);
 
