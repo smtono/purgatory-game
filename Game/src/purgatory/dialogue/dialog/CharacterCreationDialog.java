@@ -86,7 +86,7 @@ public class CharacterCreationDialog {
             availableMoves.add(accessibleMove.getName());
         });
 
-        while (button == JOptionPane.NO_OPTION) {
+        while (button == JOptionPane.NO_OPTION || button == JOptionPane.CANCEL_OPTION) {
             int choice = JOptionPane.showOptionDialog(null,
                     "What do you want to learn how to do?",
                     "",
@@ -103,13 +103,16 @@ public class CharacterCreationDialog {
                 if (moveChosen.getName().equals(move.getName())) {
                     isPresent = true;
                     JOptionPane.showMessageDialog(null, "You already chose that move! Try again.");
+                    break;
                 }
             }
 
             if (!isPresent) {
                 button = JOptionPane.showConfirmDialog(null, move + "\n\nIs this okay?");
+                Dialog.checkButtons(button);
             }
-            Dialog.checkButtons(button);
+            // reset
+            isPresent = false;
         }
         return move;
     }
