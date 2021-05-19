@@ -128,59 +128,34 @@ public class BattleController {
      * @param currUnit
      */
     private void doAction(BattleStats currUnit) {
-        // TODO: separate different cases into different methods?
-        String[] menu = {"Fight!", "Items", "Analyze", "Run"};
-        String[] analyze = {"Myself", "Enemies"};
+        boolean fighting = false;
 
-        int choice = JOptionPane.showOptionDialog(
-                null,
-                "Hurry! What do you want to do?",
-                "",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                menu,
-                null);
-
-        String item = menu[choice].toLowerCase();
-
-        switch (item) {
-            case "fight!":
-                String[] moveSet = currUnit.getMoveNames().toArray(new String[0]);
-                int move = JOptionPane.showOptionDialog(
-                        null,
-                        "What move?",
-                        "",
-                        JOptionPane.DEFAULT_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        moveSet,
-                        null);
-                doHeroAction(currUnit, moveSet[move]);
-                break;
-            case "items":
-                break;
-            case "analyze":
-                choice = JOptionPane.showOptionDialog(
-                        null,
-                        "Who do you want to analyze?",
-                        "",
-                        JOptionPane.DEFAULT_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        analyze,
-                        null);
-                item = analyze[choice].toLowerCase();
-
-                switch (item) {
-                    case "myself":
-                        new ProfileDialog(currUnit);
-                        break;
-                    case "enemies":
-                }
-                break;
-            case "run":
-                break;
+        while (!fighting) {
+            String item = BattleDialog.askAction();
+            switch (item) {
+                case "fight!":
+                    doHeroAction(currUnit, BattleDialog.askMove(currUnit));
+                    fighting = true;
+                    break;
+                case "items":
+                    break;
+                case "analyze":
+                    item = BattleDialog.analyze();
+                    switch (item) {
+                        case "myself":
+                            ProfileDialog dialog = new ProfileDialog(currUnit);
+                            if (!dialog.isShowing()) {
+                                break;
+                            }
+                        case "enemies":
+                            BattleStats enemy = BattleDialog.askEnemy(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY));
+                            new ProfileDialog(enemy);
+                            break;
+                    }
+                    break;
+                case "run":
+                    break;
+            }
         }
     }
 
@@ -213,23 +188,6 @@ public class BattleController {
 
     private void doEnemyAction(BattleStats currUnit) {
         enemyAttack(currUnit, currUnit.getMoveSet());
-    }
-
-    /**
-     * Prompts user to choose from the list of potential targets for the move in battle
-     *
-     * @return The index of the enemy chosen
-     */
-    private int chooseTarget(List<BattleStats> targets) {
-        return JOptionPane.showOptionDialog(
-                null,
-                "Choose a target!",
-                "",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.INFORMATION_MESSAGE,
-                null,
-                targets.toArray(new BattleStats[0]),
-                null);
     }
 
     /**
