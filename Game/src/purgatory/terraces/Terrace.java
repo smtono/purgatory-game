@@ -12,12 +12,12 @@ import purgatory.entity.type.BossType;
  */
 public enum Terrace {
     GLUTTONY("Gluttony", "", 1, 2, BossType.GLUTTONY),
-    SLOTH("Sloth", "", 2, 4, BossType.SLOTH),
-    AVARICE("Avarice", "", 3, 6, BossType.AVARICE),
+    SLOTH("Sloth", "", 2, 3, BossType.SLOTH),
+    AVARICE("Avarice", "", 3, 5, BossType.AVARICE),
     PRIDE("Pride", "", 4, 8, BossType.PRIDE),
     ENVY("Envy", "", 5, 10, BossType.ENVY),
-    LUST("Lust", "", 6, 15, BossType.LUST),
-    WRATH("Wrath", "", 7, 20, BossType.WRATH);
+    LUST("Lust", "", 6, 10, BossType.LUST),
+    WRATH("Wrath", "", 7, 10, BossType.WRATH);
 
     // variables for construction
     private final String name;
