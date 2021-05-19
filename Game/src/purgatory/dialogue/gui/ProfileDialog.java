@@ -4,11 +4,13 @@ import purgatory.battle.stats.BattleStats;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 /**
  *
  */
-public class ProfileDialog {
+public class ProfileDialog extends JFrame {
     public ProfileDialog(BattleStats unit) {
         final JFrame frame = new JFrame();
         final JPanel panel = new JPanel();
@@ -20,6 +22,7 @@ public class ProfileDialog {
         profile.append(unit.getInfo());
         profile.setEditable(false);
 
+        // setting the layout
         panel.setLayout(layout);
 
         // adding components to the right place
@@ -31,6 +34,6 @@ public class ProfileDialog {
         frame.add(panel);
         frame.setSize(200, 220);
         frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        //frame.setVisible(true);
     }
 }
