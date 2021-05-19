@@ -15,8 +15,7 @@ Augustus: ...
 
 Rosalind: I think we should look around, what do you think?
 Augustus: I think we should./I'm okay here./No way!
-Rosalind: Great! Let's go./It'll be a lot better if we explored together, come on!/You're coming with me! I'm gonna die if I go by myself!\
-
+Rosalind: Great! Let's go./It'll be a lot better if we explored together, come on!/You're coming with me! I'm gonna die if I go by myself!
 
 1st Terrace
 Room 1:
@@ -29,23 +28,90 @@ Rosalind: What is that thing?!
 Augustus: Is it holding a fork?/Gluttony/Let's just kill it already!
 Rosalind: Oh it looks like it huh/Oh gosh, now I remember!/Right!
 
+Rosalind: Wow we did it!
+Augustus: It was thanks to you!/Yeah!/You were holding me back.
+Rosalind: Aw no, it was to us both!/This is kind of exciting!/Oh sorry.. I'll try not to get in your way
+Rosalind: Come on, let's go!
 
 2nd Terrace
+Room 1:
+Rosalind: Gosh, again?
+Augustus: I don't think we'll be out of here anytime soon/Looks like it/Do I have to be here?
+Rosalind: I wonder if anyone else is here./We should try looking for someone./Fine, I'll look for someone else!
+Augustus: I don't think anyone is here./.../Good luck with that.
+Rosalind: Ugh it's no use!
+Augustus: Come on, let's just keep going./Are we going to die?/You give up easily
+Rosalind: I suppose you're right/I hope not...We should probably get going./What? No! Let's just go.
+
+Room 2-3:
+Rosalind: It just keeps going!
+Augustus: Let's go!/...
 
 2nd Terrace Boss
-
+Rosalind: Woah, what is that thing?!
+Augustus: Is that a flute?/What is that it's holding?/You are loud
+Rosalind: I think so! I wonder what it's for./It looks like some sort of instrument/...
+Rosalind: Come on, let's go!
 
 3rd Terrace
+Room 1:
+Rosalind: That was kind of tough...
+Augustus: We need help./We should find someone./Not for me!
+Rosalind: I think you're right./I still think we need some help.
+Rosalind: Hey, who's that?
+Chase: ?
+Augustus: Who are you?/Get away from here.
+Chase: Wh-what? I didn't think I would find anyone here.
+Rosalind: Oh gosh! Another one? Can you help us?
+Chase: I don't know, I was watching you guys, you guys are pretty strong.
+Augustus: We can protect you./I guess you can say that./Yeah, you're next.
+Chase: Oh I would like that../Can I tag along? I have a bow and arrow.../Wh-what?!
+Rosalind: That would be great!/Oh don't listen to him, you should come with us!
+Chase: I'll try my best!
+
+Room 2-5:
+Rosalind: It just keeps going!
+Chase: It's unnerving...
+Augustus: Let's go!/...
 
 3rd Terrace Boss
-
+Chase: Wh-what in the world is that?!
+Rosalind: I was just about to ask the same!
+Augustus: It's holding some sort of bag/What is that it's holding?/Why are you guys always so scared
+Rosalind: I think you're right!/It looks like a bag...of money?/Why are you not?!
+Chase: Let's just get this over with...
 
 4th Terrace
+Room 1:
+Rosalind: That was a little easier than last time.
+Chase: Was I of any help?
+Augustus: Of course!/I guess../Not really.
+Chase: Wow thanks!!/Oh...I'm sorry
+Rosalind: Anyway, looks like we are on the next floor.
+Augustus: That's right! Let's get going./Let's go./I don't want to be here.
+Rosalind: Yeah!/Please, we need you..
+Rosalind: Let's go!
+
+Room 2-6:
+Rosalind: It just keeps going!
+Chase: It's unnerving...
+Augustus: Let's go!/...
+
+Room 7:
+Rosalind: My gosh! When does this end?!
+Augustus: Just a little more/I'm tired of this./I'm tired of you.
+Chase: Yeah, let's keep going/That's kind of rude, (hero).
+Rosalind: Let's go.
 
 4th Terrace Boss
-
+Chase: Wow we've made it! Wh-what is that?!!
+Rosalind: I have no idea.
+Augustus: Is that a..mirror?/What is it holding?/Let's just get this over with so I can get out of here.
+Rosalind: I think you're right!/It looks like a mirror..It would be dangerous if you shined a light on it./Fine!
+Chase: Let's go!
 
 5th Terrace
+
 
 5th Terrace Boss
 

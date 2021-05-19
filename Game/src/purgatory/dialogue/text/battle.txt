@@ -2,6 +2,14 @@ Battle cries / Information about what is happening
 Battle cry: Something random will happen
 Info: Low health / mana etc
 
+Introduction:
+Rosalind: Hey those are mine!
+Augustus: May I use them?/Oh sorry/They're mine now!
+Rosalind: I guess you can use them, hey, why don't you lead us?
+Augustus: Alright!/I don't know.../Why would I do that?
+Rosalind: Awesome!/Come on, I'm not really used to stuff like this, you're gonna do it.
+
+
 Rosalind:
 
 
