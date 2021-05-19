@@ -12,8 +12,6 @@ import purgatory.move.MoveUtil;
 import purgatory.stats.StatUtil;
 
 import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -47,7 +45,6 @@ public class BattleController {
      * returns an int which will be used to keep tack of iterations, since this method will be called recursively.
      *
      * @param currTurn: The current turn iteration
-     * @return An int which will be used to keep tack of iterations
      */
     public void battle(int currTurn) {
         // PREPARING GUI
@@ -82,6 +79,11 @@ public class BattleController {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+
+                        if (StatUtil.allEnemiesDead(StatUtil.getHealthForAll(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY)))) { // check if enemies are dead
+                            done = true;
+                        }
+
                         break;
                     case ENEMY:
                     case BOSS:
@@ -92,23 +94,18 @@ public class BattleController {
                             e.printStackTrace();
                         }
                         doEnemyAction(currUnit);
+
+                        // check if hero died
+                        if (StatUtil.getHeroFromList(model.getFighters()).getCurrHealth() <= 0) { // dead hero
+                            BattleDialog.die(hero.getFighter());
+                            done = true;
+                            // return to title / retry battle?
+                        }
                         break;
                 }
             }
 
-            if (StatUtil.getHeroFromList(model.getFighters()).getCurrHealth() <= 0) { // dead hero
-                // TODO: fix so it doesn't have to take amount of deaths
-                BattleDialog.die(0);
-
-                // return to title / retry battle?
-            }
-            // TODO: simplify this- lmao, maybe call these methods in a method in StatUtil
-            else if (StatUtil.allEnemiesDead(StatUtil.getHealthForAll(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY)))) { // check if enemies are dead
-                done = true;
-            }
-            else { // continue
-                currTurn++;
-            }
+            currTurn++;
 
             // wait
             try {
@@ -182,12 +179,79 @@ public class BattleController {
                 appendHeal(currUnit.getFighter(), allyChosen.getFighter(), heroMove.getResult());
                 break;
             case SUPPORT:
+                // check what kind of support move, HEAL, BUFF, or DEBUFF (another switch)
                 break;
         }
     }
 
     private void doEnemyAction(BattleStats currUnit) {
+        // TODO: add heal and support cases
+        // check if enemies need healing, if enemy has healing move to use
+        // randomly do support move
+
         enemyAttack(currUnit, currUnit.getMoveSet());
+    }
+
+    /**
+     * Asks hero which enemy to attack, then does proper calculations
+     * to attack the enemies chosen with the given move
+     * Returns the stats of everyone
+     *
+     * @param currHero The current hero or party member attacking
+     * @param enemies The list of all enemy fighters
+     * @param heroMove The Attack move that the currHero chose
+     */
+    private void heroAttack(BattleStats currHero, List<BattleStats> enemies, Attack heroMove) {
+        if (heroMove.isAffectAll()) { // check if the move is an AOE attack
+            List<DamageOutput> damageOutputs = model.damageAllEnemies(currHero, enemies, heroMove);
+            appendDamageOutputs(currHero, enemies, damageOutputs);
+        }
+        else { // the attack is not AOE
+            BattleStats enemyChosen = enemies.get(BattleDialog.chooseTarget(enemies)); // get the enemy chosen
+            DamageOutput values = model.damageEnemy(currHero, enemyChosen, heroMove);
+            if (values.getCritical()) { // check for critical hit
+                view.appendBattleText("\nCritical hit!");
+            }
+            // output damage
+            appendAttack(currHero.getFighter(), enemyChosen.getFighter(), values.getDamage());
+            enemyChosen.setCurrHealth(enemyChosen.getCurrHealth() - values.getDamage());
+        }
+    }
+
+    /**
+     * Determines a random move from the enemy's move set to use
+     * Determines which hero to attack if there are multiple
+     * Then calculates damage based on stats of current enemy and hero
+     * Returns the stats of the hero attacked
+     *
+     * @param currEnemy The current enemy attacking
+     */
+    private void enemyAttack(BattleStats currEnemy, List<Move> enemyMoves) {
+        Random gen = new Random();
+
+        // Get all possible targets
+        List<BattleStats> possibleTargets = new ArrayList<>();
+        possibleTargets.addAll(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.HERO));
+        possibleTargets.addAll(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.PARTY));
+
+        // Determine move to use
+        List<Move> enemyAttacks = MoveUtil.getMovesByMoveType(MoveType.ATTACK, enemyMoves); // get just attacks
+        Attack enemyMove = (Attack) MoveUtil.getRandomMove(enemyAttacks);
+
+        if (enemyMove.isAffectAll()) { // if it is AOE we must attack all heroes
+            List<DamageOutput> damageOutputs = model.damageAllHeroes(currEnemy, possibleTargets, enemyMove);
+            appendDamageOutputs(currEnemy, possibleTargets, damageOutputs);
+        }
+        else { // it is a single attack
+            BattleStats target = possibleTargets.get(gen.nextInt(possibleTargets.size())); // Get a target from list of possible targets
+            DamageOutput values = model.damageHero(currEnemy, target);
+            if (values.getCritical()) { // check for critical hit
+                view.appendBattleText("\nCritical hit!");
+            }
+            // output damage
+            appendAttack(currEnemy.getFighter(), target.getFighter(), values.getDamage());
+            target.setCurrHealth(target.getCurrHealth() - values.getDamage());
+        }
     }
 
     /**
@@ -273,71 +337,6 @@ public class BattleController {
             }
             appendAttack(currUnit.getFighter(), targets.get(i).getFighter(), damageOutputs.get(i).getDamage()); // say who was attacked and for how much
             targets.get(i).setCurrHealth(targets.get(i).getCurrHealth() - damageOutputs.get(i).getDamage()); // set new health
-        }
-    }
-
-    /**
-     * Asks hero which enemy to attack, then does proper calculations
-     * to attack the enemies chosen with the given move
-     * Returns the stats of everyone
-     *
-     * @param currHero The current hero or party member attacking
-     * @param enemies The list of all enemy fighters
-     * @param heroMove The Attack move that the currHero chose
-     * @return The stats of all enemies in battle after being damaged
-     */
-    private List<BattleStats> heroAttack(BattleStats currHero, List<BattleStats> enemies, Attack heroMove) {
-        if (heroMove.isAffectAll()) { // check if the move is an AOE attack
-            List<DamageOutput> damageOutputs = model.damageAllEnemies(currHero, enemies, heroMove);
-            appendDamageOutputs(currHero, enemies, damageOutputs);
-        }
-        else { // the attack is not AOE
-            BattleStats enemyChosen = enemies.get(BattleDialog.chooseTarget(enemies)); // get the enemy chosen
-            DamageOutput values = model.damageEnemy(currHero, enemyChosen, heroMove);
-            if (values.getCritical()) { // check for critical hit
-                view.appendBattleText("\nCritical hit!");
-            }
-            // output damage
-            appendAttack(currHero.getFighter(), enemyChosen.getFighter(), values.getDamage());
-            enemyChosen.setCurrHealth(enemyChosen.getCurrHealth() - values.getDamage());
-        }
-        return enemies; // enemy stats
-    }
-
-    /**
-     * Determines a random move from the enemy's move set to use
-     * Determines which hero to attack if there are multiple
-     * Then calculates damage based on stats of current enemy and hero
-     * Returns the stats of the hero attacked
-     *
-     * @param currEnemy The current enemy attacking
-     * @return The stats of the hero after the damage is done
-     */
-    private void enemyAttack(BattleStats currEnemy, List<Move> enemyMoves) {
-        Random gen = new Random();
-
-        // Get all possible targets
-        List<BattleStats> possibleTargets = new ArrayList<>();
-        possibleTargets.addAll(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.HERO));
-        possibleTargets.addAll(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.PARTY));
-
-        // Determine move to use
-        List<Move> enemyAttacks = MoveUtil.getMovesByMoveType(MoveType.ATTACK, enemyMoves); // get just attacks
-        Attack enemyMove = (Attack) MoveUtil.getRandomMove(enemyAttacks);
-
-        if (enemyMove.isAffectAll()) { // if it is AOE we must attack all heroes
-            List<DamageOutput> damageOutputs = model.damageAllHeroes(currEnemy, possibleTargets, enemyMove);
-            appendDamageOutputs(currEnemy, possibleTargets, damageOutputs);
-        }
-        else { // it is a single attack
-            BattleStats target = possibleTargets.get(gen.nextInt(possibleTargets.size())); // Get a target from list of possible targets
-            DamageOutput values = model.damageHero(currEnemy, target);
-            if (values.getCritical()) { // check for critical hit
-                view.appendBattleText("\nCritical hit!");
-            }
-            // output damage
-            appendAttack(currEnemy.getFighter(), target.getFighter(), values.getDamage());
-            target.setCurrHealth(target.getCurrHealth() - values.getDamage());
         }
     }
 }

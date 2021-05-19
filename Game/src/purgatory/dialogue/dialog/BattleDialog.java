@@ -1,7 +1,6 @@
 package purgatory.dialogue.dialog;
 
 import purgatory.battle.stats.BattleStats;
-import purgatory.move.Move;
 
 import javax.swing.*;
 import java.util.List;
@@ -94,16 +93,12 @@ public class BattleDialog {
     /**
      * Prints out a death script, takes current death count and adds it need to keep up with that variable.
      * returns amount of time hero has died
-     *
-     * @param playerDeaths: The current amount of times the user has died
-     * @return The current amount of player deaths
      */
-    public static int die(int playerDeaths) {
+    public static void die(String hero) {
         JOptionPane.showMessageDialog
                 (null,
-                        "\nHero! You have died.",
+                        "\nNo! " + hero + ", you can't die!",
                         "You have died!",
                         JOptionPane.INFORMATION_MESSAGE);
-        return playerDeaths + 1;
     }
 }
