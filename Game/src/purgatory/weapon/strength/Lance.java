@@ -49,6 +49,7 @@ public enum Lance implements Attack, Support {
         }
 
         return "Name: " + getName() +
+                "\nType: " + getMoveType() +
                 "\nDamage: " + getResult() +
                 "\nMana: " + getMana() +
                 "\nAccuracy: " + getAccuracy() +

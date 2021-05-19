@@ -51,6 +51,7 @@ public enum Wand implements Attack {
         }
 
         return "Name: " + getName() +
+                "\nType: " + getMoveType() +
                 "\nDamage: " + getResult() +
                 "\nMana: " + getMana() +
                 "\nAccuracy: " + getAccuracy() +
