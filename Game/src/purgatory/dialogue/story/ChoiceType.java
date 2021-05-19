@@ -1,4 +1,4 @@
-package purgatory.story;
+package purgatory.dialogue.story;
 
 /**
  * ChoiceType is an enum for different types of dialogue choices in the story

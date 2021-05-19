@@ -1,4 +1,4 @@
-package purgatory.story;
+package purgatory.dialogue.story;
 
 /**
  *
