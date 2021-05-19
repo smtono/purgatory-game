@@ -5,6 +5,7 @@ import purgatory.battle.mvc.BattleView;
 import purgatory.entity.Entity;
 import purgatory.dialogue.dialog.CharacterCreationDialog;
 import purgatory.entity.type.HeroType;
+import purgatory.inventory.Inventory;
 import purgatory.stats.StatUtil;
 import purgatory.dialogue.story.Morality;
 import purgatory.terraces.Terrace;
@@ -13,6 +14,7 @@ import purgatory.weapon.magic.Wand;
 import purgatory.weapon.strength.Bow;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -32,6 +34,7 @@ import java.util.List;
 public class Game {
 	public static void main(String[] args) {
 		Morality morality = new Morality(0);
+		Inventory inventory = new Inventory(new HashMap<>());
 
 		// STORY
 
@@ -77,6 +80,8 @@ public class Game {
 				8);
 
 		// STORY
+		inventory.addItem("bandage", 10);
+		inventory.addItem("drink", 10);
 
 		// TODO: make this game loop generic (to loop through every terrace)
 		for(int i = 0; i < Terrace.GLUTTONY.getNumRooms(); i++) { // Go for as many levels

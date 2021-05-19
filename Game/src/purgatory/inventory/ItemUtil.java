@@ -4,16 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ItemUtil {
-    /**
-     *
-     * @param itemName
-     * @return
-     */
+    /** Finds an item by name and returns it */
     public static Item findItemOfName(String itemName) {
-        List<Item> items = Arrays.asList(Item.values().clone());
+        Item[] items = Item.values().clone();
 
         for (Item item : items) {
-            if (item.getName().equals(itemName)) {
+            if (item.getName().toLowerCase().equals(itemName)) {
                 return item;
             }
         }

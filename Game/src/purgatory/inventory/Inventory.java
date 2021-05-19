@@ -1,5 +1,6 @@
 package purgatory.inventory;
 
+import javax.swing.*;
 import java.util.HashMap;
 
 public class Inventory {
@@ -21,15 +22,23 @@ public class Inventory {
     /** Adds the given amount of items to the inventory  */
     public void addItem(String itemName, int amount) {
         Item item = ItemUtil.findItemOfName(itemName);
-
-       items.replace(item, amount);
+        if (items.containsKey(item)) {
+            items.replace(item, amount);
+        }
+        else {
+            items.put(item, amount);
+        }
     }
 
     /** Deletes the given amount of items from the inventory */
     public void deleteItem(String itemName, int amount) {
         Item item = ItemUtil.findItemOfName(itemName);
 
-        // TODO: validation check
-        items.replace(item, items.get(item) - amount);
+        if ((amount > items.get(item) || !items.containsKey(item))) {
+            JOptionPane.showMessageDialog(null, "I don't think you can do that.");
+        }
+        else {
+            items.replace(item, items.get(item) - amount);
+        }
     }
 }
