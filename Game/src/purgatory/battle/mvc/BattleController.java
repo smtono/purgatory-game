@@ -13,6 +13,7 @@ import purgatory.stats.StatUtil;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -62,20 +63,18 @@ public class BattleController {
             if (currTurn == 1) {
                 prepareBattle();
             } else {
+                appendEnemyStats();
                 appendOrder();
             }
 
             // DOING ACTION
             for (BattleStats currUnit : model.getFighters()) {
-                view.enableMoveSet(false);
-
                 switch (currUnit.getEntityType().getCharacterType()) { // find who is the current fighter
                     case HERO:
                     case PARTY:
                         // Prompting user
                         JOptionPane.showMessageDialog(null, "It's " + currUnit.getFighter() + "'s turn!");
                         prepareViewForUnit(currUnit);
-                        view.enableMoveSet(true);
                         doAction(currUnit);
                         // wait
                         try {
@@ -86,7 +85,6 @@ public class BattleController {
                         break;
                     case ENEMY:
                     case BOSS:
-                        view.enableMoveSet(false);
                         // wait
                         try {
                             Thread.sleep(2000);
@@ -194,17 +192,19 @@ public class BattleController {
      * @param moveSelected : The String value of the move selected by the user
      */
     private void doHeroAction(BattleStats currUnit, String moveSelected) {
-        List<BattleStats> newStats = new ArrayList<>();
         Move heroMove = MoveUtil.getUnitMoveFromList(currUnit, moveSelected);
         List<BattleStats> enemies = StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY);
-        List<BattleStats> party = StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.PARTY);
+        List<BattleStats> allies = StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.PARTY);
+        allies.add(StatUtil.getHeroFromList(model.getFighters()));
 
         switch (heroMove.getMoveType()) {
             case ATTACK:
                 heroAttack(currUnit, enemies, (Attack) heroMove);
                 return;
             case HEAL:
-                BattleStats partyChosen = party.get(chooseTarget(party));
+                BattleStats allyChosen = allies.get(BattleDialog.chooseTarget(allies));
+                allyChosen.setCurrHealth(allyChosen.getCurrHealth() + heroMove.getResult());
+                appendHeal(currUnit.getFighter(), allyChosen.getFighter(), heroMove.getResult());
                 break;
             case SUPPORT:
                 break;
@@ -256,7 +256,6 @@ public class BattleController {
         view.clearBattleText();
         view.clearStatsText();
         view.appendBattleText("Turn: " + i + "\n\n");
-        view.enableMoveSet(false);
     }
 
     /**
@@ -266,8 +265,6 @@ public class BattleController {
      * @param currUnit The current entity attacking.
      */
     private void prepareViewForUnit(BattleStats currUnit) {
-        List<String> moves = MoveUtil.getHeroMoveSetByName(currUnit.getMoveSet());
-        view.setMoves(moves.toArray(String[]::new));
         view.setCurrentHeroName(currUnit.getFighter());
     }
 
@@ -306,6 +303,10 @@ public class BattleController {
         }
     }
 
+    private void appendHeal(String healer, String target, int health) {
+        view.appendBattleText("\n" + healer + " just healed " + target + " for " + health + "!");
+    }
+
     /** Outputs the damage outputs for an AOE attack */
     private void appendDamageOutputs(BattleStats currUnit, List<BattleStats> targets, List<DamageOutput> damageOutputs) {
         for(int i = 0; i <= targets.size() - 1; i++) { // check for critical hits/output damage amounts
@@ -333,7 +334,7 @@ public class BattleController {
             appendDamageOutputs(currHero, enemies, damageOutputs);
         }
         else { // the attack is not AOE
-            BattleStats enemyChosen = enemies.get(chooseTarget(enemies)); // get the enemy chosen
+            BattleStats enemyChosen = enemies.get(BattleDialog.chooseTarget(enemies)); // get the enemy chosen
             DamageOutput values = model.damageEnemy(currHero, enemyChosen, heroMove);
             if (values.getCritical()) { // check for critical hit
                 view.appendBattleText("\nCritical hit!");
