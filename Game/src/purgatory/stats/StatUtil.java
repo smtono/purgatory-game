@@ -254,19 +254,6 @@ public class StatUtil {
         return values;
     }
 
-    public static List<BattleStats> checkEnemiesHealth(List<BattleStats> enemies) {
-        boolean dead = false;
-
-        for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).getCurrHealth() <= 0) {
-                JOptionPane.showMessageDialog(null, enemies.get(i).getFighter() + " has died!");
-                enemies.remove(enemies.get(i));
-            }
-        }
-
-        return enemies;
-    }
-
     /**
      *
      * @param enemiesHealth

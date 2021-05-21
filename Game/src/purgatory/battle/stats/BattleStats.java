@@ -124,6 +124,10 @@ public class BattleStats {
         return moves;
     }
 
+    public boolean isDead() {
+        return currHealth <= 0;
+    }
+
     @Override
     public String toString() { return fighter; }
 }

@@ -3,10 +3,14 @@ package purgatory.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import purgatory.dialogue.dialog.CharacterCreationDialog;
 import purgatory.entity.type.EntityType;
 import purgatory.entity.type.HeroType;
 import purgatory.move.Move;
 import purgatory.move.MoveUtil;
+import purgatory.weapon.ManaType;
+
+import javax.swing.*;
 
 /**
  * Entity is used to create objects for characters such as the hero, part members, and enemies.
@@ -31,7 +35,7 @@ public class Entity {
     private EntityType entityType;
     private List<Move> moveSet;
     private final String name;
-    private final int MAX_HEALTH;
+    private int MAX_HEALTH;
     private int mana;
     private int speed;
     private double accuracy;
@@ -124,6 +128,27 @@ public class Entity {
     }
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    // HELPER
+    public void levelUp() {
+        JOptionPane.showMessageDialog(null, "You leveled up!", "Rosalind", JOptionPane.INFORMATION_MESSAGE);
+
+        level += 1;
+        MAX_HEALTH += 200;
+        mana += 50;
+        speed += 2;
+        accuracy += 0.05;
+        magic += 0.05;
+        strength += 0.05;
+        defense += 0.1;
+
+        // choose new move set
+        List<Move> chosenMoves = new ArrayList<>();
+        JOptionPane.showConfirmDialog(null, "Time to choose some new moves!", "Rosalind", JOptionPane.DEFAULT_OPTION);
+        for (int i = 0; i < 3; i++) {
+            chosenMoves.add(CharacterCreationDialog.chooseMove(MoveUtil.getAccessibleMoves(1, entityType.getWeaponTypes()), chosenMoves));
+        }
     }
 
     @Override
