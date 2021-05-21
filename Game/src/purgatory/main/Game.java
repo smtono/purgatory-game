@@ -13,6 +13,7 @@ import purgatory.weapon.magic.Staff;
 import purgatory.weapon.magic.Wand;
 import purgatory.weapon.strength.Bow;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -83,23 +84,68 @@ public class Game {
 		inventory.addItem("bandage", 10);
 		inventory.addItem("drink", 10);
 
+		// BATTLE
+		int currTerrace = 1;
+		List<Terrace> terraces = Arrays.asList(Terrace.values());
+		List<Entity> fighters = new ArrayList<>();
+
 		// TODO: make this game loop generic (to loop through every terrace)
-		for(int i = 0; i < Terrace.GLUTTONY.getNumRooms(); i++) { // Go for as many levels
-			List<Entity> fighters = StatUtil.generateEnemies(3, hero, Terrace.GLUTTONY); // generate enemies for the floor
-			fighters.add(hero); // add the hero to the fighter list
-			fighters.add(rosalind);
+		for(int i = 0; i < terraces.get(currTerrace).getNumRooms(); i++) { // Go for as many levels
+			switch (terraces.get(currTerrace)) {
+				case GLUTTONY:
+				case SLOTH:
+					fighters = StatUtil.generateEnemies(3, hero, terraces.get(currTerrace)); // generate enemies for the floor
+					fighters.add(hero); // add the hero to the fighter list
+					fighters.add(rosalind);
+					break;
+				case AVARICE:
+				case PRIDE:
+				case ENVY:
+					fighters = StatUtil.generateEnemies(3, hero, terraces.get(currTerrace)); // generate enemies for the floor
+					fighters.add(hero); // add the hero to the fighter list
+					fighters.add(rosalind);
+					fighters.add(chase);
+					break;
+				case LUST:
+				case WRATH:
+					fighters = StatUtil.generateEnemies(3, hero, terraces.get(currTerrace)); // generate enemies for the floor
+					fighters.add(hero); // add the hero to the fighter list
+					fighters.add(rosalind);
+					fighters.add(dawn);
+					break;
+			}
 
 			// instantiate mvc
 			BattleModel model = new BattleModel(fighters);
 			BattleView view = new BattleView();
 			BattleController control = new BattleController(view, model);
 
-			boolean done = false;
-			int currTurn = 1;
-
-			control.battle(currTurn);
+			control.battle(1);
 
 			// level up
+			switch (terraces.get(currTerrace)) {
+				case GLUTTONY:
+				case SLOTH:
+					hero.levelUp();
+					rosalind.levelUp();
+					break;
+				case AVARICE:
+				case PRIDE:
+				case ENVY:
+					hero.levelUp();
+					rosalind.levelUp();
+					chase.levelUp();
+					break;
+				case LUST:
+				case WRATH:
+					hero.levelUp();
+					rosalind.levelUp();
+					chase.levelUp();
+					dawn.levelUp();
+					break;
+			}
+
+			// give items
 		}
 
 		// final terrace: kill everyone except rosalind and chase

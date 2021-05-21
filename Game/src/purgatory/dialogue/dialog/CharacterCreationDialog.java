@@ -75,7 +75,7 @@ public class CharacterCreationDialog {
      * @param movesChosen A list of moves the user has already chosen
      * @return A move that the user chose
      */
-    private static Move chooseMove(List<Move> accessibleMoves, List<Move> movesChosen) {
+    public static Move chooseMove(List<Move> accessibleMoves, List<Move> movesChosen) {
         Move move = null;
         List<String> availableMoves = new ArrayList<>();
         boolean isPresent = false;

@@ -13,6 +13,7 @@ import purgatory.stats.StatUtil;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -65,7 +66,10 @@ public class BattleController {
             }
 
             // DOING ACTION
-            for (BattleStats currUnit : model.getFighters()) {
+            // TODO: figure out how to approach the changing of size of the list
+            List<BattleStats> fighters = model.getFighters();
+            for (int i = 0, fightersSize = fighters.size(); i < fightersSize; i++) {
+                BattleStats currUnit = fighters.get(i);
                 switch (currUnit.getEntityType().getCharacterType()) { // find who is the current fighter
                     case HERO:
                     case PARTY:
@@ -73,6 +77,7 @@ public class BattleController {
                         JOptionPane.showMessageDialog(null, "It's " + currUnit.getFighter() + "'s turn!");
                         prepareViewForUnit(currUnit);
                         doAction(currUnit);
+
                         // wait
                         try {
                             Thread.sleep(2000);
@@ -80,26 +85,37 @@ public class BattleController {
                             e.printStackTrace();
                         }
 
+                        // check if one enemy is dead, prompt then skip over them
+                        StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY).forEach(enemy -> {
+                            if (enemy.isDead()) {
+                                JOptionPane.showMessageDialog(null, enemy.getFighter() + " is defeated!", "", JOptionPane.INFORMATION_MESSAGE);
+                                model.getFighters().remove(enemy);
+                                model.getFighters().removeAll(Collections.singleton(null));
+                            }
+                        });
+
                         if (StatUtil.allEnemiesDead(StatUtil.getHealthForAll(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY)))) { // check if enemies are dead
+                            JOptionPane.showMessageDialog(null, "All enemies are defeated!", "", JOptionPane.INFORMATION_MESSAGE);
                             done = true;
                         }
-
                         break;
                     case ENEMY:
                     case BOSS:
-                        // wait
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        doEnemyAction(currUnit);
+                        if (model.getFighters().contains(currUnit)) {
+                            // wait
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            doEnemyAction(currUnit);
 
-                        // check if hero died
-                        if (StatUtil.getHeroFromList(model.getFighters()).getCurrHealth() <= 0) { // dead hero
-                            BattleDialog.die(hero.getFighter());
-                            done = true;
-                            // return to title / retry battle?
+                            // check if hero died
+                            if (StatUtil.getHeroFromList(model.getFighters()).getCurrHealth() <= 0) { // dead hero
+                                BattleDialog.die(hero.getFighter());
+                                done = true;
+                                // return to title / retry battle?
+                            }
                         }
                         break;
                 }
