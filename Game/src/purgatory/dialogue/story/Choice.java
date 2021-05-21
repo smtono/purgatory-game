@@ -17,4 +17,9 @@ public class Choice {
     // ACCESSORS
     public ChoiceType getChoiceType() { return choiceType; }
     public String getDialogue() { return dialogue; }
+
+    @Override
+    public String toString() {
+        return dialogue;
+    }
 }
