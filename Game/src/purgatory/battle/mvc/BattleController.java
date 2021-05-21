@@ -140,13 +140,11 @@ public class BattleController {
                     item = BattleDialog.analyze();
                     switch (item) {
                         case "myself":
-                            ProfileDialog dialog = new ProfileDialog(currUnit);
-                            if (!dialog.isShowing()) {
-                                break;
-                            }
+                            BattleDialog.profile(currUnit);
+                            break;
                         case "enemies":
                             BattleStats enemy = BattleDialog.askEnemy(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY));
-                            new ProfileDialog(enemy);
+                            BattleDialog.profile(enemy);
                             break;
                     }
                     break;
@@ -166,8 +164,7 @@ public class BattleController {
     private void doHeroAction(BattleStats currUnit, String moveSelected) {
         Move heroMove = MoveUtil.getUnitMoveFromList(currUnit, moveSelected);
         List<BattleStats> enemies = StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY);
-        List<BattleStats> allies = StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.PARTY);
-        allies.add(StatUtil.getHeroFromList(model.getFighters()));
+        List<BattleStats> allies = StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.HERO);
 
         switch (heroMove.getMoveType()) {
             case ATTACK:
@@ -180,6 +177,7 @@ public class BattleController {
                 break;
             case SUPPORT:
                 // check what kind of support move, HEAL, BUFF, or DEBUFF (another switch)
+                
                 break;
         }
     }

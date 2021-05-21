@@ -77,6 +77,10 @@ public class BattleDialog {
         return analyze[choice].toLowerCase();
     }
 
+    public static void profile(BattleStats unit) {
+        JOptionPane.showMessageDialog(null, unit.getInfo(), "", JOptionPane.PLAIN_MESSAGE);
+    }
+
     public static BattleStats askEnemy(List<BattleStats> enemies) {
         int choice = JOptionPane.showOptionDialog(
                 null,

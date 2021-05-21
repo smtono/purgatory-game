@@ -34,6 +34,6 @@ public class ProfileDialog extends JFrame {
         frame.add(panel);
         frame.setSize(200, 220);
         frame.setLocationRelativeTo(null);
-        //frame.setVisible(true);
+        frame.setVisible(true);
     }
 }
