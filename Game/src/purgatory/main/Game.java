@@ -65,7 +65,7 @@ public class Game {
 				0.2,
 				0,
 				0.1,
-				Arrays.asList(Bow.AIM, Bow.FIRE, Bow.ARROWSTORM),
+				Arrays.asList(Bow.AIM, Bow.FIRE, Bow.PIERCE),
 				5);
 		Entity dawn = new Entity(
 				"Dawn",
@@ -77,7 +77,7 @@ public class Game {
 				0,
 				0.45,
 				0.2,
-				Arrays.asList(Wand.FROSTBITE, Wand.GUST, Wand.FIRESTORM),
+				Arrays.asList(Wand.CRYSTALIZE, Wand.GALESTORM, Wand.BLAZE),
 				8);
 
 		// STORY
@@ -146,6 +146,12 @@ public class Game {
 			}
 
 			// give items
+
+			if (i == terraces.get(currTerrace).getNumRooms()) {
+				currTerrace++;
+			}
+
+			view.dispose();
 		}
 
 		// final terrace: kill everyone except rosalind and chase
