@@ -7,9 +7,16 @@ import purgatory.weapon.AttackType;
 import purgatory.weapon.ManaType;
 
 public enum Spear implements Attack {
-    PIERCE("Pierce", 5, 0, 0.2, false, 1),
-    JAB("Jab", 10, 0, 0.4, false, 1),
-    SPIKE("Spike", 15, 0, 0.4, false, 1),
+    PIERCE("Pierce", 10, 0, 0.5, false, 1),
+    JAB("Jab", 20, 0, 0.8, false, 1),
+    SPIKE("Spike", 30, 0, 0.4, false, 1),
+
+    BORE("Bore", 80, 0 , 0.5, true, 3),
+
+    PERMEATE("Permeate", 100, 0, 0.5, true, 5),
+
+    PERCOLATE("Percolate", 150, 0, 0.5, true, 7),
+    PERVADE("Pervade", 200, 0, 0.6, true, 7),
     ;
 
     private final Move move;

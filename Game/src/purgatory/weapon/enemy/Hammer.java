@@ -11,6 +11,9 @@ public enum Hammer implements Attack {
     CRUSH("Crush", 20, 0, 0.2, false, 1),
     SMASH("Smash", 30, 0, 0.1, false, 1),
 
+    BATTER("Batter", 50, 0, 0.3, false, 5),
+    BEATDOWN("Beat down", 100, 0, 0.3, true, 5),
+
     ;
 
     private final Move move;

@@ -11,9 +11,8 @@ public enum Dagger implements Attack {
     STRIKE("Strike", 10, 0, 0.3, false, 1),
     CUT("Cut", 20, 0, 0.1, false, 1),
 
-
-
     ;
+
     private final Move move;
     private final MoveType moveType = MoveType.ATTACK;
     private final AttackType attackType = AttackType.PIERCE;

@@ -11,8 +11,9 @@ public enum Rapier implements Attack {
     SLASH("Slash", 15, 0, 0.2, false, 1),
     PIERCE("Pierce", 18, 0, 0.2, false, 1),
 
-    SLICE("Slice", 22, 0, 0.2, false, 2),
-    RIPOSTE("Riposte", 35, 10, 0.4, true, 5)
+    RIPOSTE("Riposte", 45, 0, 0.6, true, 5),
+    REMISE("Remise", 70, 0, 0.6, true, 7),
+    FEINT("Feint", 100, 0, 0.7, false, 7),
     ;
 
     private final Move move;
