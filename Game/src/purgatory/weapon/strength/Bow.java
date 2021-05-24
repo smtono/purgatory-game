@@ -8,9 +8,13 @@ import purgatory.weapon.ManaType;
 
 public enum Bow implements Attack {
     // NORMAL BOW
-    AIM("Aim", 10, 0, 0.4, false, 1),
-    FIRE("Fire", 15, 0, 0.3, false, 1),
-    ARROWSTORM("Arrow storm", 25, 0, 0.4, false, 1);
+    AIM("Aim", 25, 0, 0.4, false, 1),
+    FIRE("Fire", 50, 0, 0.3, false, 1),
+    ARROWSTORM("Arrow storm", 75, 0, 0.4, false, 1),
+    PIERCE("Pierce", 150, 0, 0.4, false, 5),
+    EXECUTE("Execute", 250, 0, 0.4, false, 7),
+
+    ;
 
     // LONGBOW
 

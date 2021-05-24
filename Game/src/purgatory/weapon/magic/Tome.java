@@ -7,14 +7,15 @@ import purgatory.weapon.AttackType;
 import purgatory.weapon.ManaType;
 
 public enum Tome implements Attack {
-    ANGEL("Angel", 30, 10, 0.6, true, 1),
-    LEVIATHAN("Leviathan", 40, 15, 0.7, true, 1),
-    ABADDON("Abaddon", 50, 17, 0.7, true, 1),
-    CHERUBIM("Cherubim", 60, 20, 0.75, true, 2),
-    NEPHILUM("Nephilum", 70, 22, 0.75, true, 5),
-    BEHEMOTH("Behemoth", 100, 25, 0.8, true, 7),
-    SERAPHIM("Seraphim", 150, 30, 0.9, true, 9),
-    LUCIFER("Lucifer", 250, 35, 0.9, true, 10);
+    ANGEL("Angel", 60, 10, 0.6, true, 1),
+    LEVIATHAN("Leviathan", 75, 15, 0.7, true, 1),
+    ABADDON("Abaddon", 100, 17, 0.7, true, 1),
+    CHERUBIM("Cherubim", 130, 20, 0.75, true, 2),
+    NEPHILUM("Nephilum", 180, 22, 0.75, true, 2),
+    BEHEMOTH("Behemoth", 250, 25, 0.8, true, 5),
+    SERAPHIM("Seraphim", 350, 30, 0.9, true, 7),
+    LUCIFER("Lucifer", 400, 35, 0.9, true, 7),
+    ;
 
     // ATTRIBUTES
     private final Move move;

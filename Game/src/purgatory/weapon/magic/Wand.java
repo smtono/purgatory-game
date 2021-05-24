@@ -7,10 +7,16 @@ import purgatory.weapon.AttackType;
 import purgatory.weapon.ManaType;
 
 public enum Wand implements Attack {
-    FROSTBITE("Frostbite", 10, 2, 0.7, false, 1),
-    FIRESTORM("Firestorm", 25, 10, 0.7, true, 1),
-    GUST("Gust", 12, 3, 0.7, true, 1),
-    LIGHTNING("Lightning", 40, 10, 0.7, false, 2 );
+    FROSTBITE("Frostbite", 40, 2, 0.7, false, 1),
+    FIRESTORM("Firestorm", 60, 10, 0.7, true, 1),
+    GUST("Gust", 70, 3, 0.7, true, 1),
+    LIGHTNING("Lightning", 100, 10, 0.7, false, 2),
+    CRYSTALIZE("Crystalize", 150, 15, 0.8, true, 4),
+    GALESTORM("Galestorm", 200, 20, 0.8, false, 5),
+    BLAZE("Blaze", 250, 25, 0.8, false, 5),
+    THUNDERSTORM("Thunderstorm", 300, 40, 0.9, true, 7),
+    ;
+
 
     // ATTRIBUTES
     private final Move move;

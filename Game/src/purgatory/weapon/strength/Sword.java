@@ -11,10 +11,13 @@ import purgatory.weapon.ManaType;
  */
 public enum Sword implements Attack {
     // NORMAL SWORD
-    LUNGE("Lunge", 10, 0, 0.5, false, 1),
-    SLASH("Slash", 20, 0, 0.5, false, 1),
-    SLICE("Slice", 27, 0, 0.55, false, 2),
-    RIPOSTE("Riposte", 35, 10, 0.6, true, 5);
+    LUNGE("Lunge", 30, 0, 0.5, false, 1),
+    SLASH("Slash", 45, 0, 0.5, false, 1),
+    SLICE("Slice", 60, 0, 0.55, false, 2),
+    RIPOSTE("Riposte", 80, 0, 0.6, true, 5),
+    REMISE("Remise", 100, 0, 0.6, true, 7),
+    FEINT("Feint", 200, 0, 0.7, false, 7),
+    ;
 
     // GREAT SWORD
 

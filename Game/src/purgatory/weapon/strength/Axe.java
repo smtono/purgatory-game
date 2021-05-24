@@ -9,9 +9,12 @@ import purgatory.weapon.ManaType;
 public enum Axe implements Attack {
     // NORMAL AXE
     CHOP("Chop", 15, 0, 0.4, false, 1),
-    CLEAVE("Cleave", 25, 0, 0.3, false, 1),
-    AMPUTATE("Amputate", 20, 0, 0.3, true, 1),
-    HEW("Hew", 35, 0,0.4, false, 5);
+    CLEAVE("Cleave", 30, 0, 0.3, false, 1),
+    AMPUTATE("Amputate", 45, 0, 0.3, true, 1),
+    HEW("Hew", 75, 0,0.4, false, 5),
+    SLASH("Slash", 100, 0, 0.4, true, 5),
+    ABOLISH("Abolish", 200, 0, 0.2, true, 7),
+    ;
 
     // GREAT AXE
 

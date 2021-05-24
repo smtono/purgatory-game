@@ -12,17 +12,17 @@ public enum Staff implements Attack, Heal {
     // ATTACKS
     LUX("Lux", 10, 5, 0.7, true, 1, MoveType.ATTACK, AttackType.HOLY),
     LUMINESCENCE("Luminescence", 15, 8, 0.7, true, 1, MoveType.ATTACK, AttackType.HOLY),
+    SHOWER("Light Shower", 50, 10, 0.9, true, 5, MoveType.ATTACK, AttackType.HOLY),
 
     // HEALS
     MEND("Mend", 10, 2, 0.7, false, 1, MoveType.HEAL, AttackType.HOLY),
-    REMEDIAL("Remedial", 25, 5, 0.75, false, 2, MoveType.HEAL, AttackType.HOLY),
-    RECOVERY("Recovery", 45, 10, 0.8, true, 5, MoveType.HEAL, AttackType.HOLY),
+    REMEDIAL("Remedial", 50, 5, 0.75, false, 5, MoveType.HEAL, AttackType.HOLY),
+    RECOVERY("Recovery", 100, 10, 0.8, true, 7, MoveType.HEAL, AttackType.HOLY),
     
     // SUPPORT
-    ENERGIZE("Energize", 10, 5, 0.5, false, 5, MoveType.SUPPORT, AttackType.HOLY);
-
-    // SCEPTER
-
+    ENERGIZE("Energize", 10, 5, 0.5, false, 5, MoveType.SUPPORT, AttackType.HOLY),
+    DESHIELD("De-Shield", 0, 30, 0.9, false, 7, MoveType.SUPPORT, AttackType.HOLY),
+    ;
     // ATTRIBUTES
     private final Move move;
     private final AttackType attackType = AttackType.HOLY;

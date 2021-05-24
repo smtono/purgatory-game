@@ -8,11 +8,12 @@ import purgatory.weapon.ManaType;
 
 public enum Club implements Attack {
     // NORMAL CLUB
-    BLUDGEON("Bludgeon", 30, 0, 0.4, false, 1),
-    CLOBBER("Clobber", 35, 0, 0.4, false, 1),
     BEAT("Beat", 20, 0, 0.8, false, 1),
-    BATTER("Batter", 45, 0, 0.3, false, 5),
-    BEATDOWN("Beat down", 40, 0, 0.3, true, 5);
+    BLUDGEON("Bludgeon", 30, 0, 0.4, false, 1),
+    CLOBBER("Clobber", 60, 0, 0.4, false, 1),
+    BATTER("Batter", 70, 0, 0.3, false, 5),
+    BEATDOWN("Beat down", 50, 0, 0.3, true, 5),
+    ;
 
     // MORNING STAR
 
