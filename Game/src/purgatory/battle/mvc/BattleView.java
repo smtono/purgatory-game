@@ -82,4 +82,8 @@ public class BattleView {
 
     /** Sets the JLabel of the current hero fighting to the current hero */
     public void setCurrentHeroName(String name) { heroName.setText(name); }
+
+    public void dispose() {
+        frame.dispose();
+    }
 }

@@ -107,7 +107,7 @@ public class BattleStats {
      *  
      * @return String of simplified stat values
      */
-    public String getEnemyInfo() {
+    public String getShortInfo() {
         return fighter + "\n" +
                 entityType.toString() +
                 "\nHealth: " + currHealth +

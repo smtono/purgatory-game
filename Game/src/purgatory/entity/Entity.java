@@ -132,7 +132,12 @@ public class Entity {
 
     // HELPER
     public void levelUp() {
-        JOptionPane.showMessageDialog(null, "You leveled up!", "Rosalind", JOptionPane.INFORMATION_MESSAGE);
+        if (!name.equalsIgnoreCase("rosalind")) {
+            JOptionPane.showMessageDialog(null, name + " leveled up!", "Rosalind", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "I leveled up!", "Rosalind", JOptionPane.INFORMATION_MESSAGE);
+        }
 
         level += 1;
         MAX_HEALTH += 200;
