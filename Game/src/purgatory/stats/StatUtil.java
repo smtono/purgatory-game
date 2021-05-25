@@ -88,14 +88,16 @@ public class StatUtil {
      */
     public static Entity generateSuperEnemy(Entity hero, Terrace terrace) {
         // calculating enemy stats
+        // TODO: abstract these method calls into 1 method
         String enemyName = "Super " + generateRandomName();
         int enemyLevel = StatMath.generateEnemyLevel(hero) + 10;
         int enemyHealth = hero.getMaxHealth() * 3;
         double enemyAccuracy = StatMath.generateEnemyAccuracy();
         int enemySpeed = StatMath.generateEnemySpeed();
-        EntityType enemyType = StatMath.generateEnemyEntityType(terrace);
+        EnemyType enemyType = StatMath.generateEnemyEntityType(terrace);
         double[] enemyManaStats = StatMath.generateEnemyStrengthOrMagic(enemyLevel, enemyType.getWeaponTypes());
         double enemyDefense = StatMath.generateEnemyDefense();
+        List<Move> moveSet = MoveUtil.getNewEnemyMoveSet(enemyType, enemyLevel);
 
         // Enhancements
         if(enemyManaStats[0] < 0.75) {
@@ -117,7 +119,7 @@ public class StatUtil {
                 enemyManaStats[1],
                 enemyManaStats[0],
                 enemyDefense,
-                null,
+                moveSet,
                 enemyLevel);
     }
 

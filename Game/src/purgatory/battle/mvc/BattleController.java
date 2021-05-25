@@ -99,16 +99,16 @@ public class BattleController {
                                 e.printStackTrace();
                             }
                             doEnemyAction(currUnit);
-
-                            // check if hero died
-                            if (StatUtil.getHeroFromList(model.getFighters()).getCurrHealth() <= 0) { // dead hero
-                                BattleDialog.die(hero.getFighter());
-                                done = true;
-                                // return to title / retry battle?
-                            }
                         }
                         break;
                 }
+            }
+
+            // check if hero died
+            if (StatUtil.getHeroFromList(model.getFighters()).getCurrHealth() <= 0) { // dead hero
+                BattleDialog.die(hero.getFighter());
+                done = true;
+                // return to title / retry battle?
             }
 
             // check if one enemy is dead, prompt then skip over them

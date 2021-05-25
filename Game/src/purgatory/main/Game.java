@@ -46,7 +46,7 @@ public class Game {
 		Entity rosalind = new Entity(
 				"Rosalind",
 				HeroType.CLERIC,
-				300,
+				400,
 				50,
 				10,
 				0.6,
@@ -58,7 +58,7 @@ public class Game {
 		Entity chase = new Entity(
 				"Chase",
 				HeroType.ARCHER,
-				500,
+				700,
 				125,
 				15,
 				0.6,
@@ -70,7 +70,7 @@ public class Game {
 		Entity dawn = new Entity(
 				"Dawn",
 				HeroType.MAGE,
-				800,
+				1000,
 				250,
 				25,
 				0.4,
@@ -89,38 +89,49 @@ public class Game {
 		List<Terrace> terraces = Arrays.asList(Terrace.values());
 		List<Entity> fighters = new ArrayList<>();
 
-		// TODO: make this game loop generic (to loop through every terrace)
-		for(int i = 0; i < terraces.get(currTerrace).getNumRooms(); i++) { // Go for as many levels
-			switch (terraces.get(currTerrace)) {
-				case GLUTTONY:
-				case SLOTH:
-					fighters = StatUtil.generateEnemies(3, hero, terraces.get(currTerrace)); // generate enemies for the floor
-					fighters.add(hero); // add the hero to the fighter list
-					fighters.add(rosalind);
-					break;
-				case AVARICE:
-				case PRIDE:
-				case ENVY:
-					fighters = StatUtil.generateEnemies(3, hero, terraces.get(currTerrace)); // generate enemies for the floor
-					fighters.add(hero); // add the hero to the fighter list
-					fighters.add(rosalind);
-					fighters.add(chase);
-					break;
-				case LUST:
-				case WRATH:
-					fighters = StatUtil.generateEnemies(3, hero, terraces.get(currTerrace)); // generate enemies for the floor
-					fighters.add(hero); // add the hero to the fighter list
-					fighters.add(rosalind);
-					fighters.add(dawn);
-					break;
+		boolean done = false;
+
+		while (!done) {
+			// TODO: make this game loop generic (to loop through every terrace)
+			for (int i = 0; i < terraces.get(currTerrace).getNumRooms(); i++) { // Go for as many levels
+				switch (terraces.get(currTerrace)) {
+					case GLUTTONY:
+					case SLOTH:
+						fighters = StatUtil.generateEnemies(3, hero, terraces.get(currTerrace)); // generate enemies for the floor
+						fighters.add(hero); // add the hero to the fighter list
+						fighters.add(rosalind);
+						break;
+					case AVARICE:
+					case PRIDE:
+					case ENVY:
+						fighters = StatUtil.generateEnemies(3, hero, terraces.get(currTerrace)); // generate enemies for the floor
+						fighters.add(hero); // add the hero to the fighter list
+						fighters.add(rosalind);
+						fighters.add(chase);
+						break;
+					case LUST:
+					case WRATH:
+						fighters = StatUtil.generateEnemies(3, hero, terraces.get(currTerrace)); // generate enemies for the floor
+						fighters.add(hero); // add the hero to the fighter list
+						fighters.add(rosalind);
+						fighters.add(chase);
+						fighters.add(dawn);
+						break;
+				}
+
+				// instantiate mvc
+				BattleModel model = new BattleModel(fighters);
+				BattleView view = new BattleView();
+				BattleController control = new BattleController(view, model);
+
+				control.battle(1);
+
+				if (i == terraces.get(currTerrace).getNumRooms()) {
+					currTerrace++;
+				}
+
+				view.dispose();
 			}
-
-			// instantiate mvc
-			BattleModel model = new BattleModel(fighters);
-			BattleView view = new BattleView();
-			BattleController control = new BattleController(view, model);
-
-			control.battle(1);
 
 			// level up
 			switch (terraces.get(currTerrace)) {
@@ -146,15 +157,8 @@ public class Game {
 			}
 
 			// give items
+			// final terrace: kill everyone except rosalind and chase
 
-			if (i == terraces.get(currTerrace).getNumRooms()) {
-				currTerrace++;
-			}
-
-			view.dispose();
 		}
-
-		// final terrace: kill everyone except rosalind and chase
-
 	}
 }

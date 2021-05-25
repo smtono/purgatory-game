@@ -10,14 +10,14 @@ import purgatory.weapon.ManaType;
 public enum Staff implements Attack, Heal {
     // NORMAL STAFF
     // ATTACKS
-    LUX("Lux", 10, 5, 0.7, true, 1, MoveType.ATTACK, AttackType.HOLY),
-    LUMINESCENCE("Luminescence", 15, 8, 0.7, true, 1, MoveType.ATTACK, AttackType.HOLY),
+    LUX("Lux", 20, 10, 0.7, true, 1, MoveType.ATTACK, AttackType.HOLY),
+    LUMINESCENCE("Luminescence", 30, 8, 0.7, true, 1, MoveType.ATTACK, AttackType.HOLY),
     SHOWER("Light Shower", 50, 10, 0.9, true, 5, MoveType.ATTACK, AttackType.HOLY),
 
     // HEALS
-    MEND("Mend", 10, 2, 0.7, false, 1, MoveType.HEAL, AttackType.HOLY),
-    REMEDIAL("Remedial", 50, 5, 0.75, false, 5, MoveType.HEAL, AttackType.HOLY),
-    RECOVERY("Recovery", 100, 10, 0.8, true, 7, MoveType.HEAL, AttackType.HOLY),
+    MEND("Mend", 50, 10, 0.7, false, 1, MoveType.HEAL, AttackType.HOLY),
+    REMEDIAL("Remedial", 100, 20, 0.75, false, 5, MoveType.HEAL, AttackType.HOLY),
+    RECOVERY("Recovery", 500, 50, 0.8, true, 7, MoveType.HEAL, AttackType.HOLY),
     
     // SUPPORT
     ENERGIZE("Energize", 10, 5, 0.5, false, 5, MoveType.SUPPORT, AttackType.HOLY),

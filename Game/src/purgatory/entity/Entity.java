@@ -140,13 +140,25 @@ public class Entity {
         }
 
         level += 1;
-        MAX_HEALTH += 200;
-        mana += 50;
-        speed += 2;
-        accuracy += 0.05;
-        magic += 0.05;
-        strength += 0.05;
-        defense += 0.1;
+
+        if (level < 3) {
+            MAX_HEALTH += 200;
+            mana += 50;
+            speed += 2;
+            accuracy += 0.05;
+            magic += 0.05;
+            strength += 0.05;
+            defense += 0.1;
+        }
+        else {
+            MAX_HEALTH += 500;
+            mana += 100;
+            speed += 5;
+            accuracy += 0.05;
+            magic += 0.1;
+            strength += 0.1;
+            defense += 0.1;
+        }
 
         // choose new move set
         List<Move> chosenMoves = new ArrayList<>();
