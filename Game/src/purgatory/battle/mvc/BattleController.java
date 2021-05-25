@@ -60,12 +60,13 @@ public class BattleController {
             if (currTurn == 1) {
                 prepareBattle();
             } else {
-                appendEnemyStats();
+                appendStats();
                 appendOrder();
             }
 
+            // TODO: reset defense each turn
+
             // DOING ACTION
-            // TODO: figure out how to approach the changing of size of the list
             List<BattleStats> fighters = model.getFighters();
 
             for (BattleStats currUnit : fighters) {
@@ -81,6 +82,10 @@ public class BattleController {
                         JOptionPane.showMessageDialog(null, "It's " + currUnit.getFighter() + "'s turn!");
                         prepareViewForUnit(currUnit);
                         doAction(currUnit);
+
+                        // reset stats
+                        view.clearStatsText();
+                        appendStats();
 
                         // wait
                         try {
@@ -99,16 +104,20 @@ public class BattleController {
                                 e.printStackTrace();
                             }
                             doEnemyAction(currUnit);
+
+                            // reset stats
+                            view.clearStatsText();
+                            appendStats();
+
+                            // check if hero died
+                            if (StatUtil.getHeroFromList(model.getFighters()).getCurrHealth() <= 0) { // dead hero
+                                BattleDialog.die(hero.getFighter());
+                                done = true;
+                                // return to title / retry battle?
+                            }
                         }
                         break;
                 }
-            }
-
-            // check if hero died
-            if (StatUtil.getHeroFromList(model.getFighters()).getCurrHealth() <= 0) { // dead hero
-                BattleDialog.die(hero.getFighter());
-                done = true;
-                // return to title / retry battle?
             }
 
             // check if one enemy is dead, prompt then skip over them
@@ -145,14 +154,14 @@ public class BattleController {
      * @param currUnit
      */
     private void doAction(BattleStats currUnit) {
-        boolean fighting = false;
+        boolean done = false;
 
-        while (!fighting) {
+        while (!done) {
             String item = BattleDialog.askAction();
             switch (item) {
                 case "fight!":
                     doHeroAction(currUnit, BattleDialog.askMove(currUnit));
-                    fighting = true;
+                    done = true;
                     break;
                 case "items":
                     break;
@@ -166,7 +175,26 @@ public class BattleController {
                             BattleStats enemy = BattleDialog.askEnemy(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY));
                             BattleDialog.profile(enemy);
                             break;
+                        case "my moves":
+                            String move = BattleDialog.askMove(currUnit).toLowerCase();
+                            List<Move> moves = currUnit.getMoveSet();
+
+                            StringBuilder output = new StringBuilder();
+
+                            moves.forEach(m -> {
+                                if (m.getName().toLowerCase().equals(move)) {
+                                    output.append(m);
+                                }
+                            });
+
+                            JOptionPane.showMessageDialog(null, output, "", JOptionPane.PLAIN_MESSAGE);
+                            break;
                     }
+                    break;
+                case "guard":
+                    currUnit.setCurrDefense(currUnit.getCurrDefense() + 0.5);
+                    view.appendBattleText("\n" + currUnit.getFighter() + " guarded!");
+                    done = true;
                     break;
                 case "run":
                     break;
@@ -278,7 +306,7 @@ public class BattleController {
      */
     public void prepareBattle() {
         view.appendBattleText("A team of wild demons appeared!\n\n");
-        appendEnemyStats();
+        appendStats();
         BattleDialog.help();
         appendOrder();
     }
@@ -318,7 +346,7 @@ public class BattleController {
     }
 
     /** Gets the stats of all enemies in the fighter list and outputs it to the stats text field */
-    private void appendEnemyStats() {
+    private void appendStats() {
         StringBuilder builder = new StringBuilder();
         StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY).iterator().forEachRemaining(enemy -> {
             builder.append(enemy.getShortInfo());

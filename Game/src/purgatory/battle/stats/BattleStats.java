@@ -108,6 +108,10 @@ public class BattleStats {
      * @return String of simplified stat values
      */
     public String getShortInfo() {
+        if (currHealth < 0) {
+            currHealth = 0;
+        }
+
         return fighter + "\n" +
                 entityType.toString() +
                 "\nHealth: " + currHealth +
