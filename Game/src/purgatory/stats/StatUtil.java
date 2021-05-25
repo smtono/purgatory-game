@@ -1,6 +1,7 @@
 package purgatory.stats;
 
 import purgatory.battle.stats.BattleStats;
+import purgatory.entity.type.BossType;
 import purgatory.entity.type.CharacterType;
 import purgatory.entity.Entity;
 import purgatory.entity.type.EnemyType;
@@ -21,10 +22,10 @@ import java.util.*;
 public class StatUtil {
     static Random gen = new Random();
     public final static String[] ENEMY_NAMES = {"Alastor", "Asura", "Azazel", "Astaroth", "Barbatos",
-                                                "Beleth", "Belial", "Eblis", "Dev", "Focalor", "Forneus",
-                                                "Legion", "Lilith", "Murmur", "Moloch", "Orcus", "Alichino",
-                                                "Barbariccia", "Cagnazzo", "Calcabrina", "Ciriatto", "Draghignazzo",
-                                                 "Farfarello", "Graffiacane", "Libicocco", "Rubicante", "Scarmiglione"};
+            "Beleth", "Belial", "Eblis", "Dev", "Focalor", "Forneus",
+            "Legion", "Lilith", "Murmur", "Moloch", "Orcus", "Alichino",
+            "Barbariccia", "Cagnazzo", "Calcabrina", "Ciriatto", "Draghignazzo",
+            "Farfarello", "Graffiacane", "Libicocco", "Rubicante", "Scarmiglione"};
 
     /**
      * Returns a random name for an enemy.
@@ -121,6 +122,22 @@ public class StatUtil {
                 enemyDefense,
                 moveSet,
                 enemyLevel);
+    }
+
+    public static Entity generateBoss(Entity hero, BossType bossType) {
+        return new Entity(
+                bossType.name(),
+                bossType,
+                hero.getMaxHealth() * 2,
+                0,
+                10,
+                0.6,
+                0.5,
+                0.5,
+                0.1,
+                MoveUtil.getNewBossMoveSet(bossType),
+                hero.getLevel() + 3);
+
     }
 
     /**

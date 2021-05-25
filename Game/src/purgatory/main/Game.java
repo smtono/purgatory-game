@@ -4,6 +4,7 @@ import purgatory.battle.mvc.BattleModel;
 import purgatory.battle.mvc.BattleView;
 import purgatory.entity.Entity;
 import purgatory.dialogue.dialog.CharacterCreationDialog;
+import purgatory.entity.type.BossType;
 import purgatory.entity.type.HeroType;
 import purgatory.inventory.Inventory;
 import purgatory.stats.StatUtil;
@@ -93,7 +94,35 @@ public class Game {
 
 		while (!done) {
 			// TODO: make this game loop generic (to loop through every terrace)
-			for (int i = 0; i < terraces.get(currTerrace).getNumRooms(); i++) { // Go for as many levels
+			for (int currRoom = 0; currRoom < terraces.get(currTerrace).getNumRooms(); currRoom++) { // Go for as many levels
+
+				if (currRoom == terraces.get(currTerrace).getNumRooms()) {
+					switch (terraces.get(currTerrace)) {
+						case GLUTTONY:
+							fighters.add(StatUtil.generateBoss(hero, BossType.GLUTTONY));
+							break;
+						case SLOTH:
+							fighters.add(StatUtil.generateBoss(hero, BossType.SLOTH));
+							break;
+						case AVARICE:
+							fighters.add(StatUtil.generateBoss(hero, BossType.AVARICE));
+							break;
+						case PRIDE:
+							fighters.add(StatUtil.generateBoss(hero, BossType.PRIDE));
+							break;
+						case ENVY:
+							fighters.add(StatUtil.generateBoss(hero, BossType.ENVY));
+							break;
+						case LUST:
+							fighters.add(StatUtil.generateBoss(hero, BossType.LUST));
+							break;
+						case WRATH:
+							fighters.add(StatUtil.generateBoss(hero, BossType.WRATH));
+							break;
+					}
+				}
+
+
 				switch (terraces.get(currTerrace)) {
 					case GLUTTONY:
 					case SLOTH:
@@ -126,39 +155,38 @@ public class Game {
 
 				control.battle(1);
 
-				if (i == terraces.get(currTerrace).getNumRooms()) {
+				if (currRoom == terraces.get(currTerrace).getNumRooms()) {
 					currTerrace++;
 				}
 
 				view.dispose();
 			}
-
-			// level up
-			switch (terraces.get(currTerrace)) {
-				case GLUTTONY:
-				case SLOTH:
-					hero.levelUp();
-					rosalind.levelUp();
-					break;
-				case AVARICE:
-				case PRIDE:
-				case ENVY:
-					hero.levelUp();
-					rosalind.levelUp();
-					chase.levelUp();
-					break;
-				case LUST:
-				case WRATH:
-					hero.levelUp();
-					rosalind.levelUp();
-					chase.levelUp();
-					dawn.levelUp();
-					break;
-			}
-
-			// give items
-			// final terrace: kill everyone except rosalind and chase
-
 		}
+
+		// level up
+		switch (terraces.get(currTerrace)) {
+			case GLUTTONY:
+			case SLOTH:
+				hero.levelUp();
+				rosalind.levelUp();
+				break;
+			case AVARICE:
+			case PRIDE:
+			case ENVY:
+				hero.levelUp();
+				rosalind.levelUp();
+				chase.levelUp();
+				break;
+			case LUST:
+			case WRATH:
+				hero.levelUp();
+				rosalind.levelUp();
+				chase.levelUp();
+				dawn.levelUp();
+				break;
+		}
+
+		// give items
+		// final terrace: kill everyone except rosalind and chase
 	}
 }
