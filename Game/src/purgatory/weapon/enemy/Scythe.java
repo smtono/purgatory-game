@@ -49,7 +49,7 @@ public enum Scythe implements Attack {
         }
 
         return "Name: " + getName() +
-                "\nDamage: " + getResult() +
+                "\nResult: " + getResult() +
                 "\nMana: " + getMana() +
                 "\nAccuracy: " + getAccuracy() +
                 "\nAffects all?: " + affectAll;

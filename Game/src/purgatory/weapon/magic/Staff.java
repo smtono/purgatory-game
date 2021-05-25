@@ -66,8 +66,7 @@ public enum Staff implements Attack, Heal {
         }
 
         return "Name: " + getName() +
-                "\nType: " + getMoveType() +
-                "\nDamage: " + getResult() +
+                "\nResult: " + getResult() +
                 "\nMana: " + getMana() +
                 "\nAccuracy: " + getAccuracy() +
                 "\nAffects all?: " + affectAll;

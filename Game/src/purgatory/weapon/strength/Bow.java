@@ -53,8 +53,7 @@ public enum Bow implements Attack {
         }
 
         return "Name: " + getName() +
-                "\nType: " + getMoveType() +
-                "\nDamage: " + getResult() +
+                "\nResult: " + getResult() +
                 "\nMana: " + getMana() +
                 "\nAccuracy: " + getAccuracy() +
                 "\nAffects all?: " + affectAll;
