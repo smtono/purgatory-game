@@ -28,4 +28,8 @@ public class Dialog {
             Dialog.leave();
         }
     }
+
+    public static void promptBoss() {
+        JOptionPane.showMessageDialog(null, "Here we go! It's the boss!", "", JOptionPane.INFORMATION_MESSAGE);
+    }
 }

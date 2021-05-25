@@ -18,11 +18,11 @@ public class BattleDialog {
     }
 
     public static String askAction() {
-        String[] menu = {"Fight!", "Items", "Analyze", "Run"};
+        String[] menu = {"Fight!", "Items", "Analyze", "Guard", "Run"};
 
         int choice = JOptionPane.showOptionDialog(
                 null,
-                "Hurry! What do you want to do?",
+                "Hurry! What should we do?",
                 "",
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
@@ -41,7 +41,7 @@ public class BattleDialog {
         return JOptionPane.showOptionDialog(
                 null,
                 "Choose a target!",
-                "",
+                "Rosalind",
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
@@ -64,11 +64,11 @@ public class BattleDialog {
     }
 
     public static String analyze() {
-        String[] analyze = {"Myself", "Enemies"};
+        String[] analyze = {"Myself", "Enemies", "My moves"};
         int choice = JOptionPane.showOptionDialog(
                 null,
                 "Who do you want to analyze?",
-                "",
+                "Rosalind",
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
@@ -85,7 +85,7 @@ public class BattleDialog {
         int choice = JOptionPane.showOptionDialog(
                 null,
                 "Okay, which enemy do you want to look at?",
-                "",
+                "Rosalind",
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
