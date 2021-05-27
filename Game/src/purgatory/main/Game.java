@@ -93,8 +93,8 @@ public class Game {
 		boolean done = false;
 
 		while (!done) {
-			// TODO: make this game loop generic (to loop through every terrace)
-			for (int currRoom = 1; currRoom < terraces.get(currTerrace).getNumRooms(); currRoom++) { // Go for as many levels
+			int currRoom = 1;
+			while (currRoom < terraces.get(currTerrace).getNumRooms()) { // Go for as many levels
 
 				if (currRoom == terraces.get(currTerrace).getNumRooms()) {
 					switch (terraces.get(currTerrace)) {
@@ -160,6 +160,7 @@ public class Game {
 				}
 
 				view.dispose();
+				currRoom++;
 			}
 		}
 
