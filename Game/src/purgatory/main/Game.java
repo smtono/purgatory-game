@@ -83,10 +83,10 @@ public class Game {
 
 		// STORY
 		inventory.addItem("bandage", 10);
-		inventory.addItem("drink", 10);
+		inventory.addItem("energy drink", 10);
 
 		// BATTLE
-		int currTerrace = 1;
+		int currTerrace = 0;
 		List<Terrace> terraces = Arrays.asList(Terrace.values());
 		List<Entity> fighters = new ArrayList<>();
 
@@ -94,7 +94,7 @@ public class Game {
 
 		while (!done) {
 			// TODO: make this game loop generic (to loop through every terrace)
-			for (int currRoom = 0; currRoom < terraces.get(currTerrace).getNumRooms(); currRoom++) { // Go for as many levels
+			for (int currRoom = 1; currRoom < terraces.get(currTerrace).getNumRooms(); currRoom++) { // Go for as many levels
 
 				if (currRoom == terraces.get(currTerrace).getNumRooms()) {
 					switch (terraces.get(currTerrace)) {
@@ -149,11 +149,11 @@ public class Game {
 				}
 
 				// instantiate mvc
-				BattleModel model = new BattleModel(fighters);
+				BattleModel model = new BattleModel(fighters, inventory);
 				BattleView view = new BattleView();
 				BattleController control = new BattleController(view, model);
 
-				control.battle(1);
+				control.battle(1, currRoom, terraces.get(currTerrace));
 
 				if (currRoom == terraces.get(currTerrace).getNumRooms()) {
 					currTerrace++;

@@ -9,6 +9,7 @@ import purgatory.move.Move;
 import purgatory.move.type.MoveType;
 import purgatory.move.MoveUtil;
 import purgatory.stats.StatUtil;
+import purgatory.terraces.Terrace;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import java.util.Random;
 public class BattleController {
     private final BattleView view;
     private final BattleModel model;
+    boolean battleDone = false;
 
     // CONSTRUCTOR
     public BattleController(BattleView view, BattleModel model) {
@@ -46,15 +48,15 @@ public class BattleController {
      *
      * @param currTurn: The current turn iteration
      */
-    public void battle(int currTurn) {
+    public void battle(int currTurn, int currRoom, Terrace currTerrace) {
         // PREPARING GUI
         BattleStats hero = StatUtil.getHeroFromList(model.getFighters()); // get the hero from the fighter list for easier access
 
-        boolean done = false;
+        battleDone = false;
 
-        while (!done) {
+        while (!battleDone) {
             prepareViewForUnit(hero);
-            prepareBattleText(currTurn);
+            prepareBattleText(currTurn, currRoom, currTerrace);
             //appendHeroStats();
 
             if (currTurn == 1) {
@@ -81,7 +83,11 @@ public class BattleController {
                         // Prompting user
                         JOptionPane.showMessageDialog(null, "It's " + currUnit.getFighter() + "'s turn!");
                         prepareViewForUnit(currUnit);
-                        doAction(currUnit);
+                        doAction(currUnit, currTerrace);
+
+                        //if (battleDone = true) {
+                        //    return;
+                        //}
 
                         // reset stats
                         view.clearStatsText();
@@ -112,7 +118,7 @@ public class BattleController {
                             // check if hero died
                             if (StatUtil.getHeroFromList(model.getFighters()).getCurrHealth() <= 0) { // dead hero
                                 BattleDialog.die(hero.getFighter());
-                                done = true;
+                                battleDone = true;
                                 // return to title / retry battle?
                             }
                         }
@@ -131,7 +137,7 @@ public class BattleController {
 
             if (StatUtil.allEnemiesDead(StatUtil.getHealthForAll(StatUtil.getStatsOfTypeFromList(model.getFighters(), CharacterType.ENEMY)))) { // check if enemies are dead
                 JOptionPane.showMessageDialog(null, "All enemies are defeated!", "", JOptionPane.INFORMATION_MESSAGE);
-                done = true;
+                battleDone = true;
             }
 
             currTurn++;
@@ -153,7 +159,7 @@ public class BattleController {
      *
      * @param currUnit
      */
-    private void doAction(BattleStats currUnit) {
+    private void doAction(BattleStats currUnit, Terrace currTerrace) {
         boolean done = false;
 
         while (!done) {
@@ -164,6 +170,7 @@ public class BattleController {
                     done = true;
                     break;
                 case "items":
+                    BattleDialog.askItem(model.getInventory());
                     break;
                 case "analyze":
                     item = BattleDialog.analyze();
@@ -189,6 +196,16 @@ public class BattleController {
 
                             JOptionPane.showMessageDialog(null, output, "", JOptionPane.PLAIN_MESSAGE);
                             break;
+                        case "terrace":
+                            StringBuilder terraceInfo = new StringBuilder();
+                            terraceInfo.append(currTerrace.getName());
+                            terraceInfo.append("\n");
+                            terraceInfo.append("Rooms: ").append(currTerrace.getNumRooms());
+                            terraceInfo.append("\n");
+                            terraceInfo.append(currTerrace.getDescription());
+
+                            JOptionPane.showMessageDialog(null, terraceInfo, "Rosalind", JOptionPane.PLAIN_MESSAGE);
+
                     }
                     break;
                 case "guard":
@@ -197,6 +214,17 @@ public class BattleController {
                     done = true;
                     break;
                 case "run":
+                    // TODO: fix so that it ends the battle
+                    Random gen = new Random();
+                    int chance = gen.nextInt(10);
+                    if (chance >= 9) {
+                        JOptionPane.showMessageDialog(null, "I found an escape!", "Rosalind", JOptionPane.INFORMATION_MESSAGE);
+                        battleDone = true;
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "I couldn't find an opening!", "Rosalind", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    done = true;
                     break;
             }
         }
@@ -225,7 +253,7 @@ public class BattleController {
                 break;
             case SUPPORT:
                 // check what kind of support move, HEAL, BUFF, or DEBUFF (another switch)
-                
+
                 break;
         }
     }
@@ -320,9 +348,11 @@ public class BattleController {
      *
      * @param i: The current turn of battle
      */
-    private void prepareBattleText(int i) {
+    private void prepareBattleText(int i, int room, Terrace terrace) {
         view.clearBattleText();
         view.clearStatsText();
+        view.appendBattleText("Terrace: " + terrace.getName() + "\n");
+        view.appendBattleText("Room: " + room + "\n\n");
         view.appendBattleText("Turn: " + i + "\n\n");
     }
 
