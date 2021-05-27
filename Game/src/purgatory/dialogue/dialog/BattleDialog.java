@@ -1,6 +1,7 @@
 package purgatory.dialogue.dialog;
 
 import purgatory.battle.stats.BattleStats;
+import purgatory.inventory.Inventory;
 
 import javax.swing.*;
 import java.util.List;
@@ -64,7 +65,7 @@ public class BattleDialog {
     }
 
     public static String analyze() {
-        String[] analyze = {"Myself", "Enemies", "My moves"};
+        String[] analyze = {"Myself", "My moves", "Enemies", "Terrace"};
         int choice = JOptionPane.showOptionDialog(
                 null,
                 "Who do you want to analyze?",
@@ -79,6 +80,19 @@ public class BattleDialog {
 
     public static void profile(BattleStats unit) {
         JOptionPane.showMessageDialog(null, unit.getInfo(), "", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    public static String askItem(Inventory inventory) {
+       int choice = JOptionPane.showOptionDialog(
+                null,
+                "Which item?",
+                "Rosalind",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                inventory.getItemNames().toArray(new String[0]),
+                null);
+       return inventory.getItemNames().get(choice); // TODO: fix this....
     }
 
     public static BattleStats askEnemy(List<BattleStats> enemies) {

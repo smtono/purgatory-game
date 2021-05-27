@@ -1,7 +1,9 @@
 package purgatory.inventory;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Inventory {
     // ATTRIBUTES
@@ -19,6 +21,17 @@ public class Inventory {
     public void setItems(HashMap<Item, Integer> items) { this.items = items; }
 
     // HELPER METHODS
+
+    public List<String> getItemNames() {
+        List<String> itemNames = new ArrayList<>();
+
+        items.forEach((item, number) -> {
+            itemNames.add(item + " (" + number + ")");
+        });
+
+        return itemNames;
+    }
+
     /** Adds the given amount of items to the inventory  */
     public void addItem(String itemName, int amount) {
         Item item = ItemUtil.findItemOfName(itemName);

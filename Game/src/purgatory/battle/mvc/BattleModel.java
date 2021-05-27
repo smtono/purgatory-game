@@ -3,6 +3,7 @@ package purgatory.battle.mvc;
 import purgatory.battle.stats.BattleStats;
 import purgatory.battle.stats.DamageOutput;
 import purgatory.entity.Entity;
+import purgatory.inventory.Inventory;
 import purgatory.move.type.Attack;
 import purgatory.move.Move;
 import purgatory.move.type.MoveType;
@@ -19,17 +20,20 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class BattleModel {
     private final List<Entity> initialFighters;
+    private final Inventory inventory;
     private List<BattleStats> fighters;
 
     // CONSTRUCTOR
-    public BattleModel(List<Entity> fighters) {
+    public BattleModel(List<Entity> fighters, Inventory inventory) {
         this.initialFighters = fighters;
+        this.inventory = inventory;
     }
 
     // ACCESSORS / MUTATORS
     public List<Entity> getInitialFighters() {
         return initialFighters;
     }
+    public Inventory getInventory() { return inventory; }
     public List<BattleStats> getFighters() { return fighters; }
     public void setFighters(List<BattleStats> fighters) { this.fighters = fighters; }
 

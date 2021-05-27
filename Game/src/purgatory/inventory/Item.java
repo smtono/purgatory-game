@@ -21,7 +21,7 @@ public enum Item {
     KISS("Kiss", "Provides 100 MP", ItemType.MANA, 100),
 
     // BUFF
-    
+    SHIELD("Shield", "Provide 80% more defense", ItemType.BUFF, 80),
 
     // DEBUFF
 
@@ -49,4 +49,7 @@ public enum Item {
     public String getDescription() { return description; }
     public ItemType getItemType() { return itemType; }
     public int getResult() { return result; }
+
+    @Override
+    public String toString() { return name; }
 }
